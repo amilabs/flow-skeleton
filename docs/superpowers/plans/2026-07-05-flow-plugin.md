@@ -61,7 +61,7 @@ Create `flow/.claude-plugin/plugin.json`:
   "homepage": "https://github.com/amilabs/flow-skeleton",
   "repository": "https://github.com/amilabs/flow-skeleton",
   "license": "Apache-2.0",
-  "dependencies": ["superpowers"]
+  "dependencies": ["superpowers@claude-plugins-official"]
 }
 ```
 
