@@ -30,6 +30,11 @@ re-scoping is the owner's call.
    typecheck, build). All must pass.
 2. **Live verification (ui-surface changes)** — run /verify against the
    running app, walking the change's behavior inventory as the checklist.
+   Reuse and extend the project's verification walk script when one exists
+   (e.g., `scripts/verify_walk.py`) instead of rebuilding it per
+   acceptance; commit improvements back so the next acceptance starts
+   warm. Scale the depth to the diff: exercise expensive pipelines (e.g.,
+   a staged-install update cycle) only when the diff touches them.
 3. **Plan compliance** — launch the plan-reviewer agent from the flow
    plugin with the change id; it reports gaps between the diff and the
    approved change.

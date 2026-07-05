@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.13 — 2026-07-05
+
+Acceptance cost control, from the first heavy real acceptance: the live
+verification gate now reuses/extends a project-local walk script instead
+of rebuilding one per run, and expensive pipelines are exercised only
+when the diff touches them.
+
 ## 0.1.12 — 2026-07-05
 
 Model/effort selection is confirmed with the owner instead of pinned
