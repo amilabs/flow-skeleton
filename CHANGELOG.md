@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.4 — 2026-07-05
+
+git-guard: force-pushes addressed as `refs/heads/main` (including refspec
+destinations like `HEAD:refs/heads/main`) are now blocked. Prefix-strip
+only, so branches like `feature/main` stay unaffected. 23 regression tests.
+
 ## 0.1.3 — 2026-07-05
 
 git-guard rewritten on python3 shlex (stdlib, fail-open without python3):

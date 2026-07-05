@@ -43,6 +43,9 @@ check "changelog-style quoted message with && allowed" 0 "$NONGIT_DIR" "git comm
 check "sudo-wrapped force push to main blocked" 2 "$NONGIT_DIR" "sudo git push --force origin main"
 check "full-path git force push to main blocked" 2 "$NONGIT_DIR" "/usr/bin/git push -f origin main"
 check "plus-refspec force push to main blocked" 2 "$NONGIT_DIR" "git push origin +main"
+check "full-ref force push to main blocked"    2 "$NONGIT_DIR" "git push -f origin refs/heads/main"
+check "refspec dst full-ref main blocked"      2 "$NONGIT_DIR" "git push -f origin HEAD:refs/heads/main"
+check "branch named feature/main allowed"      0 "$NONGIT_DIR" "git push -f origin feature/main"
 
 echo "pass=$pass fail=$fail"
 [ "$fail" -eq 0 ]

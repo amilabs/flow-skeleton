@@ -76,6 +76,10 @@ def check_push(rest):
     refs = positionals[1:]  # first positional is the remote
     for ref in refs:
         name = ref.lstrip("+").split(":")[-1]
+        if name.startswith("refs/heads/"):
+            # Prefix-strip only: split("/")[-1] would false-block
+            # branches like feature/main.
+            name = name[len("refs/heads/"):]
         if (force or ref.startswith("+")) and name in PROTECTED:
             block(PUSH_MESSAGE)
     if force and not refs and current_branch() in PROTECTED:
