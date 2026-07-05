@@ -24,22 +24,28 @@ propose, show the diff, apply only on confirmation.
 4. **superpowers check**: verify the superpowers plugin is installed; if
    the plugin dependency did not auto-install it, print:
    `/plugin install superpowers@claude-plugins-official`
-5. **Project hooks (opt-in)**: offer a PostToolUse hook running the stack's
+5. **Security layer (opt-in, by exposure)**: for projects with an auth
+   surface, payment handling, or public/production deployment, offer the
+   continuous `security-guidance` plugin
+   (`/plugin install security-guidance@claude-plugins-official`). Skip the
+   offer for local-only tools — the gate-level /security-review, driven by
+   risk profiles at /flow:accept, is enough there.
+6. **Project hooks (opt-in)**: offer a PostToolUse hook running the stack's
    affected lint/typecheck after edits and, for autonomous runs, an
    optional Stop-hook test gate. Write to the project's
    `.claude/settings.json` only on explicit confirmation.
-6. **Team snippet (opt-in)**: for shared repos, offer the self-describing
+7. **Team snippet (opt-in)**: for shared repos, offer the self-describing
    settings from [templates/team-settings.json](templates/team-settings.json).
 
 ## New project additionally
 
-7. **git**: `git init -b main` when not a repo; add a sensible .gitignore
+8. **git**: `git init -b main` when not a repo; add a sensible .gitignore
    for the detected stack.
-8. **OpenSpec skeleton**: `openspec init` when the CLI exists; otherwise
+9. **OpenSpec skeleton**: `openspec init` when the CLI exists; otherwise
    create by hand: `openspec/project.md` (project context, constraints,
    conventions), `openspec/specs/`, `openspec/changes/`. Plain files are
    the contract; the CLI is an accelerator.
-9. **CLAUDE.md**: generate from
+10. **CLAUDE.md**: generate from
    [templates/CLAUDE.md.template](templates/CLAUDE.md.template), filling
    Commands from the detected stack. Keep it at or under 60 lines:
    commands, architecture facts, invariants, environment quirks. Process
@@ -47,10 +53,10 @@ propose, show the diff, apply only on confirmation.
 
 ## --existing additionally
 
-7. **CLAUDE.md migration**: identify generic process rules (TDD cycles,
+8. **CLAUDE.md migration**: identify generic process rules (TDD cycles,
    review/gate rules, commit etiquette) and collapse them to the Workflow
    section of the template. Keep project facts untouched: Commands,
    Architecture, Invariants, environment quirks, current-state notes. Show
    the full diff before applying.
-8. **OpenSpec**: if `openspec/` is absent, offer the skeleton from step 8
+9. **OpenSpec**: if `openspec/` is absent, offer the skeleton from step 9
    above. Never restructure existing openspec/ or docs/ content.

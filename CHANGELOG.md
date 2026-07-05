@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.10 — 2026-07-05
+
+/flow:init now offers the continuous security-guidance plugin for projects
+with auth surfaces, payments, or public deployment (gate-level
+/security-review via risk profiles remains the default for local-only
+tools). CLAUDE.md template gains a plugin-less fallback: sessions without
+flow (cloud VMs, fresh machines) still follow the lifecycle shape manually.
+
 ## 0.1.9 — 2026-07-05
 
 Architecture bar in /flow:spec is now explicit and non-negotiable: units

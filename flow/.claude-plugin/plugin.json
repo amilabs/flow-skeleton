@@ -1,7 +1,7 @@
 {
   "name": "flow",
   "description": "Spec → implement → accept lifecycle with risk profiles, blast-radius analysis for brownfield code, and Fable→Opus model routing.",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "author": { "name": "amilabs" },
   "homepage": "https://github.com/amilabs/flow-skeleton",
   "repository": "https://github.com/amilabs/flow-skeleton",

@@ -28,4 +28,8 @@
   lecture. If the owner declines, proceed normally.
 - Worktree sessions: persistent memory is unavailable — this file and
   openspec/ carry everything; merge back to main when a phase completes.
+- If the flow plugin is unavailable in this session (cloud VM, fresh
+  machine), follow the lifecycle shape manually: openspec change → owner
+  approval → TDD implementation on a branch → full checks + fresh-context
+  review → owner accepts.
 - Never commit or push unless explicitly asked.
