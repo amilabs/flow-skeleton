@@ -2,6 +2,7 @@
 name: accept
 description: Acceptance gate before merge - full checks, live-app verification, plan-compliance review, risk-scaled code review, acceptance summary for the owner. Invoke only when the owner explicitly asks to accept or finalize a change (in any wording); never start it on your own initiative.
 argument-hint: "[change-id]"
+model: opus
 ---
 
 # Acceptance gate

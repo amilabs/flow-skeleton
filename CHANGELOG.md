@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.11 — 2026-07-05
+
+/flow:implement and /flow:accept pin their turns to Opus via skill
+frontmatter (model: opus) — running them from a Fable design session no
+longer burns Fable pricing on execution turns. The override is per-turn
+(session model returns after each owner message), so a fresh Opus session
+remains the recommended pattern for long implementations; /flow:spec still
+only suggests Fable, never forces it.
+
 ## 0.1.10 — 2026-07-05
 
 /flow:init now offers the continuous security-guidance plugin for projects

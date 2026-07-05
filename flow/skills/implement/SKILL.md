@@ -2,6 +2,7 @@
 name: implement
 description: Execute an approved OpenSpec change task-by-task with TDD and scope discipline. Run in a fresh session on Opus after /flow:spec approval. Invoke only when the owner explicitly asks to implement an approved change (in any wording); never start it on your own initiative.
 argument-hint: "[change-id]"
+model: opus
 ---
 
 # Implement a change
@@ -15,8 +16,11 @@ under `openspec/changes/`; if several are active, ask which one.
   point to /flow:spec.
 - Work on a feature branch (a git worktree when sessions run in parallel).
   Never implement on main/master without the owner's explicit consent.
-- Implementation runs economically: if the session is on Fable, suggest
-  `/model opus` (advisory).
+- Implementation runs economically: this skill pins its turns to Opus via
+  frontmatter. Note the scope: the override lasts for the current turn
+  only — after each owner message the session model returns, so if the
+  session runs on Fable, still suggest `/model opus` (or a fresh session)
+  for long multi-turn implementation.
 - If running in a git worktree: persistent memory is unavailable there —
   CLAUDE.md and openspec/ carry all needed context; merge back when the
   phase completes.
