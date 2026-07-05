@@ -84,6 +84,13 @@ artifacts outside the repo.
 
 flow orchestrates the layers below it and adds only what none of them has.
 
+Within flow-managed changes, the superpowers planning pipeline
+(brainstorming → writing-plans → executing-plans) is superseded by
+/flow:spec → tasks.md → /flow:implement; only superpowers execution
+disciplines (TDD, debugging, verification, finishing-a-development-branch)
+are invoked from the flow phases. Outside flow (trivial work, exploratory
+sessions, non-flow projects) superpowers operates as usual.
+
 ## 6. Task lifecycle
 
 ```

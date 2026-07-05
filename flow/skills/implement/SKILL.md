@@ -21,6 +21,11 @@ under `openspec/changes/`; if several are active, ask which one.
 
 ## Execution loop — per task in tasks.md
 
+tasks.md IS the plan: do not invoke the superpowers brainstorming,
+writing-plans, or executing-plans skills — the change folder already
+carries the design and the task list. Use superpowers execution
+disciplines (TDD, systematic-debugging, verification) per task.
+
 1. Test-driven development (use the superpowers TDD skill when available):
    failing test → verify red → minimal implementation → verify green.
 2. Touch only files within the change scope. No drive-by refactoring; if a

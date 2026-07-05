@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.7 — 2026-07-05
+
+Explicit superpowers boundary inside flow phases: /flow:spec IS the
+brainstorming/design phase and tasks.md IS the plan — sessions must not
+additionally invoke superpowers brainstorming / writing-plans /
+executing-plans within a flow-managed change (duplicate artifact systems
+otherwise). Superpowers execution disciplines (TDD, debugging,
+verification, finishing-a-development-branch) remain in use from the flow
+phases. Design spec §5 updated.
+
 ## 0.1.6 — 2026-07-05
 
 CLAUDE.md template: sessions now explicitly offer /flow:spec (one line)

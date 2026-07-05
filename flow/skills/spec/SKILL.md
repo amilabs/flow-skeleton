@@ -11,6 +11,13 @@ Task: $ARGUMENTS
 You are in the design phase. Do not write implementation code. The
 deliverable is an OpenSpec change folder ready for owner approval.
 
+Relationship to superpowers: this skill IS the brainstorming/design phase
+for flow-managed changes — do not additionally invoke the superpowers
+brainstorming or writing-plans skills; the change folder (proposal, design,
+tasks) replaces their design doc and plan. Superpowers execution
+disciplines (TDD, debugging, verification, finishing a branch) apply
+later, from /flow:implement and /flow:accept.
+
 ## Setup
 
 - This phase belongs on the strongest model: if the session is not on
