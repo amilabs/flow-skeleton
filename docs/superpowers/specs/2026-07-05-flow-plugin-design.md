@@ -21,8 +21,8 @@ CLAUDE.md. It targets three needs:
 
 ## 2. Context and lessons applied
 
-The predecessor is the Codex-era Invoicer workflow (reviewed from the INV-096
-archive): 34 process documents, 15 scripts validating the process itself,
+The predecessor is a Codex-era project workflow, examined from its final
+review archive: 34 process documents, 15 scripts validating the process itself,
 6 reviewer roles, mandatory review folders per iteration, a governance map
 with a conflict-resolution hierarchy between rule documents. It accreted a
 new rule after every failure and still failed. Root causes this design avoids:
@@ -55,6 +55,9 @@ artifacts outside the repo.
   fresh-context review, and genuinely independent parallel tasks.
 - Multi-stack: TypeScript/React/Node, Python, PHP, Vue/Svelte detected and
   adapted per project by `/flow:init`.
+- Plain files first: the workflow functions on files and directory
+  conventions alone. CLIs and language servers are accelerators, never
+  prerequisites — every step has a file-only fallback.
 
 ## 4. Non-goals
 
@@ -65,8 +68,9 @@ artifacts outside the repo.
 - No scripts that validate the process.
 - No agent teams, no broad review fan-out by default.
 - No duplication of superpowers (process discipline) or OpenSpec (artifacts).
-- No hard dependency on the OpenSpec CLI (Tiler has no Node.js; directory
-  conventions are enough).
+- No hard dependency on any CLI or runtime (Node.js, OpenSpec CLI, language
+  servers): environments without them get the same workflow on plain files
+  and directory conventions.
 - flow is never vendored into a project; projects reference the marketplace.
 
 ## 5. Architecture: four layers
@@ -336,7 +340,7 @@ the cross-marketplace dependency did not resolve.
 
 | Missing | Behavior |
 |---|---|
-| OpenSpec CLI (no Node) | directory conventions + structural checklist replace `openspec validate` |
+| OpenSpec CLI unavailable | directory conventions + structural checklist replace `openspec validate` |
 | LSP plugin / language server binary | blast-radius falls back to grep + import tracing; `/flow:init` re-suggests install |
 | superpowers not installed | skills degrade to their own inline instructions for TDD/verification and print the install command |
 | run-skill absent | `/verify` falls back to inference; `/flow:init` offers `/run-skill-generator` |
@@ -355,15 +359,21 @@ the cross-marketplace dependency did not resolve.
   runs through flow, and friction fixes land as version bumps.
 - Deliberately no meta-validation scripts (see Non-goals).
 
-## 12. Adoption plan for existing projects
+## 12. Adoption in existing projects
 
-- **Tiler**: install-only (user scope). CLAUDE.md already thin; OpenSpec
-  stays manual. `/flow:init --existing` optional, low value.
-- **Batcher**: `/flow:init --existing` shrinks the CLAUDE.md Process section
-  (~35 lines) to pointers; Commands/Architecture/Invariants stay; suggest
-  `pyright-lsp`; record run recipe.
-- Existing projects keep working unchanged if never migrated — flow is
-  strictly additive.
+Two paths, both non-destructive:
+
+- **Install-only**: projects whose CLAUDE.md is already thin need nothing
+  beyond the user-scope plugin install; `/flow:*` commands are simply
+  available from the next session.
+- **Migration** via `/flow:init --existing`: for projects that accumulated
+  process rules inside CLAUDE.md — the generic rules collapse to pointer
+  lines, project facts (Commands / Architecture / Invariants / environment
+  quirks) stay untouched, and missing pieces (LSP plugin, run recipe,
+  openspec skeleton) are offered opt-in.
+
+Existing projects keep working unchanged if never migrated — flow is
+strictly additive.
 
 ## 13. Decisions log
 
