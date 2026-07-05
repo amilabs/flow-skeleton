@@ -1,7 +1,6 @@
 ---
 name: init
-description: Bootstrap a project for the flow workflow (new project) or migrate an existing one (--existing). Sets up CLAUDE.md, OpenSpec structure, LSP suggestion, run recipe, optional project hooks.
-disable-model-invocation: true
+description: Bootstrap a project for the flow workflow (new project) or migrate an existing one (--existing). Sets up CLAUDE.md, OpenSpec structure, LSP suggestion, run recipe, optional project hooks. Invoke only when the owner explicitly asks to bootstrap or migrate a project (in any wording); never start it on your own initiative.
 argument-hint: "[--existing]"
 ---
 

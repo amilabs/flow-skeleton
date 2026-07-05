@@ -137,9 +137,20 @@ flow-skeleton/
 Budget rule for the plugin itself: 6 skills, 1 agent, 1 hook. Growth beyond
 this requires removing something first.
 
+Invocation policy (§7.0, revised in v0.1.5): lifecycle skills (spec,
+implement, accept, init) are model-invocable with descriptions that restrict
+invocation to explicit owner requests. The original `disable-model-invocation:
+true` design removed the skills from the model's toolkit entirely, which
+broke the natural usage pattern — the owner instructing the session in prose
+("прими change через /flow:accept" mid-message) rather than typing a bare
+slash command at message start. Control now lives in the description
+("invoke only when the owner explicitly asks; never on your own
+initiative"); every skill still ends at a hard owner gate internally.
+
 ### 7.1 `/flow:spec` — design a change
 
-Frontmatter: `disable-model-invocation: true`, argument hint `[task description]`.
+Frontmatter: argument hint `[task description]`. Model-invocable, but the
+description restricts invocation to explicit owner requests (see §7.0 note).
 
 Behavior:
 1. Advise (not block) `/model fable` and plan mode if not active.
@@ -165,7 +176,8 @@ Behavior:
 
 ### 7.2 `/flow:implement` — execute the plan
 
-Frontmatter: `disable-model-invocation: true`, argument hint `[change-id]`.
+Frontmatter: argument hint `[change-id]`. Model-invocable on explicit owner
+request only (§7.0).
 
 Behavior:
 1. Preconditions: approved change with tasks.md. Recommend a fresh session on
@@ -184,7 +196,8 @@ Behavior:
 
 ### 7.3 `/flow:accept` — acceptance gate
 
-Frontmatter: `disable-model-invocation: true`.
+Frontmatter: argument hint `[change-id]`. Model-invocable on explicit owner
+request only (§7.0).
 
 Behavior:
 1. Run the project's full checks (from CLAUDE.md Commands).
@@ -220,7 +233,8 @@ Behavior:
 
 ### 7.5 `/flow:init` — project bootstrap and migration
 
-Frontmatter: `disable-model-invocation: true`, argument hint `[--existing]`.
+Frontmatter: argument hint `[--existing]`. Model-invocable on explicit owner
+request only (§7.0).
 
 New project:
 1. Detect stack (`package.json` / `pyproject.toml` / `composer.json` / mixed).
@@ -385,3 +399,4 @@ strictly additive.
 | Stacks | TS/React/Node, Python, PHP, Vue/Svelte | 2026-07-05 |
 | Repo | `amilabs/flow-skeleton`, public | 2026-07-05 |
 | Repo language | English artifacts, Russian owner communication | 2026-07-05 |
+| Skill invocation | lifecycle skills model-invocable; explicit-owner-request rule moved from `disable-model-invocation` into descriptions — the flag removed skills from the model's toolkit and broke prose-style instructions (found on the first real /flow:accept run) | 2026-07-05 |

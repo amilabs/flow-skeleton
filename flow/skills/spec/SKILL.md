@@ -1,7 +1,6 @@
 ---
 name: spec
-description: Design a change before any implementation - interview, impact analysis, OpenSpec change folder with risk profile and behavior inventory. Ends at the owner approval gate.
-disable-model-invocation: true
+description: Design a change before any implementation - interview, impact analysis, OpenSpec change folder with risk profile and behavior inventory. Ends at the owner approval gate. Invoke only when the owner explicitly asks to design or spec a change (in any wording); never start it on your own initiative.
 argument-hint: "[task description]"
 ---
 

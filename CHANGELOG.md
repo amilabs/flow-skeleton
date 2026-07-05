@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.5 — 2026-07-05
+
+Lifecycle skills (spec, implement, accept, init) are model-invocable again:
+`disable-model-invocation: true` removed them from the model's toolkit, so
+prose instructions like "accept the change via /flow:accept" could not
+trigger the skill (slash commands only expand at message start). The
+explicit-owner-request rule moved into each skill's description; every
+skill still stops at its internal owner gate. Found on the first real
+/flow:accept run.
+
 ## 0.1.4 — 2026-07-05
 
 git-guard: force-pushes addressed as `refs/heads/main` (including refspec

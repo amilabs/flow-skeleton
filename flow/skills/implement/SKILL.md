@@ -1,7 +1,6 @@
 ---
 name: implement
-description: Execute an approved OpenSpec change task-by-task with TDD and scope discipline. Run in a fresh session on Opus after /flow:spec approval.
-disable-model-invocation: true
+description: Execute an approved OpenSpec change task-by-task with TDD and scope discipline. Run in a fresh session on Opus after /flow:spec approval. Invoke only when the owner explicitly asks to implement an approved change (in any wording); never start it on your own initiative.
 argument-hint: "[change-id]"
 ---
 
