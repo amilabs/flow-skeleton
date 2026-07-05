@@ -37,6 +37,12 @@ check "empty command tolerated"               0 "$NONGIT_DIR" ""
 check "compound: force push to feature + git log main allowed" 0 "$MAIN_REPO" "git push --force-with-lease origin feature/x && git log --oneline -2 main"
 check "compound: force push to main after other command blocked" 2 "$NONGIT_DIR" "git log --oneline && git push -f origin main"
 check "compound: bare force push on main + later main-word blocked" 2 "$MAIN_REPO" "git push -f origin && git log -2 main"
+check "echo of a force-push string allowed"    0 "$NONGIT_DIR" "echo git push --force origin main"
+check "commit message mentioning force-push allowed" 0 "$NONGIT_DIR" "git commit -m 'never git push --force origin main'"
+check "changelog-style quoted message with && allowed" 0 "$NONGIT_DIR" "git commit -m 'fix: git push -f origin main && git log main case'"
+check "sudo-wrapped force push to main blocked" 2 "$NONGIT_DIR" "sudo git push --force origin main"
+check "full-path git force push to main blocked" 2 "$NONGIT_DIR" "/usr/bin/git push -f origin main"
+check "plus-refspec force push to main blocked" 2 "$NONGIT_DIR" "git push origin +main"
 
 echo "pass=$pass fail=$fail"
 [ "$fail" -eq 0 ]
