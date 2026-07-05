@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.12 — 2026-07-05
+
+Model/effort selection is confirmed with the owner instead of pinned
+(supersedes 0.1.11): implement asks before starting (default Opus, Fable
+offered for gnarly changes, effort selectable), accept asks only on a
+mismatch, spec's Fable suggestion now mentions effort and the session-only
+picker key. Skills direct the owner to /model when a switch is wanted —
+a session cannot change its own model.
+
 ## 0.1.11 — 2026-07-05
 
 /flow:implement and /flow:accept pin their turns to Opus via skill

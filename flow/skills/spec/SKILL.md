@@ -31,8 +31,10 @@ heavier the change, the fuller design.md must be.
 ## Setup
 
 - This phase belongs on the strongest model: if the session is not on
-  Fable, suggest `/model fable` (advisory — continue either way). Plan mode
-  is recommended.
+  Fable, suggest `/model fable` (advisory — continue either way; the picker
+  key `s` switches this session only). Effort is the owner's choice too —
+  suggest a higher level for architecturally heavy changes. Plan mode is
+  recommended.
 - Read `openspec/project.md` if it exists (project context and constraints).
 
 ## Steps

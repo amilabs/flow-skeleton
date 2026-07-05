@@ -335,15 +335,16 @@ project; anything stack-specific is generated per project by `/flow:init`.
 | plan-reviewer, `/code-review` | Opus | fresh context matters more than model size |
 | `ultra` cloud review | multi-agent, user-triggered | only genuinely risky merges |
 
-Routing enforcement (revised in v0.1.11 at the owner's request): implement
-and accept pin their turns to Opus via skill frontmatter `model: opus` —
-the model cannot switch a session's model itself, and this is the sanctioned
-per-turn mechanism. Scope caveat: the override lasts one turn; after each
-owner message the session model returns, so the fresh-Opus-session pattern
-remains recommended for long implementations. Design stays advisory: spec
-suggests `/model fable` but never forces it. The phase switch doubles as a
-context reset: spec in one session, implementation in a fresh one, which is
-also the officially recommended pattern.
+Routing policy (v0.1.12, superseding the brief v0.1.11 hard pin): model and
+effort are the owner's per-run choice, confirmed by the skills rather than
+assumed. implement always confirms (default Opus at session effort; Fable
+offered for gnarly/high-risk changes); accept confirms only when the session
+model looks mismatched; spec suggests Fable and a higher effort for heavy
+architecture, never forces. The model cannot switch a session's model
+itself — when the owner picks a different one, the skill directs them to
+`/model` (picker key `s` = session-only) or a fresh session. The phase
+switch doubles as a context reset: spec in one session, implementation in a
+fresh one, which is also the officially recommended pattern.
 
 ## 9. Distribution and onboarding
 

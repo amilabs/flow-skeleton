@@ -2,13 +2,17 @@
 name: accept
 description: Acceptance gate before merge - full checks, live-app verification, plan-compliance review, risk-scaled code review, acceptance summary for the owner. Invoke only when the owner explicitly asks to accept or finalize a change (in any wording); never start it on your own initiative.
 argument-hint: "[change-id]"
-model: opus
 ---
 
 # Acceptance gate
 
 Change: $ARGUMENTS (default: the single active change under
 `openspec/changes/`).
+
+Model/effort for this run are the owner's choice: when the session model
+looks mismatched for gate-running (e.g., Fable), confirm with the owner
+before gate 1 — default is Opus at session effort. The plan-reviewer agent
+runs on Opus by default; the owner may request otherwise.
 
 Run the gates in order and collect evidence as you go. Reviewers start
 late by design: the cheap deterministic gates (1-2) must pass before any
