@@ -11,7 +11,7 @@
 ## Global Constraints
 
 - All repo artifacts are in English (owner communication is Russian, files are not).
-- No mentions of the owner's other projects anywhere; final gate greps for `tiler|batcher|invoicer|INV-0|petsmedia|toucher` (case-insensitive) and must find nothing.
+- No mentions of the owner's other projects anywhere; the final gate greps for their names (the list is kept outside this repository) and must find nothing.
 - Component budget is fixed: 6 skills, 1 agent, 1 hook. Do not add components.
 - Plain files first: nothing may hard-depend on Node, the OpenSpec CLI, jq, or an LSP server; every consumer of an external tool fails open or has a documented file-only fallback.
 - Plugin namespace is `flow` (skills invoke as `/flow:<dir-name>`); marketplace name is `flow-skeleton`.
@@ -956,7 +956,8 @@ Expected: `pass=9 fail=0`, exit 0.
 
 - [ ] **Step 3: Cross-project reference gate**
 
-Run: `grep -rniE 'tiler|batcher|invoicer|INV-0|petsmedia|toucher' --exclude-dir=.git .`
+Run a case-insensitive recursive grep (excluding `.git`) for the owner's
+private project names — the list lives outside this repository.
 Expected: no matches (exit 1).
 
 - [ ] **Step 4: Component budget check**
