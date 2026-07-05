@@ -13,6 +13,8 @@ under `openspec/changes/`; if several are active, ask which one.
 
 - The change folder exists and the owner approved it. If not, stop and
   point to /flow:spec.
+- Work on a feature branch (a git worktree when sessions run in parallel).
+  Never implement on main/master without the owner's explicit consent.
 - Implementation runs economically: if the session is on Fable, suggest
   `/model opus` (advisory).
 - If running in a git worktree: persistent memory is unavailable there —

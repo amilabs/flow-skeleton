@@ -161,9 +161,14 @@ description restricts invocation to explicit owner requests (see §7.0 note).
 
 Behavior:
 1. Advise (not block) `/model fable` and plan mode if not active.
-2. Interview the owner (AskUserQuestion): scope, out-of-scope, constraints,
+2. Scope check: a request spanning multiple independent subsystems is
+   decomposed into several changes; only the first is specced.
+3. Interview the owner (AskUserQuestion): scope, out-of-scope, constraints,
    success criteria. Skip questions already answered by the request.
-3. Locate affected areas; use an Explore subagent for large codebases.
+4. Explore 2-3 alternative approaches with trade-offs and a recommendation
+   when the change has architectural freedom (ported from superpowers
+   brainstorming in v0.1.8).
+5. Locate affected areas; use an Explore subagent for large codebases.
 4. Brownfield: read `openspec/specs/` for affected capabilities. If a
    capability has no spec, first write a **baseline spec of current
    behavior** (lazy specs: document an area when first touching it, never
@@ -177,8 +182,12 @@ Behavior:
    `proposal.md` (why/what), spec deltas, `design.md` (only when there are
    non-obvious tradeoffs), `tasks.md` (ordered checkboxes, `[USER GATE]`
    markers where owner input is required).
-9. Validate: `openspec validate` when the CLI exists, otherwise a structural
+9. Content self-review before validation: placeholders, contradictions,
+   two-way-readable requirements, scope creep — fixed inline (v0.1.8).
+   Then `openspec validate` when the CLI exists, otherwise a structural
    checklist (all files present, tasks actionable, profile recorded).
+   tasks.md entries name the files they touch; proposal.md records the
+   chosen approach and rejected alternatives.
 10. Summarize and stop for owner approval. Never start implementation.
 
 ### 7.2 `/flow:implement` — execute the plan
@@ -188,8 +197,10 @@ request only (§7.0).
 
 Behavior:
 1. Preconditions: approved change with tasks.md. Recommend a fresh session on
-   `/model opus`. If running in a git worktree, note that persistent memory
-   is unavailable — CLAUDE.md and openspec/ carry everything needed.
+   `/model opus`. Work happens on a feature branch (worktree for parallel
+   sessions); never on main/master without explicit owner consent (v0.1.8).
+   If running in a git worktree, note that persistent memory is
+   unavailable — CLAUDE.md and openspec/ carry everything needed.
 2. Per task: TDD via superpowers (red → green → commit); touch only files
    within the change scope; no drive-by refactoring; tick the task checkbox
    **in the same commit** that completes it; when behavior changes, update

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.8 — 2026-07-05
+
+/flow:spec regains the three strongest superpowers-brainstorming moves it
+had silently dropped: decomposition check (multi-subsystem requests split
+into separate changes), 2-3 alternative approaches with trade-offs before
+settling, and a content self-review of the change folder before
+validation. tasks.md entries now name the files they touch; proposal.md
+records rejected alternatives. /flow:implement now requires a feature
+branch — never main/master without explicit owner consent.
+
 ## 0.1.7 — 2026-07-05
 
 Explicit superpowers boundary inside flow phases: /flow:spec IS the

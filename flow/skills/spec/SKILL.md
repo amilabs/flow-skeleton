@@ -27,36 +27,47 @@ later, from /flow:implement and /flow:accept.
 
 ## Steps
 
-1. **Interview.** Clarify with AskUserQuestion whatever the request leaves
+1. **Scope check first.** If the request spans multiple independent
+   subsystems, decompose it into several changes and spec only the first —
+   each change must be implementable and acceptable on its own.
+2. **Interview.** Clarify with AskUserQuestion whatever the request leaves
    open: scope, out-of-scope, constraints, success criteria. Skip what the
    request already answers; prefer a few sharp questions over many obvious
    ones.
-2. **Locate affected areas.** For large codebases use an Explore subagent
+3. **Explore alternatives.** When the change has architectural freedom,
+   sketch 2-3 approaches with trade-offs and lead with your recommendation
+   before settling. Skip only when there is genuinely one reasonable way.
+4. **Locate affected areas.** For large codebases use an Explore subagent
    so this session's context stays clean.
-3. **Baseline specs (brownfield).** For each affected capability, read its
+5. **Baseline specs (brownfield).** For each affected capability, read its
    spec under `openspec/specs/`. If none exists, first write a baseline
    spec of CURRENT behavior — document only the area being touched, never
    the whole legacy project upfront.
-4. **Impact analysis.** If the change modifies existing code with
+6. **Impact analysis.** If the change modifies existing code with
    dependents outside the change scope, run /flow:blast-radius and put the
    impact note in the change's design.md.
-5. **Risk profile.** Select profile(s) from the flow risk-profiles table
+7. **Risk profile.** Select profile(s) from the flow risk-profiles table
    and record them in proposal.md. If the change qualifies as trivial,
    stop: tell the owner the fast path applies and no change folder is
    needed.
-6. **Behavior inventory (ui-surface).** List observable behavior that must
+8. **Behavior inventory (ui-surface).** List observable behavior that must
    survive: routes/pages, navigation entries, table columns, form fields,
    states (empty/error/loading/success). Keep it in the change folder.
-7. **Write the change folder** `openspec/changes/<kebab-case-id>/`:
-   - `proposal.md` — why, what, risk profile(s), explicit out-of-scope list
+9. **Write the change folder** `openspec/changes/<kebab-case-id>/`:
+   - `proposal.md` — why, what, risk profile(s), the chosen approach and
+     rejected alternatives (one line each), explicit out-of-scope list
    - spec deltas for affected capabilities
    - `design.md` — only when there are non-obvious tradeoffs (blast-radius
      impact note lives here)
-   - `tasks.md` — ordered checkbox tasks, each sized for one test cycle;
-     mark decisions only the owner can make with `[USER GATE]`
-8. **Validate.** With the openspec CLI: `openspec validate <id>`. Without
-   it, check structurally: files above present, every task actionable,
-   profile recorded, inventory present when required.
-9. **Stop for approval.** Summarize the change and ask the owner to approve
-   it. Do not start implementation. After approval the owner runs
-   /flow:implement — ideally in a fresh session on Opus.
+   - `tasks.md` — ordered checkbox tasks, each sized for one test cycle
+     and naming the files it touches; mark decisions only the owner can
+     make with `[USER GATE]`
+10. **Self-review, then validate.** Re-read the change folder with fresh
+    eyes: placeholders, internal contradictions, requirements readable two
+    ways, scope creep — fix inline. Then, with the openspec CLI:
+    `openspec validate <id>`; without it, check structurally: files above
+    present, every task actionable, profile recorded, inventory present
+    when required.
+11. **Stop for approval.** Summarize the change and ask the owner to
+    approve it. Do not start implementation. After approval the owner runs
+    /flow:implement — ideally in a fresh session on Opus.
