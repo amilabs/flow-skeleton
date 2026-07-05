@@ -23,6 +23,9 @@
   approval → /flow:implement (fresh session) → /flow:accept → owner
   accepts. Trivial changes (one-sentence diff, no dependents) skip the
   lifecycle.
+- When the owner requests non-trivial work without mentioning flow,
+  offer to start /flow:spec before writing any code — one line, not a
+  lecture. If the owner declines, proceed normally.
 - Worktree sessions: persistent memory is unavailable — this file and
   openspec/ carry everything; merge back to main when a phase completes.
 - Never commit or push unless explicitly asked.

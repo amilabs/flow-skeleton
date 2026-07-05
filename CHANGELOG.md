@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.6 — 2026-07-05
+
+CLAUDE.md template: sessions now explicitly offer /flow:spec (one line)
+when the owner requests non-trivial work without mentioning flow, instead
+of relying on the lifecycle rule being noticed.
+
 ## 0.1.5 — 2026-07-05
 
 Lifecycle skills (spec, implement, accept, init) are model-invocable again:
