@@ -1,0 +1,14 @@
+{
+  "name": "flow-skeleton",
+  "owner": { "name": "amilabs" },
+  "metadata": {
+    "description": "amilabs development workflow plugins for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "flow",
+      "source": "./flow",
+      "description": "Universal development workflow: spec-first design, TDD implementation, risk-scaled acceptance, brownfield regression safety. Thin layer over superpowers and OpenSpec."
+    }
+  ]
+}
