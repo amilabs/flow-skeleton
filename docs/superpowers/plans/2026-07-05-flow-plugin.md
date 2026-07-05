@@ -179,7 +179,7 @@ if printf '%s' "$cmd" | grep -qE 'git[^|;&]*push[^|;&]*(--force(-with-lease)?([=
       }
     }')
     if [ -z "$refspec" ]; then
-      branch=$(git -C "${CLAUDE_PROJECT_DIR:-.}" rev-parse --abbrev-ref HEAD 2>/dev/null)
+      branch=$(git -C "${CLAUDE_PROJECT_DIR:-.}" symbolic-ref --short HEAD 2>/dev/null)
       case "$branch" in main|master) blocked="yes";; esac
     fi
   fi
