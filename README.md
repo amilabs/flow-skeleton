@@ -18,6 +18,14 @@ machine. Then enable updates: `/plugin` → Marketplaces → flow-skeleton →
 **Enable auto-update**. The superpowers plugin is declared as a dependency
 and installs alongside.
 
+Manual update (note: `update` requires the fully-qualified name, unlike
+`install`):
+
+```bash
+claude plugin marketplace update flow-skeleton
+claude plugin update flow@flow-skeleton
+```
+
 ## Commands
 
 | Command | Purpose |
