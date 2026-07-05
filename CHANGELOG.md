@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.2 — 2026-07-05
+
+Fix: git-guard no longer false-positives on compound commands. The
+main/master and refspec checks now run per pipeline/list segment, so
+`git push --force origin feature/x && git log main` is allowed while
+`... && git push -f origin main` stays blocked. Found during real use.
+
 ## 0.1.1 — 2026-07-05
 
 Fix: the superpowers dependency is now marketplace-scoped

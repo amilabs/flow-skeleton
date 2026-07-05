@@ -34,6 +34,9 @@ check "no-verify commit blocked"              2 "$NONGIT_DIR" "git commit --no-v
 check "plain commit allowed"                  0 "$NONGIT_DIR" "git commit -m msg"
 check "unrelated command allowed"             0 "$NONGIT_DIR" "ls -la"
 check "empty command tolerated"               0 "$NONGIT_DIR" ""
+check "compound: force push to feature + git log main allowed" 0 "$MAIN_REPO" "git push --force-with-lease origin feature/x && git log --oneline -2 main"
+check "compound: force push to main after other command blocked" 2 "$NONGIT_DIR" "git log --oneline && git push -f origin main"
+check "compound: bare force push on main + later main-word blocked" 2 "$MAIN_REPO" "git push -f origin && git log -2 main"
 
 echo "pass=$pass fail=$fail"
 [ "$fail" -eq 0 ]

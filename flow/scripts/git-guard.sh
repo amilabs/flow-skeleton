@@ -8,31 +8,36 @@ input=$(cat) || exit 0
 cmd=$(printf '%s' "$input" | jq -r '.tool_input.command // empty' 2>/dev/null) || exit 0
 [ -n "$cmd" ] || exit 0
 
-if printf '%s' "$cmd" | grep -qE 'git[^|;&]*push[^|;&]*(--force(-with-lease)?([= ]|$)|[[:space:]]-f([[:space:]]|$))'; then
-  blocked=""
-  if printf '%s' "$cmd" | grep -qE '[[:space:]](main|master)([[:space:]]|:|$)'; then
-    blocked="yes"
-  else
-    # Second non-flag token after "push" is the refspec (first is the remote).
-    refspec=$(printf '%s' "$cmd" | awk '{
-      push=0; n=0
-      for (i=1; i<=NF; i++) {
-        if ($i=="push") { push=1; continue }
-        if (!push) continue
-        if ($i ~ /^-/) continue
-        n++
-        if (n==2) { print $i; exit }
-      }
-    }')
-    if [ -z "$refspec" ]; then
-      branch=$(git -C "${CLAUDE_PROJECT_DIR:-.}" symbolic-ref --short HEAD 2>/dev/null)
-      case "$branch" in main|master) blocked="yes";; esac
-    fi
+# Analyze each pipeline/list segment separately so words from neighboring
+# commands (e.g. "... && git log main") cannot leak into the push check.
+blocked=""
+while IFS= read -r seg; do
+  printf '%s' "$seg" | grep -qE 'git[^|;&]*push[^|;&]*(--force(-with-lease)?([= ]|$)|[[:space:]]-f([[:space:]]|$))' || continue
+  if printf '%s' "$seg" | grep -qE '[[:space:]](main|master)([[:space:]]|:|$)'; then
+    blocked="yes"; break
   fi
-  if [ -n "$blocked" ]; then
-    echo "flow git-guard: force-push to main/master is blocked. Push a branch and open a PR, or have the owner run the command manually." >&2
-    exit 2
+  # Second non-flag token after "push" is the refspec (first is the remote).
+  refspec=$(printf '%s' "$seg" | awk '{
+    push=0; n=0
+    for (i=1; i<=NF; i++) {
+      if ($i=="push") { push=1; continue }
+      if (!push) continue
+      if ($i ~ /^-/) continue
+      n++
+      if (n==2) { print $i; exit }
+    }
+  }')
+  if [ -z "$refspec" ]; then
+    branch=$(git -C "${CLAUDE_PROJECT_DIR:-.}" symbolic-ref --short HEAD 2>/dev/null)
+    case "$branch" in main|master) blocked="yes"; break;; esac
   fi
+done <<EOF
+$(printf '%s' "$cmd" | tr '|;&' '\n')
+EOF
+
+if [ -n "$blocked" ]; then
+  echo "flow git-guard: force-push to main/master is blocked. Push a branch and open a PR, or have the owner run the command manually." >&2
+  exit 2
 fi
 
 if printf '%s' "$cmd" | grep -qE 'git[^|;&]*commit[^|;&]*--no-verify'; then
