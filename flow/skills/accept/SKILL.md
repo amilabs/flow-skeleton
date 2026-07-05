@@ -9,9 +9,17 @@ argument-hint: "[change-id]"
 Change: $ARGUMENTS (default: the single active change under
 `openspec/changes/`).
 
-Run the gates in order and collect evidence as you go. When a gate finds a
-blocker: fix it, then rerun ONLY the affected check and the reviewer that
-found the issue — no full re-review loops.
+Run the gates in order and collect evidence as you go. Reviewers start
+late by design: the cheap deterministic gates (1-2) must pass before any
+reviewer (3-5) runs — never burn review passes on code that fails tests.
+
+When a gate finds a blocker: fix it, then rerun the affected checks and
+the reviewer that found the issue. A broader re-review is legitimate when
+the fixes were broad (shared code, many files) — say so explicitly and run
+it. If acceptance is still not converging after two full review rounds,
+stop and report to the owner with the reason: a change that cannot
+converge usually has a spec or scope problem, and continuing versus
+re-scoping is the owner's call.
 
 1. **Full project checks** — the commands from CLAUDE.md (tests, lint,
    typecheck, build). All must pass.

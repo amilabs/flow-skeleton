@@ -18,6 +18,16 @@ tasks) replaces their design doc and plan. Superpowers execution
 disciplines (TDD, debugging, verification, finishing a branch) apply
 later, from /flow:implement and /flow:accept.
 
+## Architecture bar (never lower this)
+
+Decompose the change into units with one clear purpose each and
+well-defined interfaces: a consumer must be able to use a unit without
+reading its internals, and internals must be changeable without breaking
+consumers. Follow existing codebase patterns; when existing boundaries
+hinder the change, include targeted improvements in the design — never
+unrelated refactoring. Design depth scales with risk, not with mood: the
+heavier the change, the fuller design.md must be.
+
 ## Setup
 
 - This phase belongs on the strongest model: if the session is not on
@@ -57,11 +67,17 @@ later, from /flow:implement and /flow:accept.
    - `proposal.md` — why, what, risk profile(s), the chosen approach and
      rejected alternatives (one line each), explicit out-of-scope list
    - spec deltas for affected capabilities
-   - `design.md` — only when there are non-obvious tradeoffs (blast-radius
-     impact note lives here)
+   - `design.md` — REQUIRED when the change crosses module boundaries,
+     introduces new components or interfaces, or carries the api-contract,
+     data-storage, or auth-security profile: component boundaries, exact
+     interfaces/signatures, data flow, error handling. The blast-radius
+     impact note lives here. Omit only for changes with no architectural
+     freedom.
    - `tasks.md` — ordered checkbox tasks, each sized for one test cycle
-     and naming the files it touches; mark decisions only the owner can
-     make with `[USER GATE]`
+     and naming the files it touches; for multi-task changes each task
+     states what it consumes from earlier tasks and produces for later
+     ones (names and signatures); mark decisions only the owner can make
+     with `[USER GATE]`
 10. **Self-review, then validate.** Re-read the change folder with fresh
     eyes: placeholders, internal contradictions, requirements readable two
     ways, scope creep — fix inline. Then, with the openspec CLI:

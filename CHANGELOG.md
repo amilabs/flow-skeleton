@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.9 — 2026-07-05
+
+Architecture bar in /flow:spec is now explicit and non-negotiable: units
+with one purpose and well-defined interfaces; design.md is REQUIRED for
+boundary-crossing changes (boundaries, exact interfaces, data flow, error
+handling); multi-task changes state per-task consumes/produces. Review
+re-run policy in /flow:accept reworded to the owner's actual rule: not
+early (cheap gates first), re-runs allowed and announced when fixes were
+broad, non-convergence after two full rounds escalates to the owner.
+
 ## 0.1.8 — 2026-07-05
 
 /flow:spec regains the three strongest superpowers-brainstorming moves it

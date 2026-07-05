@@ -180,8 +180,14 @@ Behavior:
    table columns, form fields, states: empty/error/loading/success).
 8. Produce the OpenSpec change folder `openspec/changes/<id>/`:
    `proposal.md` (why/what), spec deltas, `design.md` (only when there are
-   non-obvious tradeoffs), `tasks.md` (ordered checkboxes, `[USER GATE]`
-   markers where owner input is required).
+   non-obvious tradeoffs — and REQUIRED for boundary-crossing changes, new
+   components/interfaces, or api-contract/data-storage/auth-security
+   profiles: boundaries, exact interfaces, data flow, error handling),
+   `tasks.md` (ordered checkboxes naming the files touched; multi-task
+   changes state per task what it consumes/produces with names and
+   signatures; `[USER GATE]` markers where owner input is required).
+   Architecture bar (v0.1.9): units with one purpose and well-defined
+   interfaces; design depth scales with risk.
 9. Content self-review before validation: placeholders, contradictions,
    two-way-readable requirements, scope creep — fixed inline (v0.1.8).
    Then `openspec validate` when the CLI exists, otherwise a structural
@@ -224,8 +230,12 @@ Behavior:
 3. Launch `flow:plan-reviewer` (fresh context): diff vs the OpenSpec change.
 4. Run `/code-review` at the effort the risk profile prescribes;
    `/security-review` when the profile demands it.
-5. Blockers found → fix → rerun only the affected checks and the reviewer
-   that found the issue. No full re-review loops.
+5. Review timing and re-runs (v0.1.9): reviewers run only after the cheap
+   deterministic gates pass — never early. Blockers → fix → rerun the
+   affected checks and the reviewer that found the issue; a broader
+   re-review is legitimate after broad fixes and is announced explicitly.
+   Non-convergence after two full review rounds escalates to the owner
+   with the reason (usually a spec or scope problem).
 6. Produce an acceptance summary: what changed, evidence (test output,
    verify results, review findings), unresolved risks, recommendation.
 7. Stop for the owner's decision. On acceptance: superpowers
