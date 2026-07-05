@@ -48,7 +48,11 @@ re-scoping is the owner's call.
 After the owner accepts:
 
 - finish the branch (use the superpowers finishing-a-development-branch
-  skill when available: merge or PR per the owner's choice);
+  skill when available: merge or PR per the owner's choice). Release
+  mechanics follow the project's recorded convention in CLAUDE.md (merge
+  style, where the tag points, what gets archived); if none is recorded
+  yet, derive it once from history and record it there as part of the
+  release commit — the next release must not re-derive it;
 - archive the change: `openspec archive <id>` with the CLI, otherwise move
   the folder to `openspec/changes/archive/`;
 - never commit or push without an explicit owner instruction.

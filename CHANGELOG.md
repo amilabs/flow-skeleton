@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.14 — 2026-07-06
+
+Release mechanics follow the project's recorded convention in CLAUDE.md;
+on the first release the convention is derived from history once and
+recorded, so later releases stop re-deriving merge/tag/archive style.
+
 ## 0.1.13 — 2026-07-05
 
 Acceptance cost control, from the first heavy real acceptance: the live
