@@ -1,0 +1,8 @@
+{
+  "extraKnownMarketplaces": {
+    "flow-skeleton": {
+      "source": { "source": "github", "repo": "amilabs/flow-skeleton" }
+    }
+  },
+  "enabledPlugins": { "flow@flow-skeleton": true }
+}

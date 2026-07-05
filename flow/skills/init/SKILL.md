@@ -1,0 +1,57 @@
+---
+name: init
+description: Bootstrap a project for the flow workflow (new project) or migrate an existing one (--existing). Sets up CLAUDE.md, OpenSpec structure, LSP suggestion, run recipe, optional project hooks.
+disable-model-invocation: true
+argument-hint: "[--existing]"
+---
+
+# Project bootstrap
+
+Mode: `--existing` in "$ARGUMENTS" means migration of a live project;
+otherwise fresh setup. Everything here is opt-in and non-destructive:
+propose, show the diff, apply only on confirmation.
+
+## Both modes
+
+1. **Detect the stack**: package.json (Node/TS — note the framework),
+   pyproject.toml or requirements.txt (Python), composer.json (PHP). Mixed
+   stacks get all applicable adapters.
+2. **LSP plugin**: suggest the matching code-intelligence plugin and check
+   its binary is installed — typescript-lsp (typescript-language-server),
+   pyright-lsp (pyright-langserver), php-lsp (intelephense). Skip silently
+   when the stack has no official LSP plugin.
+3. **Run recipe**: if no `.claude/skills/run-*` skill exists, offer
+   /run-skill-generator so /verify and /flow:accept can drive the real app.
+4. **superpowers check**: verify the superpowers plugin is installed; if
+   the plugin dependency did not auto-install it, print:
+   `/plugin install superpowers@claude-plugins-official`
+5. **Project hooks (opt-in)**: offer a PostToolUse hook running the stack's
+   affected lint/typecheck after edits and, for autonomous runs, an
+   optional Stop-hook test gate. Write to the project's
+   `.claude/settings.json` only on explicit confirmation.
+6. **Team snippet (opt-in)**: for shared repos, offer the self-describing
+   settings from [templates/team-settings.json](templates/team-settings.json).
+
+## New project additionally
+
+7. **git**: `git init -b main` when not a repo; add a sensible .gitignore
+   for the detected stack.
+8. **OpenSpec skeleton**: `openspec init` when the CLI exists; otherwise
+   create by hand: `openspec/project.md` (project context, constraints,
+   conventions), `openspec/specs/`, `openspec/changes/`. Plain files are
+   the contract; the CLI is an accelerator.
+9. **CLAUDE.md**: generate from
+   [templates/CLAUDE.md.template](templates/CLAUDE.md.template), filling
+   Commands from the detected stack. Keep it at or under 60 lines:
+   commands, architecture facts, invariants, environment quirks. Process
+   rules do NOT go here — they live in the flow plugin.
+
+## --existing additionally
+
+7. **CLAUDE.md migration**: identify generic process rules (TDD cycles,
+   review/gate rules, commit etiquette) and collapse them to the Workflow
+   section of the template. Keep project facts untouched: Commands,
+   Architecture, Invariants, environment quirks, current-state notes. Show
+   the full diff before applying.
+8. **OpenSpec**: if `openspec/` is absent, offer the skeleton from step 8
+   above. Never restructure existing openspec/ or docs/ content.

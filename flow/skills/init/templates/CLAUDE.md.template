@@ -1,0 +1,28 @@
+# {{PROJECT_NAME}} — instructions for Claude sessions
+
+## Commands
+
+```bash
+{{INSTALL_COMMAND}}
+{{TEST_COMMAND}}
+{{LINT_COMMAND}}
+{{RUN_COMMAND}}
+```
+
+## Architecture
+
+{{THREE_TO_FIVE_FACTS_CLAUDE_CANNOT_INFER_FROM_CODE}}
+
+## Invariants (violating these is a bug)
+
+{{PROJECT_INVARIANTS}}
+
+## Workflow
+
+- Non-trivial work goes through the flow plugin: /flow:spec → owner
+  approval → /flow:implement (fresh session) → /flow:accept → owner
+  accepts. Trivial changes (one-sentence diff, no dependents) skip the
+  lifecycle.
+- Worktree sessions: persistent memory is unavailable — this file and
+  openspec/ carry everything; merge back to main when a phase completes.
+- Never commit or push unless explicitly asked.
