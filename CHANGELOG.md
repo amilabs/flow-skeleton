@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.15 — 2026-07-06
+
+/flow:spec warns about bundle cost: changes past ~8 tasks get an explicit
+hours-scale cost estimate and a split recommendation along a natural seam;
+the owner decides. Phase duration follows bundle size — this makes the
+trade-off visible at design time instead of surprising at implement time.
+
 ## 0.1.14 — 2026-07-06
 
 Release mechanics follow the project's recorded convention in CLAUDE.md;

@@ -41,7 +41,11 @@ heavier the change, the fuller design.md must be.
 
 1. **Scope check first.** If the request spans multiple independent
    subsystems, decompose it into several changes and spec only the first —
-   each change must be implementable and acceptable on its own.
+   each change must be implementable and acceptable on its own. When a
+   single change grows past ~8 tasks, tell the owner the expected cost
+   (hours-scale implement and accept phases) and recommend splitting into
+   sequential changes along a natural seam (e.g., core vs UI); the owner
+   decides.
 2. **Interview.** Clarify with AskUserQuestion whatever the request leaves
    open: scope, out-of-scope, constraints, success criteria. Skip what the
    request already answers; prefer a few sharp questions over many obvious
