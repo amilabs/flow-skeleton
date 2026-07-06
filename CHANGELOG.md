@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.16 — 2026-07-06
+
+Acceptance concurrency rules, from a real incident: one checkout — one
+active session (implement must be committed and idle before accept
+starts; stale app servers on shared ports produce phantom findings;
+worktree if overlap is unavoidable). Acceptance-round fixes and
+owner-requested additions are recorded in inventory.md before the summary.
+
 ## 0.1.15 — 2026-07-06
 
 /flow:spec warns about bundle cost: changes past ~8 tasks get an explicit

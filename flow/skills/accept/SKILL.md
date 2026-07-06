@@ -14,6 +14,14 @@ looks mismatched for gate-running (e.g., Fable), confirm with the owner
 before gate 1 — default is Opus at session effort. The plan-reviewer agent
 runs on Opus by default; the owner may request otherwise.
 
+One checkout — one active session. Before starting, make sure the
+implement session has committed its work and gone idle, and no stale app
+servers from earlier runs are still bound to your ports (they serve wrong
+data and produce phantom findings). If overlap is unavoidable, take a
+separate git worktree. Findings fixed during acceptance — and any
+owner-requested additions — are recorded in the change's inventory.md
+("Owner acceptance refinements") before the summary.
+
 Run the gates in order and collect evidence as you go. Reviewers start
 late by design: the cheap deterministic gates (1-2) must pass before any
 reviewer (3-5) runs — never burn review passes on code that fails tests.
