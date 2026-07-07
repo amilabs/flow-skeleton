@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.17 — 2026-07-07
+
+Closing the owner-intent ↔ artifact gap, from a live acceptance incident
+where reviewers passed a change the owner then faulted — every complaint
+lived in what the artifacts didn't say, not in what reviewers missed.
+Spec's behavior inventory now maps each shared control to every surface
+it drives (acceptance verifies they move together), new surfaces near an
+existing control must declare whether it affects them, and visualizations
+record what data/period they reflect. The approval summary states the few
+consequences that would otherwise surprise the owner in production — the
+owner approves consequences, not just features. Accept treats recurring
+owner feedback as a gate failure: the rule is restated as a general
+principle in project invariants and gets a deterministic check in the
+same round.
+
 ## 0.1.16 — 2026-07-06
 
 Acceptance concurrency rules, from a real incident: one checkout — one

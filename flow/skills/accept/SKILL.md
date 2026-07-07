@@ -34,6 +34,15 @@ stop and report to the owner with the reason: a change that cannot
 converge usually has a spec or scope problem, and continuing versus
 re-scoping is the owner's call.
 
+Recurring owner feedback is a gate failure, not a reminder. When the
+owner reports an issue class they have already corrected before (a style
+rule, an invariant), do not just fix the instance: restate the rule in
+the project's CLAUDE.md invariants as a general principle — a rule
+recorded narrower than the owner's intent (e.g., scoped to one widget
+type) regresses on every new surface — and add a deterministic check for
+it to the project's verification walk or tests in the same acceptance
+round.
+
 1. **Full project checks** — the commands from CLAUDE.md (tests, lint,
    typecheck, build). All must pass.
 2. **Live verification (ui-surface changes)** — run /verify against the

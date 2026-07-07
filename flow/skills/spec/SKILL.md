@@ -68,7 +68,12 @@ heavier the change, the fuller design.md must be.
    needed.
 8. **Behavior inventory (ui-surface).** List observable behavior that must
    survive: routes/pages, navigation entries, table columns, form fields,
-   states (empty/error/loading/success). Keep it in the change folder.
+   states (empty/error/loading/success). For every shared control (filter,
+   period, search, toggle) list each surface it drives — totals, tables,
+   counts, charts, exports; acceptance verifies they move together. When
+   the change adds a surface next to an existing control, state explicitly
+   whether the control affects it. For visualizations, record what they
+   encode and which data/period they reflect. Keep it in the change folder.
 9. **Write the change folder** `openspec/changes/<kebab-case-id>/`:
    - `proposal.md` — why, what, risk profile(s), the chosen approach and
      rejected alternatives (one line each), explicit out-of-scope list
@@ -90,6 +95,12 @@ heavier the change, the fuller design.md must be.
     `openspec validate <id>`; without it, check structurally: files above
     present, every task actionable, profile recorded, inventory present
     when required.
-11. **Stop for approval.** Summarize the change and ask the owner to
-    approve it. Do not start implementation. After approval the owner runs
-    /flow:implement — ideally in a fresh session on Opus.
+11. **Stop for approval.** Summarize the change for the owner. Alongside
+    the features, state the consequences that would otherwise surprise the
+    owner in production: what will NOT react or change, what becomes
+    visually quieter, which owner-visible features are scoped out (those
+    go on the explicit out-of-scope list — never silently dropped). A few
+    sharp consequences, not an exhaustive list — consequences the owner
+    plainly expects are noise. The owner approves the consequences, not
+    just the features. Do not start implementation. After approval the
+    owner runs /flow:implement — ideally in a fresh session on Opus.
