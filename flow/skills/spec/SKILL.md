@@ -18,6 +18,32 @@ tasks) replaces their design doc and plan. Superpowers execution
 disciplines (TDD, debugging, verification, finishing a branch) apply
 later, from /flow:implement and /flow:accept.
 
+## Operating mode — scale latitude to the model
+
+Check which model you are running on (your system prompt states it) and
+take the matching stance. When in doubt, use the default.
+
+Declare your choice before any work, in one line: model, effort, stance.
+If the change's weight and the model look mismatched — boundary-crossing
+architecture on the default stance, or a light change burning Fable —
+say so to the owner before proceeding; the owner decides. Record the same
+line as `Designed on: <model>, <effort>, <stance>` in proposal.md, and
+carry it into the approval summary — under the Fable stance, also note
+where the path deviated from the numbered order and what that bought.
+
+**Default (Opus, Sonnet, or any model not named below):** follow the
+numbered sections below in order, as written. They are the tested path to
+a design that meets the quality floor; deviate only when a section is
+genuinely inapplicable, and say so.
+
+**Fable-class (the strongest tier):** the numbered sections define
+mandatory OUTCOMES, not a sequence. Lead with investigation and judgment:
+go deepest where risk concentrates, challenge assumptions — the owner's
+framing and prior analysis included — whenever the code disagrees. Order,
+depth allocation, and method are yours. Two orderings stay fixed: a
+trivial-change verdict may end the phase at any point, and the owner
+approval gate is always last. Verify as you go; no need to narrate it.
+
 ## Architecture bar (never lower this)
 
 Decompose the change into units with one clear purpose each and
@@ -37,7 +63,7 @@ heavier the change, the fuller design.md must be.
   recommended.
 - Read `openspec/project.md` if it exists (project context and constraints).
 
-## Steps
+## The design path (every item is a mandatory outcome)
 
 1. **Scope check first.** If the request spans multiple independent
    subsystems, decompose it into several changes and spec only the first —

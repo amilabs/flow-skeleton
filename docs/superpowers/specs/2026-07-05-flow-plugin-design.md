@@ -159,6 +159,15 @@ initiative"); every skill still ends at a hard owner gate internally.
 Frontmatter: argument hint `[task description]`. Model-invocable, but the
 description restricts invocation to explicit owner requests (see §7.0 note).
 
+Operating mode (v0.1.18): latitude scales to the model over one unchanged
+quality floor — scripted default stance (Opus/Sonnet/anything
+unrecognized) walks the design path in order; Fable-class stance (opt-in
+by positive self-identification, so misfires land on the safe script)
+treats path items as mandatory outcomes and leads with investigation.
+Declarative controls: model/effort/stance declared up front, mismatch
+between model and change weight flagged to the owner in both directions,
+`Designed on:` recorded in proposal.md and the approval summary.
+
 Behavior:
 1. Advise (not block) `/model fable` and plan mode if not active.
 2. Scope check: a request spanning multiple independent subsystems is
@@ -434,3 +443,4 @@ strictly additive.
 | Repo | `amilabs/flow-skeleton`, public | 2026-07-05 |
 | Repo language | English artifacts, Russian owner communication | 2026-07-05 |
 | Skill invocation | lifecycle skills model-invocable; explicit-owner-request rule moved from `disable-model-invocation` into descriptions — the flag removed skills from the model's toolkit and broke prose-style instructions (found on the first real /flow:accept run) | 2026-07-05 |
+| Model-scaled latitude | spec carries two stances over one floor: scripted default (Opus-class executes design well but must not receive wide latitude), outcome-led opt-in for Fable-class via self-identification; default-safe so misfires land on the script; stance declared, mismatches flagged, Designed-on recorded. Designed on Fable via the ethplorer Part 2 meta-task | 2026-07-07 |

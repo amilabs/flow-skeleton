@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.18 — 2026-07-07
+
+The spec phase scales its latitude to the model, over one unchanged
+quality floor. Default stance (Opus/Sonnet/anything unrecognized): follow
+the design path in order — the tested script. Fable-class stance (opt-in
+by positive self-identification, so any misfire lands on the safe script):
+the path items are mandatory outcomes, not a sequence — investigation-led,
+depth follows risk, assumptions get challenged. Declarative controls: the
+phase declares model/effort/stance up front, must flag a model↔change
+weight mismatch in either direction before proceeding, and records
+"Designed on:" in proposal.md and the approval summary (with
+deviations-from-path noted under the Fable stance). Designed by a Fable
+session executing the ethplorer Part 2 meta-task; proposal archived in
+amilabs/ethplorer-flow docs/analysis/FLOW-FABLE-DESIGN-PROPOSAL.md.
+
 ## 0.1.17 — 2026-07-07
 
 Closing the owner-intent ↔ artifact gap, from a live acceptance incident
