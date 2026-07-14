@@ -16,7 +16,6 @@
 - Plain files first: nothing may hard-depend on Node, the OpenSpec CLI, jq, or an LSP server; every consumer of an external tool fails open or has a documented file-only fallback.
 - Plugin namespace is `flow` (skills invoke as `/flow:<dir-name>`); marketplace name is `flow-skeleton`.
 - Repository: `git@github.com:amilabs/flow-skeleton.git`, branch `main`. Never push with `--force`.
-- Every commit message ends with: `Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>`.
 - Skill bodies stay concise (each well under 150 lines; hard cap 500).
 
 ---
@@ -76,7 +75,6 @@ Expected: both report the manifest as valid (exit 0). Warnings about missing opt
 git add .claude-plugin/marketplace.json flow/.claude-plugin/plugin.json
 git commit -m "feat: marketplace and plugin manifests
 
-Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -235,7 +233,6 @@ Expected: valid, hook listed.
 git add tests/git-guard.test.sh flow/scripts/git-guard.sh flow/hooks/hooks.json
 git commit -m "feat: git-guard PreToolUse hook with unit tests
 
-Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 ```
 
 ---
@@ -295,7 +292,7 @@ Expected: valid, skill listed.
 git add flow/skills/risk-profiles/SKILL.md
 git commit -m "feat: risk-profiles background skill
 
-Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+
 ```
 
 ---
@@ -367,7 +364,7 @@ Expected: valid.
 git add flow/skills/blast-radius/SKILL.md
 git commit -m "feat: blast-radius impact-analysis skill
 
-Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+
 ```
 
 ---
@@ -453,7 +450,7 @@ Expected: valid.
 git add flow/skills/spec/SKILL.md
 git commit -m "feat: spec design-phase skill
 
-Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+
 ```
 
 ---
@@ -531,7 +528,7 @@ Expected: valid.
 git add flow/skills/implement/SKILL.md
 git commit -m "feat: implement execution-phase skill
 
-Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+
 ```
 
 ---
@@ -598,7 +595,7 @@ Expected: valid.
 git add flow/skills/accept/SKILL.md
 git commit -m "feat: accept acceptance-gate skill
 
-Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+
 ```
 
 ---
@@ -737,7 +734,7 @@ Expected: valid.
 git add flow/skills/init
 git commit -m "feat: init bootstrap skill with templates
 
-Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+
 ```
 
 ---
@@ -797,7 +794,7 @@ Expected: valid, agent listed.
 git add flow/agents/plan-reviewer.md
 git commit -m "feat: plan-reviewer read-only agent
 
-Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+
 ```
 
 ---
@@ -934,7 +931,7 @@ templates, plan-reviewer agent, git-guard hook.
 git add README.md flow/README.md CHANGELOG.md
 git commit -m "docs: onboarding README, plugin README, changelog
 
-Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+
 ```
 
 ---
