@@ -20,21 +20,35 @@ pets-game 49. The whole 539 loads into context **every session**, diluting
 the actual standing instructions (Commands/Architecture/Invariants/Workflow
 sit in the first 160 lines, then drown).
 
-**Root cause — this is a flow defect, not project sloppiness:**
+**Root cause — a flow *gap* (missing guardrail), not a direct flow
+instruction** (corrected 2026-07-15 after independent verification; the
+first draft overstated this):
 - `/flow:init` sets a ceiling: *"Keep it at or under 60 lines."*
-- The release convention (`/flow:accept`, and the recorded convention step 2)
-  instructs every release to *"update the CLAUDE.md Current state section to
-  record the version as accepted & merged, folding in deferred/known-minor
-  notes."* It only ever **appends**. Nothing prunes.
-- Result: the ≤60 ceiling is set at birth and never defended. 18 releases →
-  380 lines of Current state.
-- Irony: **flow-skeleton itself does it right** — it keeps a `CHANGELOG.md`
-  and a lean CLAUDE.md. The plugin doesn't practice what it prescribes.
+- **flow's accept skill does NOT itself say "update Current state."**
+  Verified: grepping the accept skill for `current state`/`record the
+  version` returns nothing. What it says (0.1.14) is: *"Release mechanics
+  follow the project's recorded convention in CLAUDE.md; if none is
+  recorded, derive it once from history and record it there."*
+- The *"update the CLAUDE.md Current state section"* wording lives in
+  **Batcher's own self-derived release convention** (Batcher CLAUDE.md,
+  step 2), not in the plugin. So flow didn't instruct the dump — it left
+  the project free to derive an append-only convention and provided **no
+  guardrail** against it (no standing "keep CLAUDE.md lean; history →
+  CHANGELOG" rule to constrain the derived convention). The defect is the
+  absence, not a command.
+- Result: the ≤60 ceiling is set at birth by init and never defended
+  afterward; the self-derived convention appends every release. 18
+  releases → 380 lines of Current state.
+- Note: **flow-skeleton keeps a `CHANGELOG.md` and has no bloated
+  CLAUDE.md** (it has none at all). The plugin's own repo demonstrates the
+  good pattern; the plugin just never exports it as a rule to consumers.
 
-**Why it matters.** The flow best-practices flow is built on say plainly:
-*"Bloated CLAUDE.md files cause Claude to ignore your actual instructions."*
-So this defect actively degrades every downstream project as it matures —
-the most successful projects (most releases) get the worst context dilution.
+**Why it matters.** The Claude Code best practices flow is built on say
+plainly: *"Bloated CLAUDE.md files cause Claude to ignore your actual
+instructions."* So this gap actively degrades every downstream project as
+it matures — the most successful projects (most releases) get the worst
+context dilution. Confirmed here: Batcher (18 releases) is 539 lines; Tiler
+and pets-game (few/no releases) stay at 36–49.
 
 **Fix (proposed, flow ~0.1.19):**
 1. **Redirect release history to `CHANGELOG.md`.** The release convention
