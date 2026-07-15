@@ -142,6 +142,12 @@ Current state is the worst, but not the only one:
   instance-level notes instead of general principles.
 - **Architecture** naturally accretes as a project grows (project A's is
   now a wall of module descriptions). Fine in kind, but no periodic prune.
+- **Latent plugin nudges** (added 2026-07-15): the `--existing` migration
+  preserves "current-state notes" untouched, and the CLAUDE.md template's
+  worktree bullet points session state at CLAUDE.md ("this file and
+  openspec/ carry everything"). Neither is implicated in the observed dump
+  (project A predates both), but both are open growth vectors for migrated
+  and new projects — folded into F1 fix 6.
 
 **Fix:** fold into F1's principle — flow should carry one explicit standing
 rule: *CLAUDE.md is loaded every session; keep it lean; per-release history
@@ -153,7 +159,8 @@ release.* One rule, referenced by both init and accept.
 ## F3 — Sessions largely went WELL; the scars are already captured (INFO)
 
 The process worked at real scale: 18 project-A releases through
-spec→implement→accept, project D's Part 2, and the plugin's own 18 versions —
+spec→implement→accept, project D's Part 2, and the plugin's own 19 versions
+(0.1.0→0.1.18; corrected 2026-07-15 from "18") —
 all shipped. The accumulated operational friction (dependency scoping,
 desktop spare processes, git-guard evolution, model fallback) is already in
 memory (`flow-operational-lessons.md`) and mostly fixed in the plugin. No
@@ -175,8 +182,10 @@ F1/F2, which are pure documentation-structure fixes.
 
 ## Recommendation
 
-Apply F1+F2 as flow **0.1.19** (release convention redirects history to
-CHANGELOG + defends the CLAUDE.md ceiling + init scaffolds CHANGELOG + one
-lean-CLAUDE.md standing rule). Then a separate trivial project-A cleanup moves
-its 380 lines of history to CHANGELOG. Both are documentation-only, no code,
-no behavior — safe to do on any model.
+Apply F1+F2 as flow **0.1.19** — the amended six-item fix (updated
+2026-07-15): history → CHANGELOG, bounded Current state, structural
+leanness defended at release, init scaffolds CHANGELOG, accept re-validates
+already-recorded conventions, latent init wordings aligned. Then a separate
+trivial project-A cleanup moves its 380 lines of history to CHANGELOG
+**and rewrites its convention step 2**. Both are documentation-only, no
+code, no behavior — safe to do on any model.
