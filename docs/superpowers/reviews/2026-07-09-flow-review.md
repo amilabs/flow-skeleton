@@ -1,8 +1,12 @@
 # flow review — problems & improvements (2026-07-15)
 
 Retrospective over the flow plugin (v0.1.0→v0.1.18) and its real use across
-Batcher (18 releases v0.1→v0.18, through 2026-07-09), Tiler, pets-game,
-ethplorer-flow. Owner-initiated; done on Opus. Findings ranked by impact.
+four consumer projects: **A** (the flagship — 18 releases v0.1→v0.18,
+through 2026-07-09), **B** and **C** (small, few/no releases), and **D**
+(the external Part 2 meta-task). Project names are anonymized per this
+repo's standing rule against cross-project references (public repo); the
+owner holds the mapping. Owner-initiated; done on Opus. Findings ranked by
+impact.
 
 > **Prepared for a later Fable review.** This doc is process/structure only —
 > no crypto/security content that would trip Fable's classifier. Items that
@@ -13,10 +17,10 @@ ethplorer-flow. Owner-initiated; done on Opus. Findings ranked by impact.
 
 ## F1 — CLAUDE.md grows unbounded; the release convention is the cause (HIGH)
 
-**Symptom (owner-surfaced).** Batcher's CLAUDE.md is **539 lines**; the
+**Symptom (owner-surfaced).** Project A's CLAUDE.md is **539 lines**; the
 `Current state` section alone is **~380 lines (70%)** — a per-release
-narrative dump (v0.7 … v0.18, each a paragraph). Tiler is 36 lines,
-pets-game 49. The whole 539 loads into context **every session**, diluting
+narrative dump (v0.7 … v0.18, each a paragraph). Project B is 36 lines,
+project C 49. The whole 539 loads into context **every session**, diluting
 the actual standing instructions (Commands/Architecture/Invariants/Workflow
 sit in the first 160 lines, then drown).
 
@@ -30,7 +34,7 @@ first draft overstated this):
   follow the project's recorded convention in CLAUDE.md; if none is
   recorded, derive it once from history and record it there."*
 - The *"update the CLAUDE.md Current state section"* wording lives in
-  **Batcher's own self-derived release convention** (Batcher CLAUDE.md,
+  **project A's own self-derived release convention** (its CLAUDE.md,
   step 2), not in the plugin. So flow didn't instruct the dump — it left
   the project free to derive an append-only convention and provided **no
   guardrail** against it (no standing "keep CLAUDE.md lean; history →
@@ -47,8 +51,8 @@ first draft overstated this):
 plainly: *"Bloated CLAUDE.md files cause Claude to ignore your actual
 instructions."* So this gap actively degrades every downstream project as
 it matures — the most successful projects (most releases) get the worst
-context dilution. Confirmed here: Batcher (18 releases) is 539 lines; Tiler
-and pets-game (few/no releases) stay at 36–49.
+context dilution. Confirmed here: project A (18 releases) is 539 lines; B
+and C (few/no releases) stay at 36–49.
 
 **Fix (proposed, flow ~0.1.19):**
 1. **Redirect release history to `CHANGELOG.md`.** The release convention
@@ -63,10 +67,10 @@ and pets-game (few/no releases) stay at 36–49.
    ceiling): if CLAUDE.md exceeds it, prune narrative/history to CHANGELOG
    as part of the archive commit.
 4. **`/flow:init` scaffolds `CHANGELOG.md`** so there is a designated home
-   for release history from day one (Batcher had none → history had nowhere
-   to go but CLAUDE.md).
+   for release history from day one (project A had none → history had
+   nowhere to go but CLAUDE.md).
 
-**One-time cleanup for Batcher** (separate, owner-approved): move the ~380
+**One-time cleanup for project A** (separate, owner-approved): move the ~380
 lines of Current state into `CHANGELOG.md`, collapse Current state to a
 bounded pointer. Purely editorial — no code, no behavior. Recommended as its
 own trivial change.
@@ -79,11 +83,11 @@ Current state is the worst, but not the only one:
 - **Invariants** grows every time 0.1.17's rule fires ("restate recurring
   owner feedback as a general principle in CLAUDE.md invariants"). This is
   legitimate — invariants ARE standing instructions — but has no size
-  awareness either. Batcher's Invariants block is already dense (money,
+  awareness either. Project A's Invariants block is already dense (money,
   currencies, migrations, UI) and correct; watch it doesn't accrete
   instance-level notes instead of general principles.
-- **Architecture** naturally accretes as a project grows (Batcher's is now
-  a wall of module descriptions). Fine in kind, but no periodic prune.
+- **Architecture** naturally accretes as a project grows (project A's is
+  now a wall of module descriptions). Fine in kind, but no periodic prune.
 
 **Fix:** fold into F1's principle — flow should carry one explicit standing
 rule: *CLAUDE.md is loaded every session; keep it lean; per-release history
@@ -94,8 +98,8 @@ release.* One rule, referenced by both init and accept.
 
 ## F3 — Sessions largely went WELL; the scars are already captured (INFO)
 
-The process worked at real scale: 18 Batcher releases through
-spec→implement→accept, ethplorer Part 2, and the plugin's own 18 versions —
+The process worked at real scale: 18 project-A releases through
+spec→implement→accept, project D's Part 2, and the plugin's own 18 versions —
 all shipped. The accumulated operational friction (dependency scoping,
 desktop spare processes, git-guard evolution, model fallback) is already in
 memory (`flow-operational-lessons.md`) and mostly fixed in the plugin. No
@@ -107,7 +111,7 @@ the current convention.
 
 ## Deferred to a security/crypto pass (not investigated here)
 
-Batcher's later releases carry auth/SaaS and stablecoin-payment surfaces
+Project A's later releases carry auth/SaaS and stablecoin-payment surfaces
 (v0.13–v0.18). Reviewing those for correctness is out of scope for this
 process review and would need Fable code-level judgment on triggering
 content. `→ security/crypto pass` if the owner wants it; it is orthogonal to
@@ -119,6 +123,6 @@ F1/F2, which are pure documentation-structure fixes.
 
 Apply F1+F2 as flow **0.1.19** (release convention redirects history to
 CHANGELOG + defends the CLAUDE.md ceiling + init scaffolds CHANGELOG + one
-lean-CLAUDE.md standing rule). Then a separate trivial Batcher cleanup moves
+lean-CLAUDE.md standing rule). Then a separate trivial project-A cleanup moves
 its 380 lines of history to CHANGELOG. Both are documentation-only, no code,
 no behavior — safe to do on any model.
