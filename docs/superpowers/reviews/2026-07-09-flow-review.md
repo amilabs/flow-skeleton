@@ -1,8 +1,8 @@
-# flow review — problems & improvements (2026-07-09)
+# flow review — problems & improvements (2026-07-15)
 
 Retrospective over the flow plugin (v0.1.0→v0.1.18) and its real use across
-Batcher (18 releases v0.1→v0.18), Tiler, pets-game, ethplorer-flow. Owner-
-initiated; done on Opus. Findings ranked by impact.
+Batcher (18 releases v0.1→v0.18, through 2026-07-09), Tiler, pets-game,
+ethplorer-flow. Owner-initiated; done on Opus. Findings ranked by impact.
 
 > **Prepared for a later Fable review.** This doc is process/structure only —
 > no crypto/security content that would trip Fable's classifier. Items that
