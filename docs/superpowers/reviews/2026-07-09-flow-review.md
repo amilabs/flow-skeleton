@@ -89,18 +89,45 @@ and C (few/no releases) stay at 36–49.
 2. **Bound `Current state` in CLAUDE.md.** It should carry only: the current
    version + branch, and pointers (`CHANGELOG.md`, `openspec/archive/`). At
    most the last release as a one-liner. Not an accumulating log.
-3. **Defend the ceiling at release, not just at init.** The release
-   convention should re-assert the ≤~60-line target (or a project-chosen
-   ceiling): if CLAUDE.md exceeds it, prune narrative/history to CHANGELOG
-   as part of the archive commit.
+3. **Defend leanness at release, not just at init** (reworded 2026-07-15:
+   re-asserting a raw ≤60 is the wrong number — the official guidance is
+   <~200 lines, and a mature project's legitimate standing content already
+   runs ~160 here). Enforce the *structural* rule: `Current state` never
+   accretes per-release entries; history goes to CHANGELOG; when CLAUDE.md
+   drifts past the project's recorded ceiling (default ~200), prune as
+   part of the archive commit.
 4. **`/flow:init` scaffolds `CHANGELOG.md`** so there is a designated home
-   for release history from day one (project A had none → history had
-   nowhere to go but CLAUDE.md).
+   for release history from day one. (Softened 2026-07-15: project A had
+   no CHANGELOG, but per-change detail always had a home in
+   `openspec/archive/` — what was missing is the release-*summary* layer,
+   and that vacuum is what CLAUDE.md absorbed.)
+5. **Accept must re-validate already-recorded conventions** (added
+   2026-07-15 — without this the fix never reaches existing projects).
+   0.1.14's *"the next release must not re-derive it"* makes every
+   recorded convention immune to items 1–4: a project whose convention
+   says "append to Current state" keeps appending forever, plugin update
+   or not. The 0.1.19 guardrail must be checked at each release *against*
+   the recorded convention; where they conflict, the guardrail wins and
+   the convention gets a one-line amendment in the same release commit —
+   that amendment is a mechanics change, exactly what the convention hook
+   owns.
+6. **Align the plugin's own latent wordings with the rule** (added
+   2026-07-15). Two plugin lines currently bless the pattern: the
+   `--existing` migration keeps "current-state notes" untouched, and the
+   CLAUDE.md template's worktree bullet says "this file and openspec/
+   carry everything". Neither caused this instance (project A predates
+   both), but the first re-blesses dumps at migration and the second
+   points session state at CLAUDE.md for every new project. Both should
+   point at CHANGELOG/openspec instead, with current-state notes bounded
+   the same way as item 2.
 
 **One-time cleanup for project A** (separate, owner-approved): move the ~380
 lines of Current state into `CHANGELOG.md`, collapse Current state to a
-bounded pointer. Purely editorial — no code, no behavior. Recommended as its
-own trivial change.
+bounded pointer, **and rewrite the recorded release convention's step 2** to
+log the version in CHANGELOG.md instead of appending a CLAUDE.md paragraph
+(amended 2026-07-15 — moving the history alone regrows it at the very next
+release). Purely editorial — no code, no behavior. Recommended as its own
+trivial change.
 
 ---
 
