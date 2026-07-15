@@ -12,6 +12,49 @@ impact.
 > no crypto/security content that would trip Fable's classifier. Items that
 > would need code-level security/crypto judgment are tagged
 > `→ security/crypto pass` and NOT investigated here.
+> *That Fable pass ran 2026-07-15 — verdict below; corrections are inlined
+> in place, each marked 2026-07-15.*
+
+## Fable verification verdict (2026-07-15)
+
+Every factual claim was re-checked against the plugin skills, the consumer
+repos' files and git histories, and the official docs; the causal chain was
+re-derived independently.
+
+- **Facts: confirmed.** All numbers hold — 539 / ~380 (70%) / 36 / 49
+  lines; standing sections inside the first 160 lines; init's "at or under
+  60 lines" (init step 10, new-project path only); no `current state`
+  wording anywhere in accept; project A has no CHANGELOG while
+  flow-skeleton has one and no CLAUDE.md; A's v0.18 tagged 2026-07-09.
+  Release-count nuance: "18 releases" = the minor lines v0.1→v0.18 (one
+  landed as a .1; plus one patch release; tags exist from v0.5.0 up). Two
+  citations repaired: the accept quote had been trimmed (the omitted
+  parenthetical *strengthens* F1), and the "bloated CLAUDE.md" line now
+  carries its source — the official best-practices docs, which also supply
+  the <~200-line target fix 3 now uses.
+- **Causality: holds, with two refinements.** (1) "Self-derived" is even
+  stronger than claimed: the `Current state` section predates the plugin
+  entirely, so no init ceiling ever applied to project A. (2) "Gap"
+  understates one mechanism: 0.1.14's derive-once/never-re-derive rule
+  actively froze a three-release-old habit into permanent policy — an
+  amplifier without a filter. That mechanism is also why the fix as first
+  drafted could never reach existing projects.
+- **Fix: right direction, was incomplete — now six items.** As drafted it
+  (a) never reached projects with already-recorded conventions (immune via
+  "must not re-derive" → new fix 5), (b) regrew immediately after the
+  one-time cleanup because the recorded convention's step 2 kept appending
+  (cleanup amended), (c) enforced the wrong number (raw ≤60 vs the
+  structural no-accretion rule with a ~200 ceiling → fix 3 reworded), and
+  (d) left two plugin wordings that re-seed the pattern (new fix 6).
+- **Compliance.** As first committed, this review named the owner's other
+  projects — against this repo's standing rule (public repo; abstract
+  knowledge into rules). Anonymized in this pass (projects A–D). The
+  plugin CHANGELOG and the 2026-07-05 design spec carry the same class of
+  reference; flagged for separate cleanup.
+
+**Verdict: F1/F2 stand as corrected. Proceed to 0.1.19 with the six-item
+fix; the project-A cleanup must include its convention step 2, or the
+bloat returns at the next release.**
 
 ---
 
