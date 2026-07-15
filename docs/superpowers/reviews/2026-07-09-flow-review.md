@@ -29,10 +29,16 @@ instruction** (corrected 2026-07-15 after independent verification; the
 first draft overstated this):
 - `/flow:init` sets a ceiling: *"Keep it at or under 60 lines."*
 - **flow's accept skill does NOT itself say "update Current state."**
-  Verified: grepping the accept skill for `current state`/`record the
-  version` returns nothing. What it says (0.1.14) is: *"Release mechanics
-  follow the project's recorded convention in CLAUDE.md; if none is
-  recorded, derive it once from history and record it there."*
+  Re-verified 2026-07-15 (Fable): no `current state` wording anywhere in
+  the accept skill. The full sentence (introduced 0.1.14; the earlier draft
+  trimmed it) is: *"Release mechanics follow the project's recorded
+  convention in CLAUDE.md (merge style, where the tag points, what gets
+  archived); if none is recorded yet, derive it once from history and
+  record it there as part of the release commit — the next release must
+  not re-derive it."* The trimmed parenthetical matters: the convention
+  hook is scoped to release *mechanics*; project A's step 2 ("update the
+  CLAUDE.md Current state section") extended it into content maintenance
+  on its own.
 - The *"update the CLAUDE.md Current state section"* wording lives in
   **project A's own self-derived release convention** (its CLAUDE.md,
   step 2), not in the plugin. So flow didn't instruct the dump — it left
@@ -40,16 +46,37 @@ first draft overstated this):
   guardrail** against it (no standing "keep CLAUDE.md lean; history →
   CHANGELOG" rule to constrain the derived convention). The defect is the
   absence, not a command.
-- Result: the ≤60 ceiling is set at birth by init and never defended
-  afterward; the self-derived convention appends every release. 18
-  releases → 380 lines of Current state.
+- Stronger provenance (Fable pass, 2026-07-15): the `Current state` section
+  **predates the plugin entirely**. Project A's first CLAUDE.md — 94 lines,
+  hand-written, `## Current state` already present — was committed the day
+  before flow 0.1.0 shipped. `/flow:init` never generated that file, so the
+  ≤60 ceiling never applied to it at all: the ceiling exists only in init's
+  new-project path, and the `--existing` migration explicitly keeps
+  "current-state notes" untouched.
+- The freeze, however, is not passive (refined 2026-07-15). 0.1.14's
+  mechanism — derive once, record, *"the next release must not re-derive
+  it"* — took a habit three releases old (A's convention: *"Derived once
+  from the v0.5–v0.7 releases; follow it verbatim for every version
+  bump"*) and locked it in as permanent policy, with no quality filter on
+  what got codified. flow didn't write the bad convention; flow's mechanism
+  made it immune to revision. "Gap" slightly understates this: it is an
+  **amplifier without a filter** — which is why the fix must re-validate
+  already-recorded conventions (fix 5 below), not just guard new
+  derivations.
+- Result: for init-born projects the ≤60 ceiling is set at birth and never
+  defended afterward; for pre-flow projects like A it never existed at all
+  (corrected 2026-07-15). The self-derived convention appends every
+  release: 18 releases → 380 lines of Current state.
 - Note: **flow-skeleton keeps a `CHANGELOG.md` and has no bloated
   CLAUDE.md** (it has none at all). The plugin's own repo demonstrates the
   good pattern; the plugin just never exports it as a rule to consumers.
 
-**Why it matters.** The Claude Code best practices flow is built on say
-plainly: *"Bloated CLAUDE.md files cause Claude to ignore your actual
-instructions."* So this gap actively degrades every downstream project as
+**Why it matters.** The official Claude Code best-practices docs
+([code.claude.com/docs/en/best-practices](https://code.claude.com/docs/en/best-practices);
+source located 2026-07-15 — the earlier draft's citation sentence was
+garbled) say plainly: *"Bloated CLAUDE.md files cause Claude to ignore your
+actual instructions"* — and put the adherence target at **under ~200
+lines**. So this gap actively degrades every downstream project as
 it matures — the most successful projects (most releases) get the worst
 context dilution. Confirmed here: project A (18 releases) is 539 lines; B
 and C (few/no releases) stay at 36–49.
