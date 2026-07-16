@@ -129,9 +129,14 @@ and C (few/no releases) stay at 36–49.
    should record each version as a `CHANGELOG.md` entry (what flow itself
    does), NOT a CLAUDE.md paragraph. Per-change full detail already lives in
    `openspec/archive/<id>/` — Current state paragraphs largely duplicate it.
-2. **Bound `Current state` in CLAUDE.md.** It should carry only: the current
-   version + branch, and pointers (`CHANGELOG.md`, `openspec/archive/`). At
-   most the last release as a one-liner. Not an accumulating log.
+2. **Bound `Current state` in CLAUDE.md** (shape set by the owner,
+   2026-07-16). It carries the project's live status, readable from the
+   first file alone: a **copy of the latest release's CHANGELOG entry**
+   (replaced each release, never appended), **open branches/tasks** — as
+   links where possible (branch names, `openspec/changes/<id>`, tracker
+   items) rather than prose — and pointers to the history (`CHANGELOG.md`,
+   `openspec/archive/`). Still not an accumulating log: one release
+   visible at a time; open items leave the list when closed.
 3. **Defend leanness at release, not just at init** (reworded 2026-07-15:
    re-asserting a raw ≤60 is the wrong number — the official guidance is
    <~200 lines, and a mature project's legitimate standing content already
@@ -165,8 +170,9 @@ and C (few/no releases) stay at 36–49.
    the same way as item 2.
 
 **One-time cleanup for project A** (separate, owner-approved): move the ~380
-lines of Current state into `CHANGELOG.md`, collapse Current state to a
-bounded pointer, **and rewrite the recorded release convention's step 2** to
+lines of Current state into `CHANGELOG.md`, collapse Current state to the
+fix-2 status block (latest-release copy + open branches/tasks as links +
+pointers), **and rewrite the recorded release convention's step 2** to
 log the version in CHANGELOG.md instead of appending a CLAUDE.md paragraph
 (amended 2026-07-15 — moving the history alone regrows it at the very next
 release). Purely editorial — no code, no behavior. Recommended as its own
