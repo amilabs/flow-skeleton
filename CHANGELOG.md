@@ -12,8 +12,9 @@ phase declares model/effort/stance up front, must flag a model↔change
 weight mismatch in either direction before proceeding, and records
 "Designed on:" in proposal.md and the approval summary (with
 deviations-from-path noted under the Fable stance). Designed by a Fable
-session executing the ethplorer Part 2 meta-task; proposal archived in
-amilabs/ethplorer-flow docs/analysis/FLOW-FABLE-DESIGN-PROPOSAL.md.
+session executing the external Part 2 meta-task (project D of the
+2026-07-09 review); proposal archived in that project's repo at
+docs/analysis/FLOW-FABLE-DESIGN-PROPOSAL.md.
 
 ## 0.1.17 — 2026-07-07
 
