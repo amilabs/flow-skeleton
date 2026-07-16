@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.1.19 — 2026-07-16
+
+Lean CLAUDE.md: release history moves to CHANGELOG.md (F1/F2 of the
+2026-07-09 flow review, verified by the Fable pass). CLAUDE.md loads into
+every session; on the review's flagship consumer, 18 releases of appended
+narrative had grown it to 539 lines — 70% release history drowning the
+standing instructions.
+
+- accept: after the owner accepts, the release is recorded as a
+  CHANGELOG.md entry (file created on first release); the CLAUDE.md
+  `Current state` block is refreshed, never appended — a copy of the
+  latest release entry, open branches/tasks as links, pointers to
+  CHANGELOG/archives (shape set by the owner). A leanness guardrail
+  outranks recorded release conventions: conventions that append release
+  narrative to CLAUDE.md get a one-line amendment in the same release
+  commit, and CLAUDE.md drifting past the project ceiling (default ~200
+  lines) is pruned at the archive commit — this is what reaches projects
+  whose conventions were derived and frozen before this version.
+- init: new projects scaffold CHANGELOG.md and the bounded Current state
+  block from day one; `--existing` migration bounds current-state notes to
+  the same shape and offers moving accumulated history to CHANGELOG.md.
+- template: the worktree bullet points work state at openspec/ +
+  CHANGELOG.md instead of "this file carries everything".
+
 ## 0.1.18 — 2026-07-07
 
 The spec phase scales its latitude to the model, over one unchanged

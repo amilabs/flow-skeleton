@@ -48,15 +48,26 @@ propose, show the diff, apply only on confirmation.
 10. **CLAUDE.md**: generate from
    [templates/CLAUDE.md.template](templates/CLAUDE.md.template), filling
    Commands from the detected stack. Keep it at or under 60 lines:
-   commands, architecture facts, invariants, environment quirks. Process
-   rules do NOT go here — they live in the flow plugin.
+   commands, architecture facts, invariants, environment quirks, and the
+   bounded `Current state` block from the template (latest-release copy +
+   open branches/tasks as links + pointers). CLAUDE.md loads into every
+   session: per-release history and long reference go to CHANGELOG,
+   archives, or docs/, not here. Process rules do NOT go here either —
+   they live in the flow plugin.
+11. **CHANGELOG.md**: scaffold an empty changelog (`# Changelog` plus a
+   one-line format note) so release history has a designated home from
+   day one — /flow:accept records each release there.
 
 ## --existing additionally
 
 8. **CLAUDE.md migration**: identify generic process rules (TDD cycles,
    review/gate rules, commit etiquette) and collapse them to the Workflow
    section of the template. Keep project facts untouched: Commands,
-   Architecture, Invariants, environment quirks, current-state notes. Show
-   the full diff before applying.
+   Architecture, Invariants, environment quirks. Current-state notes are
+   kept but bounded to the template's status-block shape (latest-release
+   copy + open branches/tasks as links + pointers); offer to move any
+   accumulated release history to CHANGELOG.md (create it if absent) —
+   CLAUDE.md loads into every session and must stay lean. Show the full
+   diff before applying.
 9. **OpenSpec**: if `openspec/` is absent, offer the skeleton from step 9
    above. Never restructure existing openspec/ or docs/ content.

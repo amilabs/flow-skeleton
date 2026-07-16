@@ -70,6 +70,23 @@ After the owner accepts:
   style, where the tag points, what gets archived); if none is recorded
   yet, derive it once from history and record it there as part of the
   release commit — the next release must not re-derive it;
+- record the release in `CHANGELOG.md` (create the file on the first
+  release): one entry per version — date, highlights, deferred and
+  known-minor notes. Release history lives there and in
+  `openspec/archive/`, never as CLAUDE.md narrative;
+- refresh the CLAUDE.md `Current state` block instead of appending to it:
+  replace the latest-release copy with the new CHANGELOG entry, update the
+  open branches/tasks links, keep the pointers (`CHANGELOG.md`,
+  `openspec/archive/`). One release visible at a time; closed items leave
+  the list;
+- guard CLAUDE.md leanness — the file loads into every session, so
+  per-release history and long reference belong in CHANGELOG, archives, or
+  docs/, not there. This guardrail outranks the recorded release
+  convention: if the convention says to append release narrative to
+  CLAUDE.md, amend the convention (one line, in the same release commit)
+  instead of following it. When CLAUDE.md drifts past the project's
+  recorded ceiling (default ~200 lines), prune history and narrative to
+  CHANGELOG as part of the archive commit;
 - archive the change: `openspec archive <id>` with the CLI, otherwise move
   the folder to `openspec/changes/archive/`;
 - never commit or push without an explicit owner instruction.

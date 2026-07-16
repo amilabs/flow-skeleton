@@ -26,10 +26,19 @@
 - When the owner requests non-trivial work without mentioning flow,
   offer to start /flow:spec before writing any code — one line, not a
   lecture. If the owner declines, proceed normally.
-- Worktree sessions: persistent memory is unavailable — this file and
-  openspec/ carry everything; merge back to main when a phase completes.
+- Worktree sessions: persistent memory is unavailable — openspec/ and
+  CHANGELOG.md carry the work state; this file carries only standing
+  facts and the bounded Current state block. Merge back to main when a
+  phase completes.
 - If the flow plugin is unavailable in this session (cloud VM, fresh
   machine), follow the lifecycle shape manually: openspec change → owner
   approval → TDD implementation on a branch → full checks + fresh-context
   review → owner accepts.
 - Never commit or push unless explicitly asked.
+
+## Current state
+
+- Latest release: none yet. On each release, copy the new CHANGELOG.md
+  entry here, replacing the previous one — never append.
+- Open: {{OPEN_BRANCHES_TASKS_AS_LINKS}}
+- History: CHANGELOG.md; per-change detail: openspec/archive/
