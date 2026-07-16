@@ -56,6 +56,13 @@ re-derived independently.
 fix; the project-A cleanup must include its convention step 2, or the
 bloat returns at the next release.**
 
+*Owner amendments (2026-07-16), incorporated in place: fix 2 reshaped —
+`Current state` keeps a copy of the latest release entry plus open
+branches/tasks as links, so project status reads from the first file; the
+deferred security/crypto pass is approved but isolated from Fable (Opus
+session) and tracked as an open `Current state` item gating public
+releases.*
+
 ---
 
 ## F1 — CLAUDE.md grows unbounded; the release convention is the cause (HIGH)
@@ -226,6 +233,15 @@ Project A's later releases carry auth/SaaS and stablecoin-payment surfaces
 process review and would need Fable code-level judgment on triggering
 content. `→ security/crypto pass` if the owner wants it; it is orthogonal to
 F1/F2, which are pure documentation-structure fixes.
+
+**Owner decision (2026-07-16): approved, with isolation.** The pass **runs
+isolated from Fable** — dense security/crypto content trips Fable's
+safeguards classifier mid-session (silent fallbacks or hard blocks), so the
+pass runs in a dedicated Opus session (or under trusted access if/when
+available). Until it closes, it stays listed as an **open task in project
+A's `Current state`** (the fix-2 status block), so every session — and any
+public-release decision in particular — sees "security/crypto pass: not
+closed" from the first file.
 
 ---
 
