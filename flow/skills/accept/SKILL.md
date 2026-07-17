@@ -89,4 +89,9 @@ After the owner accepts:
   CHANGELOG as part of the archive commit;
 - archive the change: `openspec archive <id>` with the CLI, otherwise move
   the folder to `openspec/changes/archive/`;
+- remind about local-only work (owner rule: WIP stays local within a
+  version — GitHub carries finished versions, not drafts). At the release
+  checkpoint, list what still lives only on this machine: unpushed
+  branches, worktrees, untracked deliverables. Pushing any of it is the
+  owner's per-release decision — never push it yourself;
 - never commit or push without an explicit owner instruction.

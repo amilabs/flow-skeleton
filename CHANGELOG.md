@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.20 — 2026-07-16
+
+Owner rule: WIP stays local within a version. GitHub carries finished
+versions — research branches, worktrees, and drafts need not be pushed
+until their iteration completes. accept now reminds at the release
+checkpoint what is still local-only (unpushed branches, worktrees,
+untracked deliverables); pushing is the owner's per-release decision.
+Recorded in docs/conventions.md.
+
 ## 0.1.19 — 2026-07-16
 
 Lean CLAUDE.md: release history moves to CHANGELOG.md (F1/F2 of the

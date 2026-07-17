@@ -9,3 +9,9 @@
   2026-07-16; applies across all of the owner's repos).
 - **English artifacts.** Repo files and commit messages are English;
   communication with the owner is Russian.
+- **WIP stays local within a version** (owner rule, 2026-07-16). GitHub
+  carries finished versions; unfinished iterations — research branches,
+  worktrees, drafts — may live only on the local machine until the
+  iteration completes. Sessions must remind the owner at release
+  checkpoints what is still local-only; the push decision is per-release
+  and the owner's.
