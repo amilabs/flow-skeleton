@@ -29,6 +29,16 @@ projects are anonymized to the A–D labels used in
   project path, never synced between machines. Cross-machine continuity =
   cloud sessions (git + team snippet) or state carried through flow's git
   artifacts (spec / tasks / CLAUDE.md / CHANGELOG), never the transcript.
+- The GUI app can "lose" a third-party-marketplace plugin while the CLI
+  state stays healthy (seen on app 1.24012.x): official-marketplace
+  plugins keep loading into sessions, the third-party one doesn't; the
+  Plugins panel still shows it enabled with all its skills (the panel
+  reads the registry) and its toggle stops reacting. Cure:
+  `claude plugin uninstall` → `install` (re-registers the plugin through
+  the app's current code path), then a full app restart — new sessions
+  see the skills again. Diagnostic nuance: `.in_use/<pid>` markers in the
+  plugin cache appear on the first actual skill use, not at session
+  start, and can go stale — check pid liveness before trusting them.
 
 ## git-guard hook
 
