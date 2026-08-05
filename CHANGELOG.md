@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.22 — 2026-08-05
+
+Owner rule: nothing non-English reaches GitHub without explicit
+permission. Trigger: a public consumer repo had accumulated Russian
+owner quotes in openspec artifacts and in pushed commit-message bodies —
+the convention existed in this repo's docs but nothing enforced it in
+consumer projects.
+
+- accept: new English-artifacts sweep at the release checkpoint — before
+  any push, outgoing tracked files and `git log origin/<branch>..HEAD`
+  messages are scanned with a Unicode-aware matcher (byte-range grep
+  classes false-positive on em-dashes/arrows). Public repos: blocker,
+  translate first (owner quotes become English translations marked
+  "translated"). Private repos: deliberately non-English docs are the
+  owner's recorded call — flag once.
+- conventions: the English-artifacts rule now states the permission
+  requirement and the enforcement point.
+
 ## 0.1.21 — 2026-08-05
 
 Owner rules: required plugins are verified at session start, and static

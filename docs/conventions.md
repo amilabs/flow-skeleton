@@ -8,7 +8,11 @@
 - **No Co-Authored-By trailers** in commit messages (owner rule,
   2026-07-16; applies across all of the owner's repos).
 - **English artifacts.** Repo files and commit messages are English;
-  communication with the owner is Russian.
+  communication with the owner is Russian. Nothing non-English reaches
+  GitHub without explicit owner permission (re-confirmed 2026-08-05);
+  owner quotes are recorded as English translations marked "translated".
+  Enforced since 0.1.22 by the accept release-checkpoint sweep (outgoing
+  files + commit messages, Unicode-aware).
 - **WIP stays local within a version** (owner rule, 2026-07-16). GitHub
   carries finished versions; unfinished iterations — research branches,
   worktrees, drafts — may live only on the local machine until the

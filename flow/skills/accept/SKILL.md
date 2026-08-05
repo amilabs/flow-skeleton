@@ -92,6 +92,16 @@ After the owner accepts:
   CHANGELOG as part of the archive commit;
 - archive the change: `openspec archive <id>` with the CLI, otherwise move
   the folder to `openspec/changes/archive/`;
+- English-artifacts sweep (owner rule, 2026-08-05): before anything is
+  pushed, scan the outgoing work — tracked files and the messages of
+  `git log origin/<branch>..HEAD` — for non-English content, with a
+  Unicode-aware scanner (byte-range grep classes like `[а-я]`
+  false-positive on em-dashes and arrows; use a real Unicode match, or
+  the project's check script when one exists). In a public repo
+  non-English content is a push blocker: translate it first — owner
+  quotes become English translations marked "translated". In private
+  repos deliberately non-English docs are the owner's recorded call —
+  flag once, don't churn;
 - remind about local-only work (owner rule: WIP stays local within a
   version — GitHub carries finished versions, not drafts). At the release
   checkpoint, list what still lives only on this machine: unpushed
