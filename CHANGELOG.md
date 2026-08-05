@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.1.21 — 2026-08-05
+
+Owner rules: required plugins are verified at session start, and static
+analyzers are part of every code project's definition of done.
+
+- template: CLAUDE.md names the required plugins (flow + superpowers) and
+  instructs sessions to surface missing /flow: skills to the owner before
+  starting work — the desktop GUI is known to silently drop
+  third-party-marketplace plugins (reinstall + app restart cures) — then
+  fall back to the manual lifecycle shape.
+- init: new static-analyzer step with a verified per-stack table
+  (2026-08): Python ruff ≥0.16 via extend-select (a bare select opts out
+  of the expanded defaults) + ruff format + pyright; JS/TS ESLint v10 /
+  oxlint (type-aware stable 2026-07); Swift toolchain swift-format with a
+  project-style .swift-format; PHP PHPStan with baseline ratchet; Go
+  golangci-lint v2; Rust clippy; Shell shellcheck. Zero-install toolchain
+  options rank first; configs codify the codebase's conventions, not the
+  tool's defaults. Adoption is one owner-approved mechanical commit
+  proven neutral by the full suite — landed on an idle line the owner
+  names, never onto a branch other sessions are working — or a recorded
+  no-growth baseline when instant-clean is not feasible.
+- accept: gate 1 treats a code project with no analyzer wired as a gate
+  finding (bootstrap gap to report), not business as usual.
+- marketplace: allowCrossMarketplaceDependenciesOn now names
+  claude-plugins-official — without the allowlist the cross-marketplace
+  superpowers dependency does not auto-resolve, which matches the
+  observed "superpowers missing from sessions" failure.
+
 ## 0.1.20 — 2026-07-16
 
 Owner rule: WIP stays local within a version. GitHub carries finished

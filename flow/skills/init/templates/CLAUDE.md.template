@@ -19,6 +19,11 @@
 
 ## Workflow
 
+- Required plugins: flow@flow-skeleton and superpowers (flow's
+  dependency). If /flow: skills are not available at session start, say
+  so to the owner before starting work — the desktop GUI is known to
+  silently drop third-party-marketplace plugins (reinstall + app restart
+  cures) — and use the manual fallback below.
 - Non-trivial work goes through the flow plugin: /flow:spec → owner
   approval → /flow:implement (fresh session) → /flow:accept → owner
   accepts. Trivial changes (one-sentence diff, no dependents) skip the

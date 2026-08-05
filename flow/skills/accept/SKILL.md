@@ -44,7 +44,10 @@ it to the project's verification walk or tests in the same acceptance
 round.
 
 1. **Full project checks** — the commands from CLAUDE.md (tests, lint,
-   typecheck, build). All must pass.
+   typecheck, build). All must pass. A code project with no static
+   analyzer wired is itself a gate finding (owner rule, 2026-08-05):
+   report the bootstrap gap and point at /flow:init's analyzer step —
+   do not wire one mid-acceptance.
 2. **Live verification (ui-surface changes)** — run /verify against the
    running app, walking the change's behavior inventory as the checklist.
    Reuse and extend the project's verification walk script when one exists

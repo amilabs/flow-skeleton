@@ -4,6 +4,7 @@
   "metadata": {
     "description": "amilabs development workflow plugins for Claude Code"
   },
+  "allowCrossMarketplaceDependenciesOn": ["claude-plugins-official"],
   "plugins": [
     {
       "name": "flow",
