@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.23 — 2026-08-05
+
+Rule refinement (owner): Russian is fine in local working docs —
+untracked files and unpushed work — the English-artifacts rule binds at
+push time. The accept sweep and the convention now say so: outgoing
+non-English content is a push blocker unless the owner has explicitly
+permitted it for that repo (permission recorded in the project's
+CLAUDE.md); the fix is translate — or keep it local, dropped from the
+push.
+
 ## 0.1.22 — 2026-08-05
 
 Owner rule: nothing non-English reaches GitHub without explicit
