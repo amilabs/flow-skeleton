@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.24 — 2026-08-08
+
+Owner rule wired into flow (it was already recorded in the owner's
+project memory and discussed; sessions kept skipping it): multi-agent
+and multi-session work runs under the superpowers
+dispatching-parallel-agents discipline, with per-writer isolation.
+Trigger: Batcher night cycles dispatched parallel work without the
+skill; a shared tree split by file lists had already produced a defect.
+
+- implement, Agent policy: any fan-out to 2+ agents or any
+  multi-session batch (night cycles included) starts by invoking
+  dispatching-parallel-agents — visibly, before the first dispatch;
+  one agent per independent domain, self-contained prompts, independent
+  verification (an agent's own success report is never evidence).
+  Every writing agent gets its own worktree via the native mechanism
+  (using-git-worktrees when available) — never one shared tree split by
+  file lists; read-only researchers may share. Parallel sessions verify
+  their branch/worktree before running gates or reporting them green.
+
 ## 0.1.23 — 2026-08-05
 
 Rule refinement (owner): Russian is fine in local working docs —

@@ -50,6 +50,19 @@ disciplines (TDD, systematic-debugging, verification) per task.
 Explore subagents for research only. No review fan-out during
 implementation — review happens once, at /flow:accept.
 
+Any fan-out to 2+ agents, and any multi-session batch (night cycles
+included), starts by invoking the superpowers
+dispatching-parallel-agents skill — visibly, before the first dispatch —
+and follows it: one agent per independent problem domain, self-contained
+prompts (scope, context, constraints, expected output), independent
+verification of results — an agent's own success report is never
+evidence. Isolation is per writer: every agent that writes files gets
+its own git worktree via the native worktree mechanism (the superpowers
+using-git-worktrees skill when available) — never one shared tree split
+by file lists; read-only research agents may share. In any parallel
+session, verify which branch/worktree this session actually sits on
+before running gates or reporting them green.
+
 ## On a blocker
 
 Stop and report: what blocks, what was tried, the options. Do not improvise
