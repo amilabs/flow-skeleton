@@ -2,19 +2,42 @@
 
 ## 0.1.25 — 2026-08-11
 
-Corrected desktop-drop guidance after a full diagnosis. The 0.1.21 line
-"reinstall + app restart cures" no longer holds: on current desktop
-builds (app 1.26832.x / CC 2.1.222) desktop-assembled sessions mount
-only official-marketplace local plugins and silently drop third-party
-ones, while the same binary run headless loads them fine — an upstream
-bug (anthropics/claude-code #27049, #39897, #41514, #39400).
+Skill wiring made explicit and partly deterministic (owner: sessions
+kept skipping mandatory skills), plus corrected desktop-drop guidance.
 
-- template: the session-start check now tells the owner the truth —
-  terminal `claude` sessions load flow fine; desktop sessions use the
-  manual fallback until the upstream fix lands.
-- operational-lessons: full diagnosis recorded (valid-everywhere
-  evidence chain, the PATH bin-mount diagnostic, workaround ladder
-  including the #39400 zip-upload path).
+- Hooks now enforce what prose kept losing, the same way superpowers
+  guarantees its meta-rule: a SessionStart hook injects the flow session
+  contract into every session where the plugin loads (lifecycle, the
+  mandatory superpowers wiring, analyzers-in-DoD, commit/push and
+  language rules; warns if superpowers looks missing); a dispatch-guard
+  (PreToolUse on subagent dispatch + PostToolUse skill recorder) blocks
+  the second dispatch of a session once when dispatching-parallel-agents
+  was never invoked — fail-open, warn-once, git-guard philosophy, 13
+  regression tests.
+- implement: systematic-debugging is now a numbered mandate on any
+  unexpected failure (guess-and-retry is a process violation), and
+  verification-before-completion gates every task tick (fresh evidence,
+  then checkbox).
+- accept: reviewer findings are processed through receiving-code-review
+  (verify claims technically, no performative agreement).
+- spec, hardened after an audit against superpowers
+  brainstorming/writing-plans (it replaces them by design and must not
+  be weaker): tasks.md opens with a verbatim Global-constraints block;
+  placeholder wordings ("TBD", "add appropriate error handling",
+  "similar to task N") are named plan failures; self-review gains a
+  requirement→task coverage check and a cross-task signature-consistency
+  check.
+- Desktop-drop guidance corrected. The 0.1.21 line "reinstall + app
+  restart cures" no longer holds: current desktop builds (app 1.26832.x
+  / CC 2.1.222) mount only official-marketplace local plugins into
+  sessions and silently drop third-party ones, while the same binary run
+  headless loads them fine — upstream anthropics/claude-code #27049,
+  #39897, #41514, #39400. Template tells the owner the truth (terminal
+  works, manual fallback in desktop); operational-lessons carries the
+  full evidence chain, the PATH bin-mount diagnostic, and the workaround
+  ladder including the #39400 zip-upload path. Note the honest limit:
+  flow's own hooks fire only where flow loads — in a dropped desktop
+  session only superpowers' hook is present.
 
 ## 0.1.24 — 2026-08-08
 

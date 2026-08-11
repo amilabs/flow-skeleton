@@ -26,8 +26,11 @@ Run the gates in order and collect evidence as you go. Reviewers start
 late by design: the cheap deterministic gates (1-2) must pass before any
 reviewer (3-5) runs — never burn review passes on code that fails tests.
 
-When a gate finds a blocker: fix it, then rerun the affected checks and
-the reviewer that found the issue. A broader re-review is legitimate when
+When a gate finds a blocker: process the findings with the superpowers
+receiving-code-review skill — verify each claim technically before
+implementing it, no performative agreement, push back with evidence when
+a finding is wrong — fix what survives, then rerun the affected checks
+and the reviewer that found the issue. A broader re-review is legitimate when
 the fixes were broad (shared code, many files) — say so explicitly and run
 it. If acceptance is still not converging after two full review rounds,
 stop and report to the owner with the reason: a change that cannot
@@ -97,7 +100,7 @@ After the owner accepts:
   work — the rule binds at push time. Before anything is pushed, scan
   the outgoing work — tracked files and the messages of
   `git log origin/<branch>..HEAD` — with a Unicode-aware scanner
-  (byte-range grep classes like `[а-я]` false-positive on em-dashes and
+  (byte-interpreted Cyrillic grep ranges false-positive on em-dashes and
   arrows; use a real Unicode match, or the project's check script when
   one exists). Non-English content in the outgoing set is a push
   blocker unless the owner has explicitly permitted it for this repo

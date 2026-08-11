@@ -149,8 +149,8 @@ implement, accept, init) are model-invocable with descriptions that restrict
 invocation to explicit owner requests. The original `disable-model-invocation:
 true` design removed the skills from the model's toolkit entirely, which
 broke the natural usage pattern — the owner instructing the session in prose
-("прими change через /flow:accept" mid-message) rather than typing a bare
-slash command at message start. Control now lives in the description
+("accept the change via /flow:accept", translated, mid-message) rather than
+typing a bare slash command at message start. Control now lives in the description
 ("invoke only when the owner explicitly asks; never on your own
 initiative"); every skill still ends at a hard owner gate internally.
 

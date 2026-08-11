@@ -35,15 +35,22 @@ disciplines (TDD, systematic-debugging, verification) per task.
 
 1. Test-driven development (use the superpowers TDD skill when available):
    failing test → verify red → minimal implementation → verify green.
-2. Touch only files within the change scope. No drive-by refactoring; if a
+2. On any test failure you did not predict, unexpected behavior, or
+   "weird" result: invoke the superpowers systematic-debugging skill
+   BEFORE attempting a fix. Guess-and-retry loops are a process
+   violation, not a style choice.
+3. Touch only files within the change scope. No drive-by refactoring; if a
    necessary refactor emerges, add it to the change or flag it to the owner.
-3. Tick the task checkbox in tasks.md IN THE SAME COMMIT that completes the
-   task. When behavior changes, update the capability spec in that same
-   commit.
-4. After each task run the affected tests/lint (commands from CLAUDE.md).
+4. Before ticking a task checkbox, invoke the superpowers
+   verification-before-completion skill: run the verifying commands and
+   read their output fresh — a done-claim without evidence from THIS
+   session state is a gate failure. Then tick the checkbox in tasks.md IN
+   THE SAME COMMIT that completes the task. When behavior changes, update
+   the capability spec in that same commit.
+5. After each task run the affected tests/lint (commands from CLAUDE.md).
    Run the FULL suite at phase checkpoints and before /flow:accept — not
    after every step.
-5. At a `[USER GATE]` task: stop, present the decision, wait for the owner.
+6. At a `[USER GATE]` task: stop, present the decision, wait for the owner.
 
 ## Agent policy
 

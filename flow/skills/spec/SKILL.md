@@ -110,14 +110,21 @@ heavier the change, the fuller design.md must be.
      interfaces/signatures, data flow, error handling. The blast-radius
      impact note lives here. Omit only for changes with no architectural
      freedom.
-   - `tasks.md` — ordered checkbox tasks, each sized for one test cycle
-     and naming the files it touches; for multi-task changes each task
-     states what it consumes from earlier tasks and produces for later
-     ones (names and signatures); mark decisions only the owner can make
-     with `[USER GATE]`
+   - `tasks.md` — opens with a short Global-constraints block (version
+     floors, naming/copy rules, platform requirements — copied verbatim
+     from the spec; every task implicitly includes them); then ordered
+     checkbox tasks, each sized for one test cycle and naming the files
+     it touches; for multi-task changes each task states what it consumes
+     from earlier tasks and produces for later ones (names and
+     signatures); mark decisions only the owner can make with
+     `[USER GATE]`. Placeholder wordings are plan failures: no "TBD",
+     no "add appropriate error handling / validation", no "similar to
+     task N" — write the actual requirement each time.
 10. **Self-review, then validate.** Re-read the change folder with fresh
     eyes: placeholders, internal contradictions, requirements readable two
-    ways, scope creep — fix inline. Then, with the openspec CLI:
+    ways, scope creep — fix inline. Coverage check: every requirement in
+    the spec deltas maps to a task (list and close any gap). Consistency
+    check: names and signatures referenced across tasks match exactly. Then, with the openspec CLI:
     `openspec validate <id>`; without it, check structurally: files above
     present, every task actionable, profile recorded, inventory present
     when required.
