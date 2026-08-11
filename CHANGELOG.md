@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.1.26 — 2026-08-11
+
+Owner rule: a technology or domain is worked on together with its skill
+(ClickHouse work → the ClickHouse skill, UX acceptance → design/UX
+skills, and so on — where applicable).
+
+- Session contract: a task touching a specific technology or domain
+  checks the skill list and invokes the matching domain skill before
+  working; a core project technology with no skill in the session is
+  said out loud, never silently accepted.
+- init: new Domain-skills step — map core technologies to skills, record
+  installed ones in CLAUDE.md as required, offer official-marketplace
+  installs for missing ones (owner decides), scaffold a project-local
+  `.claude/skills/<tech>-practices` when the ecosystem has none.
+- spec: a change that introduces a new technology brings the technology's
+  skill in the same design — or records explicitly that none exists.
+- accept: gates run with the applicable domain skills — design/UX and
+  accessibility at live verification of ui-surface changes, performance
+  skills for perf profiles, touched database/framework skills at code
+  review; a profile calling for an absent skill is a finding.
+
 ## 0.1.25 — 2026-08-11
 
 Skill wiring made explicit and partly deterministic (owner: sessions

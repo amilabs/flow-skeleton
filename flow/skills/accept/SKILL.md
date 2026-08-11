@@ -26,6 +26,14 @@ Run the gates in order and collect evidence as you go. Reviewers start
 late by design: the cheap deterministic gates (1-2) must pass before any
 reviewer (3-5) runs — never burn review passes on code that fails tests.
 
+Domain skills at the gates (owner rule, 2026-08-11): run each gate with
+the applicable domain skills available in the session — design/UX
+critique and accessibility skills at live verification of ui-surface
+changes, performance skills for perf-profiled changes, the touched
+database/framework skills during code review. A risk profile that calls
+for a domain skill the session does not have is a finding to report,
+not a silent skip.
+
 When a gate finds a blocker: process the findings with the superpowers
 receiving-code-review skill — verify each claim technically before
 implementing it, no performative agreement, push back with evidence when

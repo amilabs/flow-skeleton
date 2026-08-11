@@ -44,33 +44,43 @@ propose, show the diff, apply only on confirmation.
    in CLAUDE.md with burn-down as an open task. The adoption commit lands
    on an idle line the owner names — never onto a branch other sessions
    are actively working. Record the exact commands in CLAUDE.md Commands.
-4. **Run recipe**: if no `.claude/skills/run-*` skill exists, offer
+4. **Domain skills** (owner rule, 2026-08-11: a technology is worked on
+   together with its skill). Map the project's core technologies —
+   databases, frameworks, infra (e.g. ClickHouse, MongoDB, Redis, a
+   frontend framework) — to matching skills: record installed ones in
+   CLAUDE.md as required; search the official marketplace for missing
+   ones and offer the install (the owner decides). For a core technology
+   with no ecosystem skill, offer to scaffold a project-local
+   `.claude/skills/<tech>-practices` from the project's own docs and
+   lessons. A technology used daily without its skill is a bootstrap
+   gap, not business as usual.
+5. **Run recipe**: if no `.claude/skills/run-*` skill exists, offer
    /run-skill-generator so /verify and /flow:accept can drive the real app.
-5. **superpowers check**: verify the superpowers plugin is installed; if
+6. **superpowers check**: verify the superpowers plugin is installed; if
    the plugin dependency did not auto-install it, print:
    `/plugin install superpowers@claude-plugins-official`
-6. **Security layer (opt-in, by exposure)**: for projects with an auth
+7. **Security layer (opt-in, by exposure)**: for projects with an auth
    surface, payment handling, or public/production deployment, offer the
    continuous `security-guidance` plugin
    (`/plugin install security-guidance@claude-plugins-official`). Skip the
    offer for local-only tools — the gate-level /security-review, driven by
    risk profiles at /flow:accept, is enough there.
-7. **Project hooks (opt-in)**: offer a PostToolUse hook running the stack's
+8. **Project hooks (opt-in)**: offer a PostToolUse hook running the stack's
    affected lint/typecheck after edits and, for autonomous runs, an
    optional Stop-hook test gate. Write to the project's
    `.claude/settings.json` only on explicit confirmation.
-8. **Team snippet (opt-in)**: for shared repos, offer the self-describing
+9. **Team snippet (opt-in)**: for shared repos, offer the self-describing
    settings from [templates/team-settings.json](templates/team-settings.json).
 
 ## New project additionally
 
-9. **git**: `git init -b main` when not a repo; add a sensible .gitignore
+10. **git**: `git init -b main` when not a repo; add a sensible .gitignore
    for the detected stack.
-10. **OpenSpec skeleton**: `openspec init` when the CLI exists; otherwise
+11. **OpenSpec skeleton**: `openspec init` when the CLI exists; otherwise
    create by hand: `openspec/project.md` (project context, constraints,
    conventions), `openspec/specs/`, `openspec/changes/`. Plain files are
    the contract; the CLI is an accelerator.
-11. **CLAUDE.md**: generate from
+12. **CLAUDE.md**: generate from
    [templates/CLAUDE.md.template](templates/CLAUDE.md.template), filling
    Commands from the detected stack. Keep it at or under 60 lines:
    commands, architecture facts, invariants, environment quirks, and the
@@ -79,13 +89,13 @@ propose, show the diff, apply only on confirmation.
    session: per-release history and long reference go to CHANGELOG,
    archives, or docs/, not here. Process rules do NOT go here either —
    they live in the flow plugin.
-12. **CHANGELOG.md**: scaffold an empty changelog (`# Changelog` plus a
+13. **CHANGELOG.md**: scaffold an empty changelog (`# Changelog` plus a
    one-line format note) so release history has a designated home from
    day one — /flow:accept records each release there.
 
 ## --existing additionally
 
-9. **CLAUDE.md migration**: identify generic process rules (TDD cycles,
+10. **CLAUDE.md migration**: identify generic process rules (TDD cycles,
    review/gate rules, commit etiquette) and collapse them to the Workflow
    section of the template. Keep project facts untouched: Commands,
    Architecture, Invariants, environment quirks. Current-state notes are
@@ -94,5 +104,5 @@ propose, show the diff, apply only on confirmation.
    accumulated release history to CHANGELOG.md (create it if absent) —
    CLAUDE.md loads into every session and must stay lean. Show the full
    diff before applying.
-10. **OpenSpec**: if `openspec/` is absent, offer the skeleton from step 10
+11. **OpenSpec**: if `openspec/` is absent, offer the skeleton from step 11
    above. Never restructure existing openspec/ or docs/ content.

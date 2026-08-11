@@ -62,6 +62,13 @@ heavier the change, the fuller design.md must be.
   suggest a higher level for architecturally heavy changes. Plan mode is
   recommended.
 - Read `openspec/project.md` if it exists (project context and constraints).
+- Domain skills: if the change touches a technology or domain with a
+  matching skill in this session (a database, framework, performance,
+  security, UX), invoke that skill before designing in that area. If the
+  change INTRODUCES a technology new to the project, it enters only
+  together with its domain skill — run the /flow:init domain-skills step
+  for it as part of this design, or record explicitly that no ecosystem
+  skill exists.
 
 ## The design path (every item is a mandatory outcome)
 
