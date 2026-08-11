@@ -39,6 +39,27 @@ projects are anonymized to the A–D labels used in
   see the skills again. Diagnostic nuance: `.in_use/<pid>` markers in the
   plugin cache appear on the first actual skill use, not at session
   start, and can go stale — check pid liveness before trusting them.
+- Escalation of the same failure (app 1.26832.x / CC 2.1.222, diagnosed
+  2026-08-11): the drop is now persistent — reinstall + restart no
+  longer cures. Everything owner-side is valid: settings enable the
+  plugin, `claude plugin validate` passes plugin and marketplace
+  manifests, `claude plugin list` shows enabled with no errors, and the
+  SAME desktop-bundled binary run headless (`claude -p`) in the same
+  project loads every flow skill. But desktop-assembled sessions mount
+  only official-marketplace local plugins: the app logs "Passing N
+  plugin(s) to SDK (… local: 15)" while the session's PATH carries bin/
+  mounts for exactly the 14 official ones — the sole
+  third-party-marketplace plugin is dropped between the count and the
+  mount, with no error anywhere. Known upstream bug class:
+  anthropics/claude-code #27049, #39897, #41514, #39400. Workarounds in
+  order: (1) run flow-lifecycle sessions from terminal `claude` —
+  unaffected, verified; (2) desktop sessions use the CLAUDE.md manual
+  fallback (the session-start required-plugins check exists exactly for
+  this); (3) per #39400, uploading the plugin as a zip through the
+  desktop's own plugin UI bypasses the broken marketplace pipeline;
+  (4) re-test after each app update. Quick per-session diagnostic:
+  `echo $PATH | tr ':' '\n' | grep flow-skeleton` — mounted plugins add
+  their bin/ to the session PATH.
 
 ## git-guard hook
 

@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.1.25 — 2026-08-11
+
+Corrected desktop-drop guidance after a full diagnosis. The 0.1.21 line
+"reinstall + app restart cures" no longer holds: on current desktop
+builds (app 1.26832.x / CC 2.1.222) desktop-assembled sessions mount
+only official-marketplace local plugins and silently drop third-party
+ones, while the same binary run headless loads them fine — an upstream
+bug (anthropics/claude-code #27049, #39897, #41514, #39400).
+
+- template: the session-start check now tells the owner the truth —
+  terminal `claude` sessions load flow fine; desktop sessions use the
+  manual fallback until the upstream fix lands.
+- operational-lessons: full diagnosis recorded (valid-everywhere
+  evidence chain, the PATH bin-mount diagnostic, workaround ladder
+  including the #39400 zip-upload path).
+
 ## 0.1.24 — 2026-08-08
 
 Owner rule wired into flow (it was already recorded in the owner's
