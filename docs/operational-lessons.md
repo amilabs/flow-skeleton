@@ -60,6 +60,23 @@ projects are anonymized to the A–D labels used in
   (4) re-test after each app update. Quick per-session diagnostic:
   `echo $PATH | tr ':' '\n' | grep flow-skeleton` — mounted plugins add
   their bin/ to the session PATH.
+- Closure (2026-08-12): the upstream drop was fixed by the app's
+  auto-update to CC 2.1.227 — desktop sessions mount
+  third-party-marketplace plugins again (proof: a dependency-free
+  third-party plugin with hooks mounted immediately). The one plugin
+  still missing after the fix turned out to be disabled the ordinary
+  way: `"flow@flow-skeleton": false` in `~/.claude/settings.json` —
+  almost certainly written by the Plugins-panel toggle, which was inert
+  during the July breakage (clicking it then did nothing) and silently
+  started WORKING after the app fix, so a diagnostic click flipped the
+  plugin off. Diagnosis: `grep '"flow@flow-skeleton"' ~/.claude/settings.json`
+  and the app log pair `[LocalPluginsReader] Found N` vs
+  `[CCD] Passing … local: N-1`. Cure: `claude plugin enable
+  flow@flow-skeleton` (or the UI toggle), then ⌘Q — new sessions can
+  grab pre-warmed spares with the old plugin set. The 0.1.27
+  cross-marketplace-dependency removal predates this closure and stands
+  on its own grounds (three failure classes), but it was not the cause
+  of the final drop.
 
 ## git-guard hook
 
