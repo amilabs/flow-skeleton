@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.1.27 — 2026-08-12
+
+The cross-marketplace superpowers dependency is removed — it became the
+prime suspect for the desktop drop and was already redundant.
+
+Evidence: desktop 2.1.227 (auto-updated overnight) mounts
+third-party-marketplace plugins again — a dependency-free third-party
+plugin with hooks mounts fine, while flow, the only installed plugin
+carrying a cross-marketplace `dependencies` entry, remains the sole
+plugin counted but not mounted; the same binary run headless loads flow
+in full. Cross-marketplace resolution has now caused three distinct
+failure classes (unscoped-name resolution, the missing-allowlist
+silent skip, this desktop mount drop), while the dependency's only
+benefit — auto-installing superpowers — is covered three other ways:
+the init superpowers check, the 0.1.25 session-start hook warning, and
+the CLAUDE.md required-plugins line.
+
+- plugin.json: `dependencies` removed.
+- marketplace.json: `allowCrossMarketplaceDependenciesOn` removed (moot
+  without the dependency).
+- README: superpowers is installed explicitly, one line in the install
+  block, with the rationale.
+
 ## 0.1.26 — 2026-08-11
 
 Owner rule: a technology or domain is worked on together with its skill

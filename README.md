@@ -11,12 +11,15 @@ Inside any Claude Code session:
 ```
 /plugin marketplace add amilabs/flow-skeleton
 /plugin install flow@flow-skeleton
+/plugin install superpowers@claude-plugins-official
 ```
 
 Choose **User scope** — flow becomes available in every project on the
 machine. Then enable updates: `/plugin` → Marketplaces → flow-skeleton →
-**Enable auto-update**. The superpowers plugin is declared as a dependency
-and installs alongside.
+**Enable auto-update**. superpowers is installed explicitly (not as a
+plugin dependency: cross-marketplace dependency resolution has been a
+recurring failure class — flow's init step and session-start hook verify
+its presence instead).
 
 Manual update (note: `update` requires the fully-qualified name, unlike
 `install`):
