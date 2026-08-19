@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.1.28 — 2026-08-19
+
+The ordinary working context is separated from the closed area (owner
+ruling 2026-08-19): normal surfaces — the SessionStart contract, the spec /
+accept / init / risk-profiles skills and every auto-loaded name and
+description — carry only a neutral route, and the substantive instruction
+moved into the new invoke-only `closed-area-gate` skill, which loads solely
+in the dedicated, compatible, owner-armed session. The gate's verdict is
+bound to the exact git SHA it reviewed and the profile it covered; accept
+consumes the verdict by reference and blocks on a SHA mismatch.
+
+- **Profile rename, one-way**: `auth-security` → `auth-boundary` (applies-to,
+  mandatory verification, inventory and review columns unchanged). Migration:
+  new and active change folders use `auth-boundary` from this version on;
+  archived proposals keep the old name as history and are NOT rewritten; no
+  alias is recognized — a proposal still carrying the old name gets it
+  updated when the change is next touched, not by a sweep.
+- risk-profiles: the review column is titled `closed-area review`; cell
+  values are unchanged.
+- accept step 5: the gate is dispatched to the dedicated session and its
+  SHA-bound verdict is consumed by reference.
+- init step 7: the opt-in continuous layer is offered by pointer; the
+  concrete plugin name lives in `closed-area-gate`.
+- `closed-area-gate` is manually invocable (`/flow:closed-area-gate`) and
+  never model-invoked; the dedicated session arms its tooling via a
+  temporary `--settings` CLI override while the machine-wide default stays
+  off.
+- session-context.sh: the domain-skills example list is neutral.
+- dispatch-guard.py: docstring wording neutralized ("enforcement boundary").
+
 ## 0.1.27 — 2026-08-12
 
 The cross-marketplace superpowers dependency is removed — it became the

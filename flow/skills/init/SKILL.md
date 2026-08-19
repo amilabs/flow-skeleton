@@ -59,11 +59,10 @@ propose, show the diff, apply only on confirmation.
 6. **superpowers check**: verify the superpowers plugin is installed; if
    the plugin dependency did not auto-install it, print:
    `/plugin install superpowers@claude-plugins-official`
-7. **Security layer (opt-in, by exposure)**: for projects with an auth
+7. **Closed-area layer (opt-in, by exposure)**: for projects with an auth
    surface, payment handling, or public/production deployment, offer the
-   continuous `security-guidance` plugin
-   (`/plugin install security-guidance@claude-plugins-official`). Skip the
-   offer for local-only tools — the gate-level /security-review, driven by
+   continuous-guidance plugin named in the closed-area-gate skill. Skip the
+   offer for local-only tools — the gate-level closed-area review, driven by
    risk profiles at /flow:accept, is enough there.
 8. **Project hooks (opt-in)**: offer a PostToolUse hook running the stack's
    affected lint/typecheck after edits and, for autonomous runs, an

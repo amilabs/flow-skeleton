@@ -64,7 +64,8 @@ heavier the change, the fuller design.md must be.
 - Read `openspec/project.md` if it exists (project context and constraints).
 - Domain skills: if the change touches a technology or domain with a
   matching skill in this session (a database, framework, performance,
-  security, UX), invoke that skill before designing in that area. If the
+  UX, or another specialized domain), invoke that skill before designing
+  in that area. If the
   change INTRODUCES a technology new to the project, it enters only
   together with its domain skill — run the /flow:init domain-skills step
   for it as part of this design, or record explicitly that no ecosystem
@@ -113,7 +114,7 @@ heavier the change, the fuller design.md must be.
    - spec deltas for affected capabilities
    - `design.md` — REQUIRED when the change crosses module boundaries,
      introduces new components or interfaces, or carries the api-contract,
-     data-storage, or auth-security profile: component boundaries, exact
+     data-storage, or auth-boundary profile: component boundaries, exact
      interfaces/signatures, data flow, error handling. The blast-radius
      impact note lives here. Omit only for changes with no architectural
      freedom.

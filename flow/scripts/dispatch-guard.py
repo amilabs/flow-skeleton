@@ -8,7 +8,7 @@ pre  (PreToolUse, matcher ^(Task|Agent)$): allow the first subagent
 post (PostToolUse, matcher ^Skill$): record invoked skill names.
 
 Same philosophy as git-guard: a seatbelt against accidental process
-skips, not a security boundary. Fail-open on any parse or IO problem.
+skips, not an enforcement boundary. Fail-open on any parse or IO problem.
 State: <tmpdir>/flow-dispatch-guard-<session_id>.json. Stdlib only.
 """
 import json

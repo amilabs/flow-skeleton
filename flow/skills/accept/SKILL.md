@@ -71,7 +71,12 @@ round.
    approved change.
 4. **Code review** — run /code-review at the effort the change's risk
    profile prescribes (see the flow risk-profiles table).
-5. **Security review** — run /security-review when the profile demands it.
+5. **Closed-area gate** — when the risk profile's closed-area column demands
+   it, this gate runs as its own DEDICATED, compatible session (see the
+   closed-area-gate skill for that session's instructions — never load it
+   here). The gate returns a verdict bound to the exact git SHA it reviewed
+   and the profile it covered; accept records that reference and BLOCKS when
+   the bound SHA does not equal the candidate under acceptance.
 6. **Acceptance summary** — report to the owner: what changed, evidence
    (test output, verify results, review findings), unresolved risks, and
    your recommendation. STOP — the owner decides.
