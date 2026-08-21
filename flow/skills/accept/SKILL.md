@@ -1,6 +1,6 @@
 ---
 name: accept
-description: Acceptance gate before merge - full checks, live-app verification, plan-compliance review, risk-scaled code review, acceptance summary for the owner. Invoke only when the owner explicitly asks to accept or finalize a change (in any wording); never start it on your own initiative.
+description: Acceptance gate before merge - preflight, live-app verification, plan-compliance review, risk-scaled code review, autonomous fixes to convergence, version+lock, the project-defined final gate, then the acceptance package for the owner. Invoke only when the owner explicitly asks to accept or finalize a change (in any wording); never start it on your own initiative.
 argument-hint: "[change-id]"
 ---
 
@@ -25,6 +25,16 @@ owner-requested additions — are recorded in the change's inventory.md
 Run the gates in order and collect evidence as you go. Reviewers start
 late by design: the cheap deterministic gates (1-2) must pass before any
 reviewer (3-5) runs — never burn review passes on code that fails tests.
+Agent discipline: when this acceptance will dispatch two or more agents
+(the plan-reviewer, code-review angles, any fan-out), invoke the
+superpowers dispatching-parallel-agents skill in THIS session — after the
+accept phase starts and before the first dispatch; a fresh acceptance
+session carries no earlier invocation. Read-only reviewers may share the
+checkout; only the accepting session writes.
+The owner joins ONCE, at the end, over a fully green candidate (gate 9);
+mid-acceptance owner questions are an emergency only — batched, and only
+for a genuinely open product ambiguity the approved materials cannot
+answer.
 
 Domain skills at the gates (owner rule, 2026-08-11): run each gate with
 the applicable domain skills available in the session — design/UX
@@ -54,11 +64,14 @@ type) regresses on every new surface — and add a deterministic check for
 it to the project's verification walk or tests in the same acceptance
 round.
 
-1. **Full project checks** — the commands from CLAUDE.md (tests, lint,
-   typecheck, build). All must pass. A code project with no static
-   analyzer wired is itself a gate finding (owner rule, 2026-08-05):
-   report the bootstrap gap and point at /flow:init's analyzer step —
-   do not wire one mid-acceptance.
+1. **Preflight** — the project's recorded preflight (its CLAUDE.md test
+   cadence; when none is recorded, the full project checks: tests, lint,
+   typecheck, build). All must pass. This is the CHEAP tier — a project
+   whose CLAUDE.md defines a separate expensive final gate runs that gate
+   ONLY at step 8, never here. A code project with no static analyzer
+   wired is itself a gate finding (owner rule, 2026-08-05): report the
+   bootstrap gap and point at /flow:init's analyzer step — do not wire
+   one mid-acceptance.
 2. **Live verification (ui-surface changes)** — run /verify against the
    running app, walking the change's behavior inventory as the checklist.
    Reuse and extend the project's verification walk script when one exists
@@ -77,9 +90,29 @@ round.
    here). The gate returns a verdict bound to the exact git SHA it reviewed
    and the profile it covered; accept records that reference and BLOCKS when
    the bound SHA does not equal the candidate under acceptance.
-6. **Acceptance summary** — report to the owner: what changed, evidence
-   (test output, verify results, review findings), unresolved risks, and
-   your recommendation. STOP — the owner decides.
+6. **Autonomous fixes to convergence** — apply what survives
+   receiving-code-review verification without waiting for the owner;
+   rerun the affected checks and the reviewer that found each issue
+   (the two-full-rounds stop rule above governs convergence).
+7. **Pre-final release actions** — whatever the PROJECT's recorded
+   release convention puts before the final gate (for many projects:
+   version bump + lockfile + the change's final spec deltas) lands NOW,
+   so the proof describes the released trees. A project whose convention
+   records none of these invents nothing.
+8. **The project-defined final gate** — run the project's recorded full
+   gate once, at the final behavior-bearing integration candidate (for
+   projects with a receipt convention, mint and commit the receipt; a red
+   here is fixed autonomously and the gate re-runs at the new candidate).
+   A project with NO recorded final gate re-runs step 1's full project
+   checks here, at this final SHA — the proof must describe the final
+   tree, never the pre-fix candidate step 1 originally ran on.
+9. **Acceptance package** — hand the owner the GREEN candidate: the
+   running app, what actually changed (screens/flows), what was verified
+   mechanically, what was found and auto-fixed, unresolved risks, the
+   remaining product questions, and a route through the touched surfaces.
+   The owner judges product intent — never re-verifies mechanics. STOP —
+   the owner decides; their findings return as one batch, then fixes and
+   one new final gate.
 
 After the owner accepts:
 

@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.29 — 2026-08-21
+
+The accept skill executes the owner's regime v2 (evaluated over two real
+cycles): the owner joins once, at the end, over a fully green candidate.
+Gate 1 is the project's recorded PREFLIGHT (the expensive project-defined
+final gate never runs there); after the reviewers, three gates land before
+the owner sees anything — autonomous fixes to convergence, version + lock +
+final deltas (release step 1), and the project-defined final gate at the
+final behavior-bearing integration candidate. The acceptance summary
+becomes the acceptance package over the green candidate; owner findings
+return as one batch. Mid-acceptance owner questions are an emergency only.
+This closes the recorded failure class where the normative document said
+one order and the executable template another — the template used to win.
+
 ## 0.1.28 — 2026-08-19
 
 The ordinary working context is separated from the closed area (owner
