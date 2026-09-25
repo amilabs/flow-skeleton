@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.30 — 2026-09-26
+
+The cadence, the scope and the authority defer to the project's own recorded
+rules (Batcher `site-lifecycle`, owner 2026-09-24). Three sentences of 0.1.29
+read against a project that records its own: implement's order to run the FULL
+suite at phase checkpoints and before accept (a project may end implement with
+targeted checks and keep the one full run for the acceptance's gate); the
+undefined "change scope" (the project's map decides it, and a change's stand
+is the stand of the COMPONENT it touches); and the session contract's "never
+commit or push without an explicit owner instruction" (a project that records
+an authority profile names what is the owner's — merging a PR, the release
+tag, a production deploy — and the rest follows it). The accept skill verifies
+the component the change touched rather than "the running app", and keeps the
+model/effort question at each phase entry. Installing it is a plugin change:
+update the marketplace and the plugin with every session stopped, then a fresh
+session shows 0.1.30 in the plugin cache path.
+
 ## 0.1.29 — 2026-08-21
 
 The accept skill executes the owner's regime v2 (evaluated over two real
