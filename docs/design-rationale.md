@@ -10,8 +10,8 @@ dated log (that lives in
 
 Four layers, no duplication:
 
-- **Claude Code** (native): plan mode, /code-review, /verify,
-  /security-review, hooks, LSP, checkpoints, worktrees.
+- **Claude Code** (native): plan mode, /code-review, /security-review,
+  hooks, LSP, checkpoints, worktrees.
 - **superpowers** (process): TDD, systematic-debugging, verification,
   finishing-a-development-branch.
 - **OpenSpec** (artifacts): `specs/` = living behavior docs, `changes/` =
