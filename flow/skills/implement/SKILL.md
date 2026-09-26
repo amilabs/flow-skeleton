@@ -15,6 +15,12 @@ under `openspec/changes/`; if several are active, ask which one.
   point to /flow:spec.
 - Work on a feature branch (a git worktree when sessions run in parallel).
   Never implement on main/master without the owner's explicit consent.
+- Hub mode (a planning repository whose code lives elsewhere): if the
+  change's tasks.md names a code repository path and a base branch (lines
+  such as `Repo: ../product-repo` and `Base: origin/develop`), work in a
+  worktree of THAT repository cut from THAT base, and diff and review
+  against that base. Otherwise work in the current directory against the
+  project's trunk.
 - Execution model and effort are the owner's choice — confirm them before
   starting (AskUserQuestion, one question): default Opus at session effort;
   offer Fable for architecturally gnarly or high-risk changes, and a higher

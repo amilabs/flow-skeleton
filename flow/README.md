@@ -19,8 +19,10 @@ skills, 1 agent, 1 hook — growth requires removing something first.
 - skills/init — project bootstrap and migration
 - skills/risk-profiles — background knowledge: change type → verification
 - agents/plan-reviewer — read-only diff-vs-change compliance review
-- hooks + scripts/git-guard.{sh,py} — blocks force-push to main/master and
-  --no-verify commits; shlex-based (quote-aware, per-segment), fail-open
+- hooks + scripts/git-guard.{sh,py} — blocks force-push to protected
+  branches (main/master, or the comma-separated FLOW_PROTECTED_BRANCHES
+  environment variable) and --no-verify commits; shlex-based (quote-aware,
+  per-segment), fail-open
 
 ## Layering
 

@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""flow git-guard: blocks force-push to main/master and commit --no-verify.
+"""flow git-guard: blocks force-push to protected branches and commit --no-verify.
+
+Protected branches come from FLOW_PROTECTED_BRANCHES (comma-separated,
+e.g. "main,develop"); unset or empty means main,master.
 
 Reads the PreToolUse hook JSON from stdin. Tokenizes the Bash command with
 shlex (quote-aware) and splits it into pipeline/list segments, so words
@@ -16,10 +19,21 @@ import sys
 WRAPPERS = {"sudo", "command", "env", "nice", "time", "nohup", "xargs"}
 SEPARATORS = {"&&", "||", ";", "|", "&"}
 FORCE_FLAGS = {"-f", "--force", "--force-with-lease"}
-PROTECTED = {"main", "master"}
+DEFAULT_PROTECTED = ("main", "master")
 
-PUSH_MESSAGE = ("force-push to main/master is blocked. Push a branch and "
-                "open a PR, or have the owner run the command manually.")
+
+def protected_branches():
+    raw = os.environ.get("FLOW_PROTECTED_BRANCHES", "")
+    names = {n.strip() for n in raw.split(",") if n.strip()}
+    return names or set(DEFAULT_PROTECTED)
+
+
+PROTECTED = protected_branches()
+
+PUSH_MESSAGE = ("force-push to a protected branch ("
+                + ", ".join(sorted(PROTECTED)) + ") is blocked. Push a "
+                "branch and open a PR, or have the owner run the command "
+                "manually.")
 NOVERIFY_MESSAGE = ("'git commit --no-verify' is blocked. Fix the failing "
                     "hook instead of bypassing it.")
 

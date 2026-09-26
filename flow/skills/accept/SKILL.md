@@ -22,6 +22,14 @@ separate git worktree. Findings fixed during acceptance — and any
 owner-requested additions — are recorded in the change's inventory.md
 ("Owner acceptance refinements") before the summary.
 
+Hub mode (a planning repository whose code lives elsewhere): if the
+change's tasks.md names a code repository path and a base branch (lines
+such as `Repo: ../product-repo` and `Base: origin/develop`), the gates run
+in a worktree of THAT repository at the candidate, and every diff the
+gates read — the plan-reviewer's, the code review's, the English sweep's —
+is taken against THAT base. Otherwise the current directory and the
+project's trunk.
+
 Run the gates in order and collect evidence as you go. Reviewers start
 late by design: the cheap deterministic gates (1-2) must pass before any
 reviewer (3-5) runs — never burn review passes on code that fails tests.
