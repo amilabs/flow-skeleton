@@ -187,7 +187,7 @@ Owner rule wired into flow (it was already recorded in the owner's
 project memory and discussed; sessions kept skipping it): multi-agent
 and multi-session work runs under the superpowers
 dispatching-parallel-agents discipline, with per-writer isolation.
-Trigger: Batcher night cycles dispatched parallel work without the
+Trigger: a consumer project's night cycles dispatched parallel work without the
 skill; a shared tree split by file lists had already produced a defect.
 
 - implement, Agent policy: any fan-out to 2+ agents or any
