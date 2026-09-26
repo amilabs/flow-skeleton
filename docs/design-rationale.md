@@ -17,9 +17,11 @@ Four layers, no duplication:
 - **OpenSpec** (artifacts): `specs/` = living behavior docs, `changes/` =
   proposal→design→tasks→archive. The CLI is optional — plain files
   first; CLIs/LSPs are accelerators, not dependencies.
-- **flow** (the operating model): 6 skills (spec, implement, accept,
-  blast-radius, init, risk-profiles), 1 agent (plan-reviewer,
-  read-only), 1 git-guard hook. Budget 6/1/1 — growth only by removal.
+- **flow** (the operating model): 7 skills (spec, implement, accept,
+  blast-radius, init, risk-profiles, closed-area-gate), 1 agent
+  (plan-reviewer, read-only), 3 hook scripts in 4 registrations
+  (git-guard; dispatch-guard pre and post; the session-context
+  contract). Growth only by removal.
 
 The anti-pattern deliberately not reproduced (a predecessor project's
 process-as-scars: 34 docs, 15 meta-scripts, review folders, 8 reviewer
