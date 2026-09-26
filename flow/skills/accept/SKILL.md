@@ -72,13 +72,18 @@ round.
    wired is itself a gate finding (owner rule, 2026-08-05): report the
    bootstrap gap and point at /flow:init's analyzer step — do not wire
    one mid-acceptance.
-2. **Live verification (ui-surface changes)** — run /verify against the
-   running app, walking the change's behavior inventory as the checklist.
-   Reuse and extend the project's verification walk script when one exists
-   (e.g., `scripts/verify_walk.py`) instead of rebuilding it per
-   acceptance; commit improvements back so the next acceptance starts
-   warm. Scale the depth to the diff: exercise expensive pipelines (e.g.,
-   a staged-install update cycle) only when the diff touches them.
+2. **Live verification (ui-surface changes)** — run the project's live
+   verification against the running COMPONENT the change touched, walking
+   the change's behavior inventory as the checklist. For most projects
+   that is /verify against the app; where a project records a component of
+   its own — a site, a worker, a CLI — with its own stand and its own
+   checks, those are the ones this gate runs, and a component the change
+   does not touch is not deployed, built or verified for it. Reuse and
+   extend the project's verification walk script when one exists (e.g.,
+   `scripts/verify_walk.py`) instead of rebuilding it per acceptance;
+   commit improvements back so the next acceptance starts warm. Scale the
+   depth to the diff: exercise expensive pipelines (e.g., a staged-install
+   update cycle) only when the diff touches them.
 3. **Plan compliance** — launch the plan-reviewer agent from the flow
    plugin with the change id; it reports gaps between the diff and the
    approved change.
@@ -158,4 +163,8 @@ After the owner accepts:
   checkpoint, list what still lives only on this machine: unpushed
   branches, worktrees, untracked deliverables. Pushing any of it is the
   owner's per-release decision — never push it yourself;
-- never commit or push without an explicit owner instruction.
+- publishing follows the project's recorded authority profile. Where one
+  grants the working branch and its PR to an approved change, publish them
+  as part of this gate and say so in the package; where none is recorded,
+  never commit or push without an explicit owner instruction. Merging a
+  PR, the release tag and a production deploy are the owner's either way.

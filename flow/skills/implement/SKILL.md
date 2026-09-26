@@ -41,15 +41,24 @@ disciplines (TDD, systematic-debugging, verification) per task.
    violation, not a style choice.
 3. Touch only files within the change scope. No drive-by refactoring; if a
    necessary refactor emerges, add it to the change or flag it to the owner.
+   The scope of a change is the changed COMPONENT plus the consumers its
+   change actually reaches: a shared repository, host, branch or process
+   does not make its tenants one component, and a component the change
+   does not touch is not built, versioned, deployed or verified for it.
 4. Before ticking a task checkbox, invoke the superpowers
    verification-before-completion skill: run the verifying commands and
    read their output fresh — a done-claim without evidence from THIS
    session state is a gate failure. Then tick the checkbox in tasks.md IN
    THE SAME COMMIT that completes the task. When behavior changes, update
    the capability spec in that same commit.
-5. After each task run the affected tests/lint (commands from CLAUDE.md).
-   Run the FULL suite at phase checkpoints and before /flow:accept — not
-   after every step.
+5. After each task run the affected tests/lint (commands from CLAUDE.md) —
+   including the EXISTING tests of every mechanism the task changed, not
+   only the new ones. The project's recorded test cadence decides what
+   ends implement: where one says the single full run belongs to
+   /flow:accept, implement ends with the targeted checks of the changed
+   mechanisms through their own call paths, and running the full suite
+   here as well is a second execution of the same proof. Where no cadence
+   is recorded, run the full suite before /flow:accept.
 6. At a `[USER GATE]` task: stop, present the decision, wait for the owner.
 
 ## Agent policy
