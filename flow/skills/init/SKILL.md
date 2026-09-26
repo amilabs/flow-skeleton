@@ -55,7 +55,9 @@ propose, show the diff, apply only on confirmation.
    lessons. A technology used daily without its skill is a bootstrap
    gap, not business as usual.
 5. **Run recipe**: if no `.claude/skills/run-*` skill exists, offer
-   /run-skill-generator so /verify and /flow:accept can drive the real app.
+   /run-skill-generator so /flow:accept's live verification — the
+   project's run skill or a verification subagent over the behavior
+   inventory — can drive the real app.
 6. **superpowers check**: verify the superpowers plugin is installed; if
    the plugin dependency did not auto-install it, print:
    `/plugin install superpowers@claude-plugins-official`

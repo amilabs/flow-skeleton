@@ -57,12 +57,12 @@ re-scoping is the owner's call.
 
 Recurring owner feedback is a gate failure, not a reminder. When the
 owner reports an issue class they have already corrected before (a style
-rule, an invariant), do not just fix the instance: restate the rule in
-the project's CLAUDE.md invariants as a general principle — a rule
-recorded narrower than the owner's intent (e.g., scoped to one widget
-type) regresses on every new surface — and add a deterministic check for
-it to the project's verification walk or tests in the same acceptance
-round.
+rule, an invariant), do not just fix the instance: turn it into a test or
+a hook in the same acceptance round, and record the rule as a general
+principle — a rule recorded narrower than the owner's intent (e.g.,
+scoped to one widget type) regresses on every new surface — in the
+subject's spec or the area's path-scoped rules file. CLAUDE.md gets at
+most a one-line pointer to it.
 
 1. **Preflight** — the project's recorded preflight (its CLAUDE.md test
    cadence; when none is recorded, the full project checks: tests, lint,
@@ -75,7 +75,8 @@ round.
 2. **Live verification (ui-surface changes)** — run the project's live
    verification against the running COMPONENT the change touched, walking
    the change's behavior inventory as the checklist. For most projects
-   that is /verify against the app; where a project records a component of
+   that is the project's run skill or a verification subagent over the
+   behavior inventory, against the app; where a project records a component of
    its own — a site, a worker, a CLI — with its own stand and its own
    checks, those are the ones this gate runs, and a component the change
    does not touch is not deployed, built or verified for it. Reuse and
