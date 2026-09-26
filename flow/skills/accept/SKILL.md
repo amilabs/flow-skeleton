@@ -22,6 +22,14 @@ separate git worktree. Findings fixed during acceptance — and any
 owner-requested additions — are recorded in the change's inventory.md
 ("Owner acceptance refinements") before the summary.
 
+Hub mode (a planning repository whose code lives elsewhere): if the
+change's tasks.md names a code repository path and a base branch (lines
+such as `Repo: ../product-repo` and `Base: origin/develop`), the gates run
+in a worktree of THAT repository at the candidate, and every diff the
+gates read — the plan-reviewer's, the code review's, the English sweep's —
+is taken against THAT base. Otherwise the current directory and the
+project's trunk.
+
 Run the gates in order and collect evidence as you go. Reviewers start
 late by design: the cheap deterministic gates (1-2) must pass before any
 reviewer (3-5) runs — never burn review passes on code that fails tests.
@@ -57,12 +65,12 @@ re-scoping is the owner's call.
 
 Recurring owner feedback is a gate failure, not a reminder. When the
 owner reports an issue class they have already corrected before (a style
-rule, an invariant), do not just fix the instance: restate the rule in
-the project's CLAUDE.md invariants as a general principle — a rule
-recorded narrower than the owner's intent (e.g., scoped to one widget
-type) regresses on every new surface — and add a deterministic check for
-it to the project's verification walk or tests in the same acceptance
-round.
+rule, an invariant), do not just fix the instance: turn it into a test or
+a hook in the same acceptance round, and record the rule as a general
+principle — a rule recorded narrower than the owner's intent (e.g.,
+scoped to one widget type) regresses on every new surface — in the
+subject's spec or the area's path-scoped rules file. CLAUDE.md gets at
+most a one-line pointer to it.
 
 1. **Preflight** — the project's recorded preflight (its CLAUDE.md test
    cadence; when none is recorded, the full project checks: tests, lint,
@@ -75,7 +83,8 @@ round.
 2. **Live verification (ui-surface changes)** — run the project's live
    verification against the running COMPONENT the change touched, walking
    the change's behavior inventory as the checklist. For most projects
-   that is /verify against the app; where a project records a component of
+   that is the project's run skill or a verification subagent over the
+   behavior inventory, against the app; where a project records a component of
    its own — a site, a worker, a CLI — with its own stand and its own
    checks, those are the ones this gate runs, and a component the change
    does not touch is not deployed, built or verified for it. Reuse and
@@ -129,13 +138,14 @@ After the owner accepts:
   release commit — the next release must not re-derive it;
 - record the release in `CHANGELOG.md` (create the file on the first
   release): one entry per version — date, highlights, deferred and
-  known-minor notes. Release history lives there and in
-  `openspec/archive/`, never as CLAUDE.md narrative;
+  known-minor notes. Release history lives there and in the archive path
+  the project's CLAUDE.md records (default `openspec/archive/`), never as
+  CLAUDE.md narrative;
 - refresh the CLAUDE.md `Current state` block instead of appending to it:
-  replace the latest-release copy with the new CHANGELOG entry, update the
-  open branches/tasks links, keep the pointers (`CHANGELOG.md`,
-  `openspec/archive/`). One release visible at a time; closed items leave
-  the list;
+  the latest-release line carries the new version heading and a link to
+  its CHANGELOG entry — never a copy of the entry; update the open
+  branches/tasks links, keep the pointers (`CHANGELOG.md`, the archive
+  path). One release visible at a time; closed items leave the list;
 - guard CLAUDE.md leanness — the file loads into every session, so
   per-release history and long reference belong in CHANGELOG, archives, or
   docs/, not there. This guardrail outranks the recorded release
@@ -145,26 +155,31 @@ After the owner accepts:
   recorded ceiling (default ~200 lines), prune history and narrative to
   CHANGELOG as part of the archive commit;
 - archive the change: `openspec archive <id>` with the CLI, otherwise move
-  the folder to `openspec/changes/archive/`;
+  the folder to the archive path the project's CLAUDE.md records (its
+  `Current state` History line; default `openspec/archive/`);
 - English-artifacts sweep (owner rule, 2026-08-05): non-English content
   is fine in **local** working docs — untracked files and unpushed
   work — the rule binds at push time. Before anything is pushed, scan
-  the outgoing work — tracked files and the messages of
-  `git log origin/<branch>..HEAD` — with a Unicode-aware scanner
+  the outgoing work — the outgoing diff, the files it adds and the
+  messages of `git log origin/<branch>..HEAD` — with a Unicode-aware
+  scanner
   (byte-interpreted Cyrillic grep ranges false-positive on em-dashes and
   arrows; use a real Unicode match, or the project's check script when
   one exists). Non-English content in the outgoing set is a push
   blocker unless the owner has explicitly permitted it for this repo
   (permission recorded in the project's CLAUDE.md): either translate it
   — owner quotes become English translations marked "translated" — or
-  keep it local, dropped from what gets pushed;
+  keep it local, dropped from what gets pushed. Unchanged history that is
+  already published never blocks a push;
+- publishing, read the same way as the session contract: the change's
+  own branch and its PR are published as the project's recorded authority
+  profile says — where the profile grants them to an approved change,
+  publish them as part of this gate and say so in the package; where no
+  profile is recorded, ask the owner before pushing. Merging a PR, the
+  release tag and a production deploy are the owner's either way;
 - remind about local-only work (owner rule: WIP stays local within a
   version — GitHub carries finished versions, not drafts). At the release
-  checkpoint, list what still lives only on this machine: unpushed
-  branches, worktrees, untracked deliverables. Pushing any of it is the
-  owner's per-release decision — never push it yourself;
-- publishing follows the project's recorded authority profile. Where one
-  grants the working branch and its PR to an approved change, publish them
-  as part of this gate and say so in the package; where none is recorded,
-  never commit or push without an explicit owner instruction. Merging a
-  PR, the release tag and a production deploy are the owner's either way.
+  checkpoint, list what still lives only on this machine besides this
+  change's branch: other unpushed branches, worktrees, untracked
+  deliverables. That local-only WIP is never pushed from here — pushing
+  any of it is the owner's per-release decision.

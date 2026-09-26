@@ -19,12 +19,8 @@
 
 ## Workflow
 
-- Required plugins: flow@flow-skeleton and superpowers (flow's
-  dependency). If /flow: skills are not available at session start, say
-  so to the owner before starting work — current desktop builds drop
-  third-party-marketplace plugins from their sessions (known upstream
-  bug; terminal `claude` sessions load them fine) — and use the manual
-  fallback below.
+- Required plugins: flow@flow-skeleton and superpowers. If /flow: skills
+  are missing at session start, say so to the owner before working.
 - Non-trivial work goes through the flow plugin: /flow:spec → owner
   approval → /flow:implement (fresh session) → /flow:accept → owner
   accepts. Trivial changes (one-sentence diff, no dependents) skip the
@@ -32,19 +28,23 @@
 - When the owner requests non-trivial work without mentioning flow,
   offer to start /flow:spec before writing any code — one line, not a
   lecture. If the owner declines, proceed normally.
-- Worktree sessions: persistent memory is unavailable — openspec/ and
-  CHANGELOG.md carry the work state; this file carries only standing
-  facts and the bounded Current state block. Merge back to main when a
-  phase completes.
+- Worktree sessions: auto memory is shared across the repository's
+  worktrees, but openspec/ and CHANGELOG.md still carry the work state;
+  this file carries only standing facts and the bounded Current state
+  block. Merge back to the trunk when a phase completes.
 - If the flow plugin is unavailable in this session (cloud VM, fresh
   machine), follow the lifecycle shape manually: openspec change → owner
   approval → TDD implementation on a branch → full checks + fresh-context
   review → owner accepts.
-- Never commit or push unless explicitly asked.
+- Commit locally as the work goes. Publishing follows the authority
+  profile recorded in this file, when one is; with none recorded, ask
+  before pushing. Merging a PR, the release tag and a production deploy
+  stay the owner's.
 
 ## Current state
 
-- Latest release: none yet. On each release, copy the new CHANGELOG.md
-  entry here, replacing the previous one — never append.
+- Latest release: none yet. On each release, replace this line with the
+  new version heading and a link to its CHANGELOG.md entry — never a copy
+  of the entry, never append.
 - Open: {{OPEN_BRANCHES_TASKS_AS_LINKS}}
 - History: CHANGELOG.md; per-change detail: openspec/archive/

@@ -10,16 +10,18 @@ dated log (that lives in
 
 Four layers, no duplication:
 
-- **Claude Code** (native): plan mode, /code-review, /verify,
-  /security-review, hooks, LSP, checkpoints, worktrees.
+- **Claude Code** (native): plan mode, /code-review, /security-review,
+  hooks, LSP, checkpoints, worktrees.
 - **superpowers** (process): TDD, systematic-debugging, verification,
   finishing-a-development-branch.
 - **OpenSpec** (artifacts): `specs/` = living behavior docs, `changes/` =
   proposal→design→tasks→archive. The CLI is optional — plain files
   first; CLIs/LSPs are accelerators, not dependencies.
-- **flow** (the operating model): 6 skills (spec, implement, accept,
-  blast-radius, init, risk-profiles), 1 agent (plan-reviewer,
-  read-only), 1 git-guard hook. Budget 6/1/1 — growth only by removal.
+- **flow** (the operating model): 7 skills (spec, implement, accept,
+  blast-radius, init, risk-profiles, closed-area-gate), 1 agent
+  (plan-reviewer, read-only), 3 hook scripts in 4 registrations
+  (git-guard; dispatch-guard pre and post; the session-context
+  contract). Growth only by removal.
 
 The anti-pattern deliberately not reproduced (a predecessor project's
 process-as-scars: 34 docs, 15 meta-scripts, review folders, 8 reviewer
@@ -76,12 +78,16 @@ roles): a pattern enters the plugin only after it appeared in real work.
   drives; new surfaces near a control declare whether it affects them;
   the approval summary states the few sharp consequences the owner would
   otherwise meet in production; recurring owner feedback is a gate
-  failure → the rule is restated as a general principle in project
-  invariants with a deterministic check in the same round.
+  failure → a test or a hook in the same round, the rule itself in the
+  subject's spec or the area's path-scoped rules file, and at most a
+  one-line pointer in CLAUDE.md (0.1.31: restating it in CLAUDE.md
+  invariants was the main driver of instruction growth).
 - **Brownfield**: specs are created lazily — an area is documented at
   its first change, not the whole legacy up front. Regression shield:
   LSP diagnostics + blast-radius + characterization tests before the
-  edit, /verify over the behavior inventory after.
+  edit, the project's run skill or a verification subagent over the
+  behavior inventory after (/verify is user-invoked since Claude Code
+  2.1.215).
 - **Releases** follow the project's recorded convention in CLAUDE.md —
   derived once from history at the first release. Since 0.1.19 the
   leanness guardrail outranks the recorded convention: history goes to

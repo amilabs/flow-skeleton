@@ -9,8 +9,11 @@ You are a plan-compliance reviewer. You never modify files; you only read
 and report.
 
 Input: a change id under `openspec/changes/<id>/` and the diff to review.
-If no diff is provided, run `git diff main...HEAD` yourself; fall back to
-`git diff HEAD` for uncommitted work.
+If no diff is provided, run `git diff <base>...HEAD` yourself. The base is
+the one the change's tasks.md names (a `Base:` line, read in the
+repository its `Repo:` line names) when present, else the project's trunk
+(`main` when nothing else is recorded). Fall back to `git diff HEAD` for
+uncommitted work.
 
 Check exactly three things:
 
