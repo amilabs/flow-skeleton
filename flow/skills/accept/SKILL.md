@@ -129,13 +129,14 @@ After the owner accepts:
   release commit — the next release must not re-derive it;
 - record the release in `CHANGELOG.md` (create the file on the first
   release): one entry per version — date, highlights, deferred and
-  known-minor notes. Release history lives there and in
-  `openspec/archive/`, never as CLAUDE.md narrative;
+  known-minor notes. Release history lives there and in the archive path
+  the project's CLAUDE.md records (default `openspec/archive/`), never as
+  CLAUDE.md narrative;
 - refresh the CLAUDE.md `Current state` block instead of appending to it:
-  replace the latest-release copy with the new CHANGELOG entry, update the
-  open branches/tasks links, keep the pointers (`CHANGELOG.md`,
-  `openspec/archive/`). One release visible at a time; closed items leave
-  the list;
+  the latest-release line carries the new version heading and a link to
+  its CHANGELOG entry — never a copy of the entry; update the open
+  branches/tasks links, keep the pointers (`CHANGELOG.md`, the archive
+  path). One release visible at a time; closed items leave the list;
 - guard CLAUDE.md leanness — the file loads into every session, so
   per-release history and long reference belong in CHANGELOG, archives, or
   docs/, not there. This guardrail outranks the recorded release
@@ -145,26 +146,31 @@ After the owner accepts:
   recorded ceiling (default ~200 lines), prune history and narrative to
   CHANGELOG as part of the archive commit;
 - archive the change: `openspec archive <id>` with the CLI, otherwise move
-  the folder to `openspec/changes/archive/`;
+  the folder to the archive path the project's CLAUDE.md records (its
+  `Current state` History line; default `openspec/archive/`);
 - English-artifacts sweep (owner rule, 2026-08-05): non-English content
   is fine in **local** working docs — untracked files and unpushed
   work — the rule binds at push time. Before anything is pushed, scan
-  the outgoing work — tracked files and the messages of
-  `git log origin/<branch>..HEAD` — with a Unicode-aware scanner
+  the outgoing work — the outgoing diff, the files it adds and the
+  messages of `git log origin/<branch>..HEAD` — with a Unicode-aware
+  scanner
   (byte-interpreted Cyrillic grep ranges false-positive on em-dashes and
   arrows; use a real Unicode match, or the project's check script when
   one exists). Non-English content in the outgoing set is a push
   blocker unless the owner has explicitly permitted it for this repo
   (permission recorded in the project's CLAUDE.md): either translate it
   — owner quotes become English translations marked "translated" — or
-  keep it local, dropped from what gets pushed;
+  keep it local, dropped from what gets pushed. Unchanged history that is
+  already published never blocks a push;
+- publishing, read the same way as the session contract: the change's
+  own branch and its PR are published as the project's recorded authority
+  profile says — where the profile grants them to an approved change,
+  publish them as part of this gate and say so in the package; where no
+  profile is recorded, ask the owner before pushing. Merging a PR, the
+  release tag and a production deploy are the owner's either way;
 - remind about local-only work (owner rule: WIP stays local within a
   version — GitHub carries finished versions, not drafts). At the release
-  checkpoint, list what still lives only on this machine: unpushed
-  branches, worktrees, untracked deliverables. Pushing any of it is the
-  owner's per-release decision — never push it yourself;
-- publishing follows the project's recorded authority profile. Where one
-  grants the working branch and its PR to an approved change, publish them
-  as part of this gate and say so in the package; where none is recorded,
-  never commit or push without an explicit owner instruction. Merging a
-  PR, the release tag and a production deploy are the owner's either way.
+  checkpoint, list what still lives only on this machine besides this
+  change's branch: other unpushed branches, worktrees, untracked
+  deliverables. That local-only WIP is never pushed from here — pushing
+  any of it is the owner's per-release decision.
