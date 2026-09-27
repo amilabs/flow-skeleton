@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.1.32 — 2026-09-27
+
+Hub mode completed: the places where a planning repository and a separate
+code repository still read as one checkout now name which one they mean.
+Implement's commit rule no longer asks for the task tick and the code in
+one commit when they live in different repositories: within one
+repository they share a commit; in hub mode the code commit lands in the
+code repository and the tick lands in the planning repository in its own
+commit that names the code commit (repository and SHA), the two commits
+being the unit, and a spec update follows the same rule. Accept passes the
+plan-reviewer both roots explicitly — the planning root (the absolute path
+of the change folder) and the code root (the `Repo:` path) — and the
+reviewer diffs the code root against `Base:` instead of looking for the
+change under the code worktree. Two ranges, each said once: the reviews
+read the whole change against `Base:`, while the push-time English sweep
+reads only the outgoing set of the branch being pushed
+(`git log origin/<branch>..HEAD` and its diff), so published history never
+blocks a push. The archive step states where the OpenSpec CLI puts a
+change (`openspec/changes/archive/YYYY-MM-DD-<id>/`): a project that
+archives with the CLI records that path on its CLAUDE.md History line,
+without the CLI the recorded path applies (default `openspec/archive/`),
+and the template's History line carries the same note as a comment.
+
+git-guard judges a bare force push (no refspec) by the checkout the
+command actually runs in: `git -C <path>` (and a `-C=<path>` spelling)
+now resolves against the project dir, and repeated `-C` paths chain as git
+chains them. Before, `git -C <other checkout> push --force origin` was
+judged by the project dir's branch — blocked from a main project dir
+aimed at a feature checkout, allowed from a feature project dir aimed at
+a main checkout. Explicit-refspec checks are unchanged; six new test
+cases.
+
 ## 0.1.31 — 2026-09-26
 
 A consistency patch: every sentence that contradicted another one now has
