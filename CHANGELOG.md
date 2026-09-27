@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.33 — 2026-09-27
+
+Two corrections to 0.1.32. The code root that accept hands the
+plan-reviewer, and runs /code-review from, is the candidate worktree —
+the checkout of the code repository the gates run in — not the `Repo:`
+path, which names the repository and may sit on another branch; the
+skill and the reviewer now say so. git-guard judges a bare force push by
+the checkout the command actually runs in: the hook input's `cwd` (the
+session's current directory, which follows `cd` and worktrees), with a
+relative `git -C <path>` resolved against it; CLAUDE_PROJECT_DIR, which
+stays at the project root, stands in only when the input carries no cwd.
+Before, a relative `-C` was resolved against the project dir, so from a
+session that had moved into another checkout the path missed, the branch
+read as none and a force push to main went through. Six new test cases.
+
 ## 0.1.32 — 2026-09-27
 
 Hub mode completed: the places where a planning repository and a separate

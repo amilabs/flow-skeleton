@@ -7,6 +7,10 @@ e.g. "main,develop"); unset or empty means main,master.
 Reads the PreToolUse hook JSON from stdin. Tokenizes the Bash command with
 shlex (quote-aware) and splits it into pipeline/list segments, so words
 inside string literals or neighboring commands cannot trigger the guard.
+A bare force push (no refspec) is judged by the checkout the command runs
+in: the input's `cwd` (the session's current directory, which follows `cd`
+and worktrees), or a `git -C <path>` resolved against it; CLAUDE_PROJECT_DIR
+stays at the project root and stands in only when the input has no cwd.
 Fail-open: any parse or tooling problem allows the command through.
 Stdlib only.
 """
@@ -43,10 +47,12 @@ def block(message):
     sys.exit(2)
 
 
-def current_branch(cdir=None):
-    """Branch checked out where the command runs: the project dir, or the
-    `git -C` path resolved against it."""
-    where = os.environ.get("CLAUDE_PROJECT_DIR", ".")
+def current_branch(cdir=None, cwd=None):
+    """Branch checked out where the command runs: the hook's cwd (the
+    session's current directory; it follows `cd` and worktrees while
+    CLAUDE_PROJECT_DIR stays at the project root), or the `git -C` path
+    resolved against it. Without a cwd the project dir stands in."""
+    where = cwd or os.environ.get("CLAUDE_PROJECT_DIR") or "."
     if cdir:
         where = os.path.join(where, cdir)  # an absolute cdir wins
     try:
@@ -98,7 +104,7 @@ def git_subcommand(tokens):
     return None, [], None
 
 
-def check_push(rest, cdir=None):
+def check_push(rest, cdir=None, cwd=None):
     force = bool(FORCE_FLAGS & set(rest)) or any(
         t.startswith("--force-with-lease=") or t.startswith("--force=")
         for t in rest
@@ -113,7 +119,7 @@ def check_push(rest, cdir=None):
             name = name[len("refs/heads/"):]
         if (force or ref.startswith("+")) and name in PROTECTED:
             block(PUSH_MESSAGE)
-    if force and not refs and current_branch(cdir) in PROTECTED:
+    if force and not refs and current_branch(cdir, cwd) in PROTECTED:
         block(PUSH_MESSAGE)
 
 
@@ -125,6 +131,9 @@ def main():
     cmd = (data.get("tool_input") or {}).get("command") or ""
     if not cmd:
         sys.exit(0)
+    cwd = data.get("cwd")
+    if not isinstance(cwd, str) or not cwd:
+        cwd = None
     try:
         tokens = shlex.split(cmd)
     except ValueError:
@@ -142,7 +151,7 @@ def main():
     for seg in segments:
         sub, rest, cdir = git_subcommand(seg)
         if sub == "push":
-            check_push(rest, cdir)
+            check_push(rest, cdir, cwd)
         elif sub == "commit" and "--no-verify" in rest:
             block(NOVERIFY_MESSAGE)
 
