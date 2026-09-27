@@ -169,9 +169,11 @@ After the owner accepts:
 - English-artifacts sweep (owner rule, 2026-08-05): non-English content
   is fine in **local** working docs — untracked files and unpushed
   work — the rule binds at push time. Before anything is pushed, scan
-  the outgoing set of the branch being pushed — the diff of
-  `git log origin/<branch>..HEAD`, the files it adds and the messages of
-  those commits — never the whole change against its base (that range is
+  the outgoing set of the branch being pushed — the commits of
+  `git log origin/<branch>..HEAD` (all of the branch's commits since its
+  base when it has never been pushed), their diff
+  (`git diff origin/<branch>...HEAD`), the files they add and their
+  messages — never the whole change against its base (that range is
   the reviews'), with a Unicode-aware
   scanner
   (byte-interpreted Cyrillic grep ranges false-positive on em-dashes and

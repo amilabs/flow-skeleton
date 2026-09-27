@@ -48,7 +48,4 @@
   of the entry, never append.
 - Open: {{OPEN_BRANCHES_TASKS_AS_LINKS}}
 - History: CHANGELOG.md; per-change detail: openspec/archive/
-  <!-- The OpenSpec CLI archives to openspec/changes/archive/YYYY-MM-DD-<id>/:
-  a project that archives with the CLI records openspec/changes/archive/
-  here; without the CLI this path applies (default openspec/archive/).
-  Either way this line and the accept archive step name the same place. -->
+  <!-- Archive path: the OpenSpec CLI archives to openspec/changes/archive/YYYY-MM-DD-<id>/; without the CLI the History line's path applies (default openspec/archive/). -->
