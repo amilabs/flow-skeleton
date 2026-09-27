@@ -9,11 +9,14 @@ pass=0; fail=0
 NONGIT_DIR=$(mktemp -d)                       # not a repo → no branch
 MAIN_REPO=$(mktemp -d); git -C "$MAIN_REPO" init -q -b main
 FEAT_REPO=$(mktemp -d); git -C "$FEAT_REPO" init -q -b feature/x
-# A feature-branch project dir holding a nested checkout on main, for -C
-# paths resolved relative to the project dir:
+# A feature-branch dir holding a nested checkout on main, and a twin whose
+# nested checkout sits on a feature branch, for relative -C paths (resolved
+# against the hook's cwd, or the project dir when the input has no cwd):
 HUB_DIR=$(mktemp -d); git -C "$HUB_DIR" init -q -b feature/hub
 git -C "$HUB_DIR" init -q -b main code
-trap 'rm -rf "$NONGIT_DIR" "$MAIN_REPO" "$FEAT_REPO" "$HUB_DIR"' EXIT
+HUB2_DIR=$(mktemp -d); git -C "$HUB2_DIR" init -q -b feature/hub2
+git -C "$HUB2_DIR" init -q -b feature/y code
+trap 'rm -rf "$NONGIT_DIR" "$MAIN_REPO" "$FEAT_REPO" "$HUB_DIR" "$HUB2_DIR"' EXIT
 
 check() { # description, expected_exit, project_dir, bash_command_string
   desc="$1"; expected="$2"; dir="$3"; cmd="$4"
@@ -58,6 +61,28 @@ check "-C relative to project dir, main checkout blocked" 2 "$HUB_DIR" "git -C c
 check "-C=<path> form on a main checkout blocked" 2 "$FEAT_REPO" "git -C=$MAIN_REPO push -f origin"
 check "-C with explicit feature refspec allowed" 0 "$FEAT_REPO" "git -C $MAIN_REPO push -f origin feature/x"
 check "-C with explicit main refspec blocked" 2 "$FEAT_REPO" "git -C $FEAT_REPO push -f origin main"
+
+# The input's cwd is where the command runs (it follows cd and worktrees;
+# CLAUDE_PROJECT_DIR stays at the project root): the bare force push and a
+# relative -C are judged from there, and the project dir only stands in
+# when the input carries no cwd (the cases above).
+check_cwd() { # description, expected_exit, project_dir, cwd, bash_command_string
+  desc="$1"; expected="$2"; dir="$3"; cwd="$4"; cmd="$5"
+  printf '{"tool_name":"Bash","cwd":"%s","tool_input":{"command":"%s"}}' "$cwd" "$cmd" \
+    | CLAUDE_PROJECT_DIR="$dir" bash "$GUARD" >/dev/null 2>&1
+  actual=$?
+  if [ "$actual" -eq "$expected" ]; then
+    pass=$((pass+1))
+  else
+    fail=$((fail+1)); echo "FAIL: $desc (expected exit $expected, got $actual)"
+  fi
+}
+check_cwd "cwd on a main checkout, bare force push blocked (project dir on feature)" 2 "$FEAT_REPO" "$MAIN_REPO" "git push -f origin"
+check_cwd "cwd on a feature checkout, bare force push allowed (project dir on main)" 0 "$MAIN_REPO" "$FEAT_REPO" "git push -f origin"
+check_cwd "-C relative to cwd, main checkout blocked (no such path under the project dir)" 2 "$FEAT_REPO" "$HUB_DIR" "git -C code push -f origin"
+check_cwd "-C=<path> relative to cwd, main checkout blocked" 2 "$FEAT_REPO" "$HUB_DIR" "git -C=code push -f origin"
+check_cwd "-C relative to cwd, feature checkout allowed although the project dir's same path is on main" 0 "$HUB_DIR" "$HUB2_DIR" "git -C code push -f origin"
+check_cwd "empty cwd falls back to the project dir" 2 "$MAIN_REPO" "" "git push -f origin"
 
 # FLOW_PROTECTED_BRANCHES replaces the default main,master set.
 check_env() { # description, expected_exit, protected_list, bash_command_string
