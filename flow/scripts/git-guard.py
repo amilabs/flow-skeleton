@@ -43,11 +43,15 @@ def block(message):
     sys.exit(2)
 
 
-def current_branch():
+def current_branch(cdir=None):
+    """Branch checked out where the command runs: the project dir, or the
+    `git -C` path resolved against it."""
+    where = os.environ.get("CLAUDE_PROJECT_DIR", ".")
+    if cdir:
+        where = os.path.join(where, cdir)  # an absolute cdir wins
     try:
         out = subprocess.run(
-            ["git", "-C", os.environ.get("CLAUDE_PROJECT_DIR", "."),
-             "symbolic-ref", "--short", "HEAD"],
+            ["git", "-C", where, "symbolic-ref", "--short", "HEAD"],
             capture_output=True, text=True, timeout=5,
         )
         return out.stdout.strip() if out.returncode == 0 else ""
@@ -56,7 +60,8 @@ def current_branch():
 
 
 def git_subcommand(tokens):
-    """Return (subcommand, remaining tokens) for a git segment, else (None, [])."""
+    """Return (subcommand, remaining tokens, -C path) for a git segment,
+    else (None, [], None). Repeated -C paths chain the way git chains them."""
     i = 0
     while i < len(tokens):
         tok = tokens[i]
@@ -67,21 +72,33 @@ def git_subcommand(tokens):
             continue
         break
     if i >= len(tokens) or os.path.basename(tokens[i]) != "git":
-        return None, []
+        return None, [], None
     i += 1
+    cdir = None
     while i < len(tokens):
         tok = tokens[i]
-        if tok in ("-C", "-c"):  # git global options that take a value
+        if tok == "-C" or tok.startswith("-C="):
+            if tok == "-C":
+                path = tokens[i + 1] if i + 1 < len(tokens) else ""
+                i += 2
+            else:
+                path = tok[len("-C="):]
+                i += 1
+            if path:
+                path = os.path.expanduser(path)
+                cdir = os.path.join(cdir, path) if cdir else path
+            continue
+        if tok == "-c":  # git global option that takes a value
             i += 2
             continue
         if tok.startswith("-"):
             i += 1
             continue
-        return tok, tokens[i + 1:]
-    return None, []
+        return tok, tokens[i + 1:], cdir
+    return None, [], None
 
 
-def check_push(rest):
+def check_push(rest, cdir=None):
     force = bool(FORCE_FLAGS & set(rest)) or any(
         t.startswith("--force-with-lease=") or t.startswith("--force=")
         for t in rest
@@ -96,7 +113,7 @@ def check_push(rest):
             name = name[len("refs/heads/"):]
         if (force or ref.startswith("+")) and name in PROTECTED:
             block(PUSH_MESSAGE)
-    if force and not refs and current_branch() in PROTECTED:
+    if force and not refs and current_branch(cdir) in PROTECTED:
         block(PUSH_MESSAGE)
 
 
@@ -123,9 +140,9 @@ def main():
             segment.append(tok)
 
     for seg in segments:
-        sub, rest = git_subcommand(seg)
+        sub, rest, cdir = git_subcommand(seg)
         if sub == "push":
-            check_push(rest)
+            check_push(rest, cdir)
         elif sub == "commit" and "--no-verify" in rest:
             block(NOVERIFY_MESSAGE)
 

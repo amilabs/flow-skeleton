@@ -9,7 +9,11 @@ pass=0; fail=0
 NONGIT_DIR=$(mktemp -d)                       # not a repo → no branch
 MAIN_REPO=$(mktemp -d); git -C "$MAIN_REPO" init -q -b main
 FEAT_REPO=$(mktemp -d); git -C "$FEAT_REPO" init -q -b feature/x
-trap 'rm -rf "$NONGIT_DIR" "$MAIN_REPO" "$FEAT_REPO"' EXIT
+# A feature-branch project dir holding a nested checkout on main, for -C
+# paths resolved relative to the project dir:
+HUB_DIR=$(mktemp -d); git -C "$HUB_DIR" init -q -b feature/hub
+git -C "$HUB_DIR" init -q -b main code
+trap 'rm -rf "$NONGIT_DIR" "$MAIN_REPO" "$FEAT_REPO" "$HUB_DIR"' EXIT
 
 check() { # description, expected_exit, project_dir, bash_command_string
   desc="$1"; expected="$2"; dir="$3"; cmd="$4"
@@ -46,6 +50,14 @@ check "plus-refspec force push to main blocked" 2 "$NONGIT_DIR" "git push origin
 check "full-ref force push to main blocked"    2 "$NONGIT_DIR" "git push -f origin refs/heads/main"
 check "refspec dst full-ref main blocked"      2 "$NONGIT_DIR" "git push -f origin HEAD:refs/heads/main"
 check "branch named feature/main allowed"      0 "$NONGIT_DIR" "git push -f origin feature/main"
+
+# git -C <path>: the bare force push is judged by the checkout at <path>.
+check "-C on a main checkout, bare force push blocked" 2 "$FEAT_REPO" "git -C $MAIN_REPO push --force origin"
+check "-C on a feature checkout from main project allowed" 0 "$MAIN_REPO" "git -C $FEAT_REPO push --force origin"
+check "-C relative to project dir, main checkout blocked" 2 "$HUB_DIR" "git -C code push -f origin"
+check "-C=<path> form on a main checkout blocked" 2 "$FEAT_REPO" "git -C=$MAIN_REPO push -f origin"
+check "-C with explicit feature refspec allowed" 0 "$FEAT_REPO" "git -C $MAIN_REPO push -f origin feature/x"
+check "-C with explicit main refspec blocked" 2 "$FEAT_REPO" "git -C $FEAT_REPO push -f origin main"
 
 # FLOW_PROTECTED_BRANCHES replaces the default main,master set.
 check_env() { # description, expected_exit, protected_list, bash_command_string
