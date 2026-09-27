@@ -21,13 +21,17 @@ under `openspec/changes/`; if several are active, ask which one.
   worktree of THAT repository cut from THAT base, and diff and review
   against that base. Otherwise work in the current directory against the
   project's trunk.
-- Execution model and effort are the owner's choice — confirm them before
-  starting (AskUserQuestion, one question): default Opus at session effort;
-  offer Fable for architecturally gnarly or high-risk changes, and a higher
-  effort level when the change warrants it. You cannot switch the session's
-  model yourself: if the owner picks a model different from the current
-  session, ask them to run `/model` (picker key `s` = this session only) or
-  open a fresh session on it, then continue.
+- Execution model and effort are the owner's choice. Open with one line
+  naming the model and effort this session runs on. When they match what
+  the owner asked for — or, absent a request, the default of Opus at session
+  effort — continue without asking. Ask (AskUserQuestion, one question) only
+  on a mismatch: the session is on another model or effort than requested,
+  or the change warrants more than the default — Fable for architecturally
+  gnarly or high-risk changes, a higher effort level when the change calls
+  for it. You cannot switch the session's model yourself: if the owner picks
+  a model different from the current session, ask them to run `/model`
+  (picker key `s` = this session only) or open a fresh session on it, then
+  continue.
 - If running in a git worktree: auto memory is per repository and shared
   across its worktrees, but CLAUDE.md and openspec/ still carry the work
   state; merge back when the phase completes.

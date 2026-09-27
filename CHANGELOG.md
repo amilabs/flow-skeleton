@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.34 — 2026-09-27
+
+The model question is asked only on a mismatch. Implement and accept open
+with one line naming the model and effort the session runs on and continue
+when they match what the owner asked for (or the default, Opus at session
+effort); the one AskUserQuestion is asked only when they differ or the
+change warrants more. Before, implement asked at every start.
+
 ## 0.1.33 — 2026-09-27
 
 Two corrections to 0.1.32. The code root that accept hands the

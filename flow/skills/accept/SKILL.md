@@ -9,10 +9,12 @@ argument-hint: "[change-id]"
 Change: $ARGUMENTS (default: the single active change under
 `openspec/changes/`).
 
-Model/effort for this run are the owner's choice: when the session model
-looks mismatched for gate-running (e.g., Fable), confirm with the owner
-before gate 1 — default is Opus at session effort. The plan-reviewer agent
-runs on Opus by default; the owner may request otherwise.
+Model/effort for this run are the owner's choice: open with one line naming
+the model and effort this session runs on and continue when they match what
+the owner asked for (default: Opus at session effort); ask before gate 1
+only on a mismatch (e.g., the session is on Fable, or on a lower effort than
+requested). The plan-reviewer agent runs on Opus by default; the owner may
+request otherwise.
 
 One checkout — one active session. Before starting, make sure the
 implement session has committed its work and gone idle, and no stale app
