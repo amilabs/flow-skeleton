@@ -25,9 +25,11 @@ owner-requested additions — are recorded in the change's inventory.md
 Hub mode (a planning repository whose code lives elsewhere): if the
 change's tasks.md names a code repository path and a base branch (lines
 such as `Repo: ../product-repo` and `Base: origin/develop`), the gates run
-in a worktree of THAT repository at the candidate, and the reviews — the
-plan-reviewer's and the code review's — read the whole change against
-THAT base. The push-time English sweep reads only the outgoing set of the
+in a worktree of THAT repository at the candidate — the candidate
+worktree, which the steps below call the code root; never the `Repo:`
+checkout itself, which names the repository and may sit on another
+branch — and the reviews — the plan-reviewer's and the code review's —
+read the whole change against THAT base. The push-time English sweep reads only the outgoing set of the
 branch being pushed (`git log origin/<branch>..HEAD` and its diff), so
 published history never blocks a push. Otherwise the current directory
 and the project's trunk.
@@ -99,10 +101,12 @@ most a one-line pointer to it.
    plugin with the change id; it reports gaps between the diff and the
    approved change. In hub mode pass both roots explicitly: the planning
    root (the absolute path of `openspec/changes/<id>/`) and the code root
-   (the `Repo:` path) — the change folder does not live under the code
-   worktree.
+   (the candidate worktree) — the change folder does not live under the
+   code worktree.
 4. **Code review** — run /code-review at the effort the change's risk
-   profile prescribes (see the flow risk-profiles table).
+   profile prescribes (see the flow risk-profiles table). In hub mode run
+   it from the code root — the candidate worktree — so it reads the code
+   diff against `Base:`, not the planning repository's tick commits.
 5. **Closed-area gate** — when the risk profile's closed-area column demands
    it, this gate runs as its own DEDICATED, compatible session (see the
    closed-area-gate skill for that session's instructions — never load it

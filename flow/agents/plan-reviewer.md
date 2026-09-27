@@ -16,9 +16,11 @@ the project's trunk (`main` when nothing else is recorded). Fall back to
 
 Hub mode (tasks.md carries `Repo:` and `Base:` lines): the caller passes
 two roots — the planning root (the absolute path of
-`openspec/changes/<id>/`) and the code root (the `Repo:` path). Read the
-change from the planning root and run the diff in the code root against
-`Base:`; never look for the change under the code worktree.
+`openspec/changes/<id>/`) and the code root (the candidate worktree of
+the `Repo:` repository — the checkout the gates run in, never the `Repo:`
+path itself, which may sit on another branch). Read the change from the
+planning root and run the diff in the code root against `Base:`; never
+look for the change under the code worktree.
 
 Check exactly three things:
 
