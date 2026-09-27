@@ -47,5 +47,23 @@ check "full-ref force push to main blocked"    2 "$NONGIT_DIR" "git push -f orig
 check "refspec dst full-ref main blocked"      2 "$NONGIT_DIR" "git push -f origin HEAD:refs/heads/main"
 check "branch named feature/main allowed"      0 "$NONGIT_DIR" "git push -f origin feature/main"
 
+# FLOW_PROTECTED_BRANCHES replaces the default main,master set.
+check_env() { # description, expected_exit, protected_list, bash_command_string
+  desc="$1"; expected="$2"; list="$3"; cmd="$4"
+  printf '{"tool_name":"Bash","tool_input":{"command":"%s"}}' "$cmd" \
+    | FLOW_PROTECTED_BRANCHES="$list" CLAUDE_PROJECT_DIR="$NONGIT_DIR" bash "$GUARD" >/dev/null 2>&1
+  actual=$?
+  if [ "$actual" -eq "$expected" ]; then
+    pass=$((pass+1))
+  else
+    fail=$((fail+1)); echo "FAIL: $desc (expected exit $expected, got $actual)"
+  fi
+}
+check_env "env: force push to develop blocked"      2 "develop"      "git push --force origin develop"
+check_env "env: force push to main allowed when not listed" 0 "develop" "git push --force origin main"
+check_env "env: list with spaces blocks each name"  2 "main, develop" "git push -f origin develop"
+check_env "env: empty value keeps main protected"   2 ""             "git push -f origin main"
+check_env "env: develop unprotected by default"     0 ""             "git push -f origin develop"
+
 echo "pass=$pass fail=$fail"
 [ "$fail" -eq 0 ]

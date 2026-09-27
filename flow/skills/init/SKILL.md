@@ -55,7 +55,9 @@ propose, show the diff, apply only on confirmation.
    lessons. A technology used daily without its skill is a bootstrap
    gap, not business as usual.
 5. **Run recipe**: if no `.claude/skills/run-*` skill exists, offer
-   /run-skill-generator so /verify and /flow:accept can drive the real app.
+   /run-skill-generator so /flow:accept's live verification — the
+   project's run skill or a verification subagent over the behavior
+   inventory — can drive the real app.
 6. **superpowers check**: verify the superpowers plugin is installed; if
    the plugin dependency did not auto-install it, print:
    `/plugin install superpowers@claude-plugins-official`
@@ -83,8 +85,9 @@ propose, show the diff, apply only on confirmation.
    [templates/CLAUDE.md.template](templates/CLAUDE.md.template), filling
    Commands from the detected stack. Keep it at or under 60 lines:
    commands, architecture facts, invariants, environment quirks, and the
-   bounded `Current state` block from the template (latest-release copy +
-   open branches/tasks as links + pointers). CLAUDE.md loads into every
+   bounded `Current state` block from the template (latest-release
+   heading linked to its CHANGELOG entry + open branches/tasks as links +
+   pointers). CLAUDE.md loads into every
    session: per-release history and long reference go to CHANGELOG,
    archives, or docs/, not here. Process rules do NOT go here either —
    they live in the flow plugin.
@@ -99,7 +102,8 @@ propose, show the diff, apply only on confirmation.
    section of the template. Keep project facts untouched: Commands,
    Architecture, Invariants, environment quirks. Current-state notes are
    kept but bounded to the template's status-block shape (latest-release
-   copy + open branches/tasks as links + pointers); offer to move any
+   heading linked to its CHANGELOG entry + open branches/tasks as links +
+   pointers); offer to move any
    accumulated release history to CHANGELOG.md (create it if absent) —
    CLAUDE.md loads into every session and must stay lean. Show the full
    diff before applying.

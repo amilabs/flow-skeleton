@@ -391,7 +391,9 @@ with auto-update pick it up on next start; others run
 
 `plugin.json` declares superpowers as a dependency so it auto-installs with
 flow; `/flow:init` independently verifies and prints the install command if
-the cross-marketplace dependency did not resolve.
+the cross-marketplace dependency did not resolve. (Note: the dependency
+declaration was removed in 0.1.27; the SessionStart hook and `/flow:init`
+now check for superpowers instead.)
 
 ## 10. Failure modes and fallbacks
 

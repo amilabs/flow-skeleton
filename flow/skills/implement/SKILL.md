@@ -15,6 +15,12 @@ under `openspec/changes/`; if several are active, ask which one.
   point to /flow:spec.
 - Work on a feature branch (a git worktree when sessions run in parallel).
   Never implement on main/master without the owner's explicit consent.
+- Hub mode (a planning repository whose code lives elsewhere): if the
+  change's tasks.md names a code repository path and a base branch (lines
+  such as `Repo: ../product-repo` and `Base: origin/develop`), work in a
+  worktree of THAT repository cut from THAT base, and diff and review
+  against that base. Otherwise work in the current directory against the
+  project's trunk.
 - Execution model and effort are the owner's choice — confirm them before
   starting (AskUserQuestion, one question): default Opus at session effort;
   offer Fable for architecturally gnarly or high-risk changes, and a higher
@@ -22,9 +28,9 @@ under `openspec/changes/`; if several are active, ask which one.
   model yourself: if the owner picks a model different from the current
   session, ask them to run `/model` (picker key `s` = this session only) or
   open a fresh session on it, then continue.
-- If running in a git worktree: persistent memory is unavailable there —
-  CLAUDE.md and openspec/ carry all needed context; merge back when the
-  phase completes.
+- If running in a git worktree: auto memory is per repository and shared
+  across its worktrees, but CLAUDE.md and openspec/ still carry the work
+  state; merge back when the phase completes.
 
 ## Execution loop — per task in tasks.md
 
@@ -84,5 +90,6 @@ before running gates or reporting them green.
 Stop and report: what blocks, what was tried, the options. Do not improvise
 beyond the approved scope.
 
-When all tasks are done and the full suite is green, tell the owner the
-change is ready for /flow:accept.
+When all tasks are done and the preflight the project's recorded cadence
+names for this change is green (the full suite only where the project
+records it), tell the owner the change is ready for /flow:accept.

@@ -1,9 +1,46 @@
 # Changelog
 
+## 0.1.31 — 2026-09-26
+
+A consistency patch: every sentence that contradicted another one now has
+one reading, and nothing ceremonial is added. Implement ends on the
+preflight the project's recorded cadence names (the full suite only where
+the project records it) instead of a closing line that still demanded the
+full suite. Accept publishes the change's own branch and PR as the
+project's authority profile records (asking when none is recorded) and
+never pushes the owner's local-only WIP — the same reading as the session
+contract; the CLAUDE.md template's "never commit or push unless explicitly
+asked" becomes the same authority-profile pointer. One archive path — the
+one the project's CLAUDE.md records, default `openspec/archive/` — replaces
+two different defaults. `Current state` carries the release heading and a
+link to its CHANGELOG entry, never a copy. The English sweep binds the
+outgoing diff, added files and outgoing commit messages; unchanged
+published history never blocks a push. Live verification names the
+project's run skill or a verification subagent over the behavior
+inventory, since `/verify` runs only when the user invokes it (Claude Code
+2.1.215). Recurring owner feedback becomes a test or a hook in the same
+round, with the rule in the subject's spec or the area's path-scoped rules
+file and at most a one-line pointer in CLAUDE.md — restating it in
+CLAUDE.md invariants was the main driver of instruction growth. The
+template drops two stale facts: the desktop-build plugin note (fixed
+upstream in 2.1.227, see 0.1.27) shrinks to "say so if /flow: skills are
+missing", and worktree sessions keep auto memory, which Claude Code shares
+across a repository's worktrees.
+
+Hub mode, for a planning repository whose code lives elsewhere: when a
+change's tasks.md names a code repository and a base branch (`Repo:` and
+`Base:` lines), implement and accept work in a worktree of that repository
+from that base and diff against it, and the plan-reviewer takes its diff
+from that base; otherwise the current directory and the project's trunk.
+git-guard reads its protected branches from `FLOW_PROTECTED_BRANCHES`
+(comma-separated; unset or empty keeps main,master), with five new test
+cases. The README and design-rationale component counts now match the
+plugin: 7 skills, 1 agent, 3 hook scripts in 4 registrations.
+
 ## 0.1.30 — 2026-09-26
 
 The cadence, the scope and the authority defer to the project's own recorded
-rules (Batcher `site-lifecycle`, owner 2026-09-24). Three sentences of 0.1.29
+rules (a project that records its own cadence, owner 2026-09-24). Three sentences of 0.1.29
 read against a project that records its own: implement's order to run the FULL
 suite at phase checkpoints and before accept (a project may end implement with
 targeted checks and keep the one full run for the acceptance's gate); the
@@ -150,7 +187,7 @@ Owner rule wired into flow (it was already recorded in the owner's
 project memory and discussed; sessions kept skipping it): multi-agent
 and multi-session work runs under the superpowers
 dispatching-parallel-agents discipline, with per-writer isolation.
-Trigger: Batcher night cycles dispatched parallel work without the
+Trigger: a consumer project's night cycles dispatched parallel work without the
 skill; a shared tree split by file lists had already produced a defect.
 
 - implement, Agent policy: any fan-out to 2+ agents or any

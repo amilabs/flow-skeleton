@@ -14,7 +14,7 @@ them in the change's proposal.md. Requirements of multiple profiles combine
 |---|---|---|---|---|---|
 | trivial | typos, comments, log lines, local renames | affected tests | no | no | none (fast path: skip the flow lifecycle entirely) |
 | pure-logic | algorithms, calculations, pure functions | TDD unit tests incl. edge cases | no | no | medium |
-| ui-surface | routes, pages, components, forms, navigation | route/component tests; empty/error/loading states; /verify run | yes | no | medium |
+| ui-surface | routes, pages, components, forms, navigation | route/component tests; empty/error/loading states; a live run via the project's run skill or a verification subagent over the behavior inventory | yes | no | medium |
 | api-contract | endpoints, schemas, error formats, versioning | contract tests on both sides; backward-compat check | if UI affected | no | high |
 | data-storage | persistence, schemas, migrations | migration up + idempotency; malformed old data; round-trip | no | if auth-adjacent | high |
 | auth-boundary | auth, sessions, permissions, secrets, payments | negative tests: bypass attempts, injection-shaped inputs | affected flows | yes | high |
