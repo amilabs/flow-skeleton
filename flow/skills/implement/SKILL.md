@@ -54,9 +54,12 @@ disciplines (TDD, systematic-debugging, verification) per task.
 4. Before ticking a task checkbox, invoke the superpowers
    verification-before-completion skill: run the verifying commands and
    read their output fresh — a done-claim without evidence from THIS
-   session state is a gate failure. Then tick the checkbox in tasks.md IN
-   THE SAME COMMIT that completes the task. When behavior changes, update
-   the capability spec in that same commit.
+   session state is a gate failure. Then tick the checkbox in tasks.md.
+   Within one repository the tick and the work share a commit. In hub
+   mode the code commit lands in the code repository and the tick lands
+   in the planning repository in its own commit whose message names the
+   code commit (repository and SHA); the two commits are the unit. When
+   behavior changes, the capability spec update follows the same rule.
 5. After each task run the affected tests/lint (commands from CLAUDE.md) —
    including the EXISTING tests of every mechanism the task changed, not
    only the new ones. The project's recorded test cadence decides what

@@ -25,10 +25,12 @@ owner-requested additions — are recorded in the change's inventory.md
 Hub mode (a planning repository whose code lives elsewhere): if the
 change's tasks.md names a code repository path and a base branch (lines
 such as `Repo: ../product-repo` and `Base: origin/develop`), the gates run
-in a worktree of THAT repository at the candidate, and every diff the
-gates read — the plan-reviewer's, the code review's, the English sweep's —
-is taken against THAT base. Otherwise the current directory and the
-project's trunk.
+in a worktree of THAT repository at the candidate, and the reviews — the
+plan-reviewer's and the code review's — read the whole change against
+THAT base. The push-time English sweep reads only the outgoing set of the
+branch being pushed (`git log origin/<branch>..HEAD` and its diff), so
+published history never blocks a push. Otherwise the current directory
+and the project's trunk.
 
 Run the gates in order and collect evidence as you go. Reviewers start
 late by design: the cheap deterministic gates (1-2) must pass before any
@@ -95,7 +97,10 @@ most a one-line pointer to it.
    update cycle) only when the diff touches them.
 3. **Plan compliance** — launch the plan-reviewer agent from the flow
    plugin with the change id; it reports gaps between the diff and the
-   approved change.
+   approved change. In hub mode pass both roots explicitly: the planning
+   root (the absolute path of `openspec/changes/<id>/`) and the code root
+   (the `Repo:` path) — the change folder does not live under the code
+   worktree.
 4. **Code review** — run /code-review at the effort the change's risk
    profile prescribes (see the flow risk-profiles table).
 5. **Closed-area gate** — when the risk profile's closed-area column demands
@@ -156,12 +161,18 @@ After the owner accepts:
   CHANGELOG as part of the archive commit;
 - archive the change: `openspec archive <id>` with the CLI, otherwise move
   the folder to the archive path the project's CLAUDE.md records (its
-  `Current state` History line; default `openspec/archive/`);
+  `Current state` History line; default `openspec/archive/`). The CLI
+  archives to `openspec/changes/archive/YYYY-MM-DD-<id>/`, so a project
+  that archives with it records `openspec/changes/archive/` on its
+  History line; without the CLI the recorded path applies. Either way
+  the History line and this step name the same place;
 - English-artifacts sweep (owner rule, 2026-08-05): non-English content
   is fine in **local** working docs — untracked files and unpushed
   work — the rule binds at push time. Before anything is pushed, scan
-  the outgoing work — the outgoing diff, the files it adds and the
-  messages of `git log origin/<branch>..HEAD` — with a Unicode-aware
+  the outgoing set of the branch being pushed — the diff of
+  `git log origin/<branch>..HEAD`, the files it adds and the messages of
+  those commits — never the whole change against its base (that range is
+  the reviews'), with a Unicode-aware
   scanner
   (byte-interpreted Cyrillic grep ranges false-positive on em-dashes and
   arrows; use a real Unicode match, or the project's check script when

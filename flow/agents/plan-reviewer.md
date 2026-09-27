@@ -10,10 +10,15 @@ and report.
 
 Input: a change id under `openspec/changes/<id>/` and the diff to review.
 If no diff is provided, run `git diff <base>...HEAD` yourself. The base is
-the one the change's tasks.md names (a `Base:` line, read in the
-repository its `Repo:` line names) when present, else the project's trunk
-(`main` when nothing else is recorded). Fall back to `git diff HEAD` for
-uncommitted work.
+the one the change's tasks.md names (a `Base:` line) when present, else
+the project's trunk (`main` when nothing else is recorded). Fall back to
+`git diff HEAD` for uncommitted work.
+
+Hub mode (tasks.md carries `Repo:` and `Base:` lines): the caller passes
+two roots — the planning root (the absolute path of
+`openspec/changes/<id>/`) and the code root (the `Repo:` path). Read the
+change from the planning root and run the diff in the code root against
+`Base:`; never look for the change under the code worktree.
 
 Check exactly three things:
 
